@@ -1,0 +1,97 @@
+﻿<phone:PhoneApplicationPage 
+    x:Class="LilyBBS.TopicPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:phone="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone"
+    xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone"
+	xmlns:toolkit="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls.Toolkit"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    FontFamily="{StaticResource PhoneFontFamilyNormal}"
+    FontSize="{StaticResource PhoneFontSizeNormal}"
+    Foreground="{StaticResource PhoneForegroundBrush}"
+    SupportedOrientations="PortraitOrLandscape" Orientation="Portrait"
+    mc:Ignorable="d" d:DesignHeight="768" d:DesignWidth="480"
+    shell:SystemTray.IsVisible="True">
+
+	<phone:PhoneApplicationPage.Resources>
+		<DataTemplate x:Key="TopicItemTemplate">
+			<Border Grid.Row="0" 
+					Margin="0,2"
+					BorderThickness="0,3,0,0" 
+					BorderBrush="{StaticResource PhoneAccentBrush}">
+					<!-- Border Opacity -->
+				<Grid>
+					<Grid.RowDefinitions>
+						<RowDefinition Height="Auto"/>
+						<RowDefinition Height="Auto"/>
+						<RowDefinition Height="*"/>
+					</Grid.RowDefinitions>
+					<Grid Grid.Row="1">
+						<Grid.ColumnDefinitions>
+							<ColumnDefinition Width="*"/>
+							<ColumnDefinition Width="Auto"/>
+						</Grid.ColumnDefinitions>
+						<TextBlock Grid.Column="1"
+								   Text="{Binding Author}"
+								   Style="{StaticResource PostAuthorStyle}" />
+					</Grid>
+					<TextBlock Grid.Row="2" Text="{Binding Body}" 
+							   Style="{StaticResource PostBodyStyle}"/>
+				</Grid>
+			</Border>
+		</DataTemplate>
+		<DataTemplate x:Key="TopicFooterTemplate">
+			<Button Content="下一页"/>
+		</DataTemplate>
+	</phone:PhoneApplicationPage.Resources>
+
+	<Grid x:Name="LayoutRoot" Background="Transparent">
+		<Grid.RowDefinitions>
+			<RowDefinition Height="Auto"/>
+			<RowDefinition Height="*"/>
+		</Grid.RowDefinitions>
+
+        <StackPanel x:Name="TitlePanel" Grid.Row="0" Margin="12,17,0,28">
+            <TextBlock x:Name="ApplicationTitle" Style="{StaticResource PhoneTextNormalStyle}" Text="{StaticResource ApplicationTitle}" />
+			<StackPanel>
+				<TextBlock x:Name="PageTitle" Margin="9,0,9,0"
+						   Text="Place Holder"
+						   TextWrapping="Wrap"
+						   Style="{StaticResource PhoneTextTitle2Style}"/>
+				<Grid Margin="9,0">
+					<Grid.ColumnDefinitions>
+						<ColumnDefinition Width="*"/>
+						<ColumnDefinition Width="Auto"/>
+					</Grid.ColumnDefinitions>
+					<TextBlock Grid.Column="0" Name="Board"/>
+					<TextBlock Grid.Column="1" Name="TopicAuthor" />
+				</Grid>
+			</StackPanel>
+        </StackPanel>
+
+        <!--ContentPanel - place additional content here-->
+        <Grid x:Name="ContentPanel" Grid.Row="1" Margin="12,0,12,0">
+			<toolkit:LongListSelector Name="TopicListBox"
+									  Loaded="TopicListBox_Loaded"
+									  IsFlatList="True"
+									  ItemTemplate="{StaticResource TopicItemTemplate}"
+									  GroupFooterTemplate="{StaticResource TopicFooterTemplate}"
+									  >
+			</toolkit:LongListSelector>
+		</Grid>
+    </Grid>
+ 
+    <!--Sample code showing usage of ApplicationBar-->
+    <!--<phone:PhoneApplicationPage.ApplicationBar>
+        <shell:ApplicationBar IsVisible="True" IsMenuEnabled="True">
+            <shell:ApplicationBarIconButton IconUri="/Images/appbar_button1.png" Text="Button 1"/>
+            <shell:ApplicationBarIconButton IconUri="/Images/appbar_button2.png" Text="Button 2"/>
+            <shell:ApplicationBar.MenuItems>
+                <shell:ApplicationBarMenuItem Text="MenuItem 1"/>
+                <shell:ApplicationBarMenuItem Text="MenuItem 2"/>
+            </shell:ApplicationBar.MenuItems>
+        </shell:ApplicationBar>
+    </phone:PhoneApplicationPage.ApplicationBar>-->
+
+</phone:PhoneApplicationPage>
