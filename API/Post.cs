@@ -1,6 +1,6 @@
 ﻿using System.Text.RegularExpressions;
 
-namespace LilyBBS
+namespace LilyBBS.API
 {
 	public class Post
 	{
@@ -28,7 +28,7 @@ namespace LilyBBS
 		}
 
 		/*
-		public void ParserPost(string txt)
+		public void ParsePost(string txt)
 		{
 			int ia = 0;
 			int ib = txt.IndexOf("\n", ia);
@@ -50,7 +50,7 @@ namespace LilyBBS
 			Ip = IP_RE.Match(txt.Substring(ib, txt.Length-ib)).Groups[1].ToString();
 		}
 		*/
-		public void ParserPost(string txt)
+		public void ParsePost(string txt)
 		{
 			// just ignore the f**king exceptions
 			// Trim() everything

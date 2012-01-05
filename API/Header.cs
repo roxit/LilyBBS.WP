@@ -1,5 +1,5 @@
 ﻿
-namespace LilyBBS
+namespace LilyBBS.API
 {
 	public class Header
 	{

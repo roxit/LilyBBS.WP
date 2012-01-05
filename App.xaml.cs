@@ -1,15 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Animation;
+﻿using System.Windows;
 using System.Windows.Navigation;
-using System.Windows.Shapes;
+using LilyBBS.API;
 using Microsoft.Phone.Controls;
 using Microsoft.Phone.Shell;
 
@@ -17,7 +8,7 @@ namespace LilyBBS
 {
 	public partial class App : Application
 	{
-		public LilyConnection LilyApi;
+		public Connection LilyApi;
 		/// <summary>
 		/// Provides easy access to the root frame of the Phone Application.
 		/// </summary>
@@ -63,8 +54,7 @@ namespace LilyBBS
 		// This code will not execute when the application is reactivated
 		private void Application_Launching(object sender, LaunchingEventArgs e)
 		{
-			LilyApi = new LilyConnection();
-
+			LilyApi = new Connection();
 		}
 
 		// Code to execute when the application is activated (brought to foreground)

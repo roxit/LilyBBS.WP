@@ -42,7 +42,7 @@
 						Click="HelloButton_Click"/>
 			</Grid>
 		</controls:PivotItem>
-		<controls:PivotItem Header="分类讨论区">
+		<controls:PivotItem Header="讨论区">
 			<Grid>
 				<toolkit:LongListSelector Name="BoardListSelector">
 					
