@@ -10,27 +10,27 @@ namespace LilyBBS.API
 		protected Connection connection;
 		protected BaseHandler callback;
 
-		public Dictionary<int, Group> BoardList { get; private set; }
+		public Dictionary<int, Section> BoardList { get; private set; }
 
 		public FetchBoardListRequest(Connection connection, BaseHandler callback)
 		{
 			this.connection = connection;
 			this.callback = callback;
-			this.BoardList = new Dictionary<int,Group>();
+			this.BoardList = new Dictionary<int,Section>();
 		}
 
 		public void FetchBoardList()
 		{
 			for (int i = 0; i < GROUP_COUNT; i++)
 			{
-				FetchGroupRequest req = new FetchGroupRequest(connection, FetchGroupCompleted);
+				FetchSectionRequest req = new FetchSectionRequest(connection, FetchGroupCompleted);
 				req.FetchGroupList(i);
 			}
 		}
 
 		private void FetchGroupCompleted(object sender, BaseEventArgs e)
 		{
-			Group group = e.Result as Group;
+			Section group = e.Result as Section;
 			BoardList[group.Sid] = group;
 			if (BoardList.Count == GROUP_COUNT)
 			{

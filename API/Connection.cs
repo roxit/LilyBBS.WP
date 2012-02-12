@@ -7,14 +7,14 @@ namespace LilyBBS.API
 {
 	public class Connection
 	{
-		public bool IsLoggedIn { get; set; }
+		//public bool IsLoggedIn { get; set; }
 		public static readonly string BbsUrl = "http://bbs.nju.edu.cn/";
 		public string BaseUrl { get; set; }
 		public string Cookie { get; set; }
 
 		public Connection()
 		{
-			IsLoggedIn = false;
+			//IsLoggedIn = false;
 			BaseUrl = BbsUrl;
 		}
 
@@ -22,6 +22,12 @@ namespace LilyBBS.API
 		{
 			LoginRequest req = new LoginRequest(this, callback);
 			req.Login(username, password);
+		}
+
+		public void IsLoggedIn(BaseHandler callback)
+		{
+			IsLoggedInRequest req = new IsLoggedInRequest(this, callback);
+			req.IsLoggedIn();
 		}
 
 		public void SendPost(BaseHandler callback, string brd, string title, string text, string autocr="on", int signature=1)

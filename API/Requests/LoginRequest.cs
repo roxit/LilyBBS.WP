@@ -47,7 +47,7 @@ namespace LilyBBS.API
 			sb.AppendFormat("_U_NUM={0}", int.Parse(ss[0]) + 2);
 			String cookie = sb.ToString();
 			connection.Cookie = cookie;
-			connection.IsLoggedIn = true;
+			//connection.IsLoggedIn = true;
 			if (callback != null)
 			{
 				callback(this, new BaseEventArgs(cookie, e.Error));

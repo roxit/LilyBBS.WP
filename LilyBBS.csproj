@@ -68,13 +68,14 @@
   <ItemGroup>
     <Compile Include="API\FetchBoardListRequest.cs" />
     <Compile Include="API\Requests\BaseRequest.cs" />
+    <Compile Include="API\Requests\IsLoggedInRequest.cs" />
     <Compile Include="API\Requests\FetchPageRequest.cs" />
     <Compile Include="API\Requests\FetchPostRequest.cs" />
     <Compile Include="API\Requests\FetchTopicRequest.cs" />
     <Compile Include="API\Requests\FetchTopTenListRequest.cs" />
     <Compile Include="API\Requests\LoginRequest.cs" />
     <Compile Include="API\Requests\SendPostRequest.cs" />
-    <Compile Include="API\Requests\FetchGroupRequest.cs" />
+    <Compile Include="API\Requests\FetchSectionRequest.cs" />
     <Compile Include="API\Utils.cs" />
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>

@@ -14,13 +14,13 @@ namespace LilyBBS.API
 		}
 	}
 
-	public class Group
+	public class Section
 	{
 		public int Sid { get; private set; }
 		public string Name { get; private set; }
 		public List<Board> BoardList { get; private set; }
 
-		public Group(int sid, string name)
+		public Section(int sid, string name)
 		{
 			this.Sid = sid;
 			this.Name = name;

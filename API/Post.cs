@@ -13,12 +13,12 @@ namespace LilyBBS.API
 		// public DateTime Time { get; set; }
 		public string Title { get; set; }
 
-		private static Regex AUTHOR_RE = new Regex(@"发信人: ([\w|\d]+)? \(");
+		private static Regex AUTHOR_RE = new Regex(@"发信人: (\w+?) \(");
 		// multiple ip's
 		// private static Regex IP_RE = new Regex(@"\[FROM: (.+)\]");
-		private static Regex TIME_RE = new Regex(@"发信站: .*?\((.+)?\)");
+		private static Regex TIME_RE = new Regex(@"发信站: .*?\((.+?)\)");
 		private static string TIME_FMT = "ddd MMM dd HH:mm:ss yyyy";
-		private static Regex TITLE_RE = new Regex(@"标  题: (.+)?\n");
+		private static Regex TITLE_RE = new Regex(@"标  题: (.+?)\n");
 
 		public Post(int pid, string board, int num)
 		{

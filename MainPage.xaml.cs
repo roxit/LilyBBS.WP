@@ -26,11 +26,11 @@ namespace LilyBBS
 		private void PhoneApplicationPage_Loaded(object sender, RoutedEventArgs e)
 		{
 			Connection api = (Application.Current as App).LilyApi;
-			if (!api.IsLoggedIn)
+/*			if (!api.IsLoggedIn)
 			{
-//				client.Login(LoginCompleted, "obash", "passwd");
+				client.Login(LoginCompleted, "obash", "changeme");
 			}
-		}
+*/		}
 
 		private void HelloButton_Click(object sender, RoutedEventArgs e)
 		{
@@ -87,7 +87,7 @@ namespace LilyBBS
 
 		private void FetchBoardListCompleted(object sender, BaseEventArgs e)
 		{
-			Dictionary<int, Group> BoardList = e.Result as Dictionary<int, Group>;
+			//Dictionary<int, Section> BoardList = e.Result as Dictionary<int, Section>;
 		}
 
 	}
