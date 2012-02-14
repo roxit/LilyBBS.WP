@@ -1,4 +1,6 @@
 ﻿using System.Collections.Generic;
+using System.Xml.Linq;
+using System;
 
 namespace LilyBBS.API
 {
@@ -14,22 +16,46 @@ namespace LilyBBS.API
 		}
 	}
 
-	public class Section
+	public class Section : List<Board>
 	{
 		public int Sid { get; private set; }
 		public string Name { get; private set; }
-		public List<Board> BoardList { get; private set; }
 
 		public Section(int sid, string name)
 		{
 			this.Sid = sid;
 			this.Name = name;
-			this.BoardList = new List<Board>();
-		}
-
-		public void Add(Board board)
-		{
-			BoardList.Add(board);
 		}
 	}
+
+	public class BoardManager : List<Section>
+	{
+		private static BoardManager instance;
+		private BoardManager() {
+			XDocument doc = XDocument.Load("Resources/BoardManager.xml");
+			foreach (var s in doc.Root.Elements("Section"))
+			{
+				int sid = Convert.ToInt32(s.Attribute("sid").Value);
+				string text = s.Attribute("text").Value;
+				Section sec = new Section(sid, text);
+				this.Add(sec);
+				foreach (var b in s.Elements("Board"))
+				{
+					Board brd = new Board(b.Attribute("name").Value, b.Attribute("text").Value);
+					sec.Add(brd);
+				}
+			}
+		}
+		public static BoardManager Instance {
+			get
+			{
+				if (instance == null)
+				{
+					instance = new BoardManager();
+				}
+				return instance;
+			}
+		}
+	}
+
 }

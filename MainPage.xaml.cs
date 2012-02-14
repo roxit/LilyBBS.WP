@@ -21,6 +21,7 @@ namespace LilyBBS
 		public MainPage()
 		{
 			InitializeComponent();
+			BoardListSelector.ItemsSource = BoardManager.Instance;
 		}
 
 		private void PhoneApplicationPage_Loaded(object sender, RoutedEventArgs e)
