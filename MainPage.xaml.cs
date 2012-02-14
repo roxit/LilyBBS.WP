@@ -27,6 +27,7 @@ namespace LilyBBS
 		private void PhoneApplicationPage_Loaded(object sender, RoutedEventArgs e)
 		{
 			Connection api = (Application.Current as App).LilyApi;
+			(Application.Current as App).LilyApi.FetchPage(FetchPageCompleted, "NJUExpress");
 /*			if (!api.IsLoggedIn)
 			{
 				client.Login(LoginCompleted, "obash", "changeme");
@@ -69,10 +70,7 @@ namespace LilyBBS
 
 		private void PivotItem_Loaded(object sender, RoutedEventArgs e)
 		{
-			string dn = DeviceStatus.DeviceName;
-			string dm = DeviceStatus.DeviceManufacturer;
-
-			(Application.Current as App).LilyApi.FetchTopTenList(FetchTopTenListCompleted);
+//			(Application.Current as App).LilyApi.FetchTopTenList(FetchTopTenListCompleted);
 		}
 
 		private void TopTenListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
