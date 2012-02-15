@@ -13,7 +13,7 @@
     SupportedOrientations="PortraitOrLandscape" Orientation="Portrait"
     mc:Ignorable="d" d:DesignHeight="768" d:DesignWidth="480"
     shell:SystemTray.IsVisible="True"
-	toolkit:TiltEffect.IsTiltEnabled="False">
+	toolkit:TiltEffect.IsTiltEnabled="True">
 	
 	<toolkit:TransitionService.NavigationInTransition>
 		<toolkit:NavigationInTransition>
@@ -92,7 +92,7 @@
 				</toolkit:LongListSelector.ItemTemplate>
 				<toolkit:LongListSelector.ListFooterTemplate>
 					<DataTemplate>
-						<Button x:Name="LoadMoreButton" Content="更多"
+						<Button Content="更多"
 								Click="LoadMoreButton_Click" />
 					</DataTemplate>
 				</toolkit:LongListSelector.ListFooterTemplate>

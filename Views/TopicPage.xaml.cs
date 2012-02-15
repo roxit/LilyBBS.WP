@@ -7,16 +7,11 @@ namespace LilyBBS
 {
 	public partial class TopicPage : PhoneApplicationPage
 	{
-		ProgressIndicator progressIndicator = new ProgressIndicator()
-		{
-			IsVisible = true,
-			IsIndeterminate = true,
-			Text = "Downloading"
-		};
-
 		public TopicPage()
 		{
 			InitializeComponent();
+			var app = Application.Current as App;
+			SystemTray.SetProgressIndicator(this, app.Indicator);
 		}
 		
 		private void TopicListBox_Loaded(object sender, RoutedEventArgs e)
@@ -32,9 +27,12 @@ namespace LilyBBS
 
 		private void FetchTopicCompleted(object sender, BaseEventArgs e)
 		{
+			var app = Application.Current as App;
+			app.Indicator.IsVisible = false;
+
 			Topic t = e.Result as Topic;
 			TopicListBox.ItemsSource = t.PostList;
-			progressIndicator.IsVisible = false;
+			
 		}
 	}
 }

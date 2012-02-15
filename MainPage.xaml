@@ -18,27 +18,11 @@
 
 	<phone:PhoneApplicationPage.Resources>
 		<DataTemplate x:Key="TopTenItemTemplate">
-			<Grid>
-				<Grid.RowDefinitions>
-					<RowDefinition Height="*"/>
-					<RowDefinition Height="Auto"/>
-				</Grid.RowDefinitions>
-				<TextBlock Grid.Row="0" Text="{Binding Title}" 
-						   Style="{StaticResource HeaderTitleStyle}"
-						   TextWrapping="Wrap" 
-						   />
-				<StackPanel Grid.Row="1" Orientation="Horizontal">
-					<TextBlock Text="{Binding Board}"
-							   FontSize="{StaticResource PhoneFontSizeNormal}"
-							   Style="{StaticResource PhoneTextSubtleStyle}" />
-					<TextBlock Text="{Binding Author}"
-						   	   Style="{StaticResource HeaderAuthorStyle}" />
-				</StackPanel>
-			</Grid>
+
 		</DataTemplate>
 	</phone:PhoneApplicationPage.Resources>
 	
-	<controls:Pivot Name="Pivot" Title="{StaticResource ApplicationTitle}">
+	<controls:Pivot Name="Pivot" Title="{StaticResource ApplicationTitle}" LoadingPivotItem="Pivot_LoadingPivotItem">
 		<controls:PivotItem Header="Hello">
 			<Grid>
 				<Button Name="HelloButton" Content="金将军万岁！"
@@ -104,19 +88,57 @@
 		<controls:PivotItem Header="各区热点">
 			<Grid />
 		</controls:PivotItem>
-		<controls:PivotItem Header="全站十大" Loaded="PivotItem_Loaded">
-			<!--ScrollViewer-->
-				<ListBox Name="TopTenListBox" 
-						 ItemTemplate="{StaticResource TopTenItemTemplate}" SelectionChanged="TopTenListBox_SelectionChanged" />
-			<!--/ScrollViewer-->
+		<controls:PivotItem Header="全站十大">
+			<toolkit:LongListSelector x:Name="TopTenList"
+									  Loaded="TopTenList_Loaded"
+									  IsFlatList="True" 
+									  SelectionChanged="TopTenList_SelectionChanged"
+									  toolkit:TiltEffect.IsTiltEnabled="True">
+				<toolkit:LongListSelector.ItemTemplate>
+					<DataTemplate>
+						<Border BorderBrush="{StaticResource PhoneAccentBrush}"
+								BorderThickness="3,0,0,0"
+								Margin="3"
+								Padding="6,0">
+							<Grid>
+								<Grid.RowDefinitions>
+									<RowDefinition Height="*"/>
+									<RowDefinition Height="Auto"/>
+								</Grid.RowDefinitions>
+								<TextBlock Text="{Binding Title}"
+										   TextWrapping="Wrap"
+										   FontSize="{StaticResource PhoneFontSizeMediumLarge}"
+										   Margin="0,0,3,0"/>
+								<Grid Grid.Row="1">
+									<Grid.ColumnDefinitions>
+										<ColumnDefinition Width="*"/>
+										<ColumnDefinition Width="Auto"/>
+									</Grid.ColumnDefinitions>
+									<TextBlock Text="{Binding Author}"
+											   Style="{StaticResource PhoneTextSmallStyle}"
+											   Foreground="{StaticResource PhoneAccentBrush}"
+											   Margin="0"
+											   />
+									<TextBlock Grid.Column="1"
+											   Text="{Binding Board}"
+											   Style="{StaticResource PhoneTextSmallStyle}"
+											   HorizontalAlignment="Right"/>
+								</Grid>
+							</Grid>
+						</Border>
+					</DataTemplate>
+				</toolkit:LongListSelector.ItemTemplate>
+			</toolkit:LongListSelector>
 		</controls:PivotItem>
 	</controls:Pivot>
 
 	<phone:PhoneApplicationPage.ApplicationBar>
 		<shell:ApplicationBar IsVisible="True" IsMenuEnabled="True" Mode="Minimized">
-			<shell:ApplicationBarIconButton IconUri="/Images/appbar_button1.png" Text="Button 1"/>
+			<shell:ApplicationBarIconButton IconUri="/Images/appbar.refresh.rest.png" 
+											Text="刷新"
+											/>
 			<shell:ApplicationBar.MenuItems>
-				<shell:ApplicationBarMenuItem Text="MenuItem 1"/>
+				<shell:ApplicationBarMenuItem Text="设置"/>
 			</shell:ApplicationBar.MenuItems>
 		</shell:ApplicationBar>
 	</phone:PhoneApplicationPage.ApplicationBar>

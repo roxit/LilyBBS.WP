@@ -36,6 +36,11 @@ namespace LilyBBS
 		{
 			var app = (Application.Current as App);
 			app.Indicator.IsVisible = true;
+			/* null
+			var LoadMoreButton = HeaderList.ListFooter as Button;
+			LoadMoreButton.Content = "载入中";
+			LoadMoreButton.IsEnabled = false;
+			 */
 			app.LilyApi.FetchPage(FetchPageCompleted, board, start);
 		}
 
@@ -43,6 +48,11 @@ namespace LilyBBS
 		{
 			var app = (Application.Current as App);
 			app.Indicator.IsVisible = false;
+			/*	null
+			var LoadMoreButton = HeaderList.ListFooter as Button;
+			LoadMoreButton.Content = "更多";
+			LoadMoreButton.IsEnabled = true;
+			*/
 			LilyBBS.API.Page page = e.Result as LilyBBS.API.Page;
 			prevStart = page.PrevStart;
 			foreach (var i in page.HeaderList)
