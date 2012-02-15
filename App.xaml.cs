@@ -9,6 +9,7 @@ namespace LilyBBS
 	public partial class App : Application
 	{
 		public Connection LilyApi;
+		public ProgressIndicator Indicator;
 		/// <summary>
 		/// Provides easy access to the root frame of the Phone Application.
 		/// </summary>
@@ -55,6 +56,12 @@ namespace LilyBBS
 		private void Application_Launching(object sender, LaunchingEventArgs e)
 		{
 			LilyApi = new Connection();
+			Indicator = new ProgressIndicator()
+			{
+				IsVisible = false,
+				IsIndeterminate = true,
+				Text = "载入中"
+			};
 		}
 
 		// Code to execute when the application is activated (brought to foreground)

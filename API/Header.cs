@@ -12,5 +12,11 @@ namespace LilyBBS.API
 		public Header()
 		{
 		}
+
+		public string CountText {
+			get {
+				return string.Format("{0}/{1}", ReplyCount, ViewCount);
+			}
+		}
 	}
 }

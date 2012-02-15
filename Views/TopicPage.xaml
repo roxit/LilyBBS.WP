@@ -13,7 +13,7 @@
     SupportedOrientations="PortraitOrLandscape" Orientation="Portrait"
     mc:Ignorable="d" d:DesignHeight="768" d:DesignWidth="480"
     shell:SystemTray.IsVisible="True"
-	toolkit:TiltEffect.IsTiltEnabled="True">
+	toolkit:TiltEffect.IsTiltEnabled="False">
 
 	<toolkit:TransitionService.NavigationInTransition>
 		<toolkit:NavigationInTransition>

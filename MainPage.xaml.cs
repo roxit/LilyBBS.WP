@@ -27,7 +27,7 @@ namespace LilyBBS
 		private void PhoneApplicationPage_Loaded(object sender, RoutedEventArgs e)
 		{
 			Connection api = (Application.Current as App).LilyApi;
-			(Application.Current as App).LilyApi.FetchPage(FetchPageCompleted, "NJUExpress");
+//			(Application.Current as App).LilyApi.FetchPage(FetchPageCompleted, "NJUExpress");
 /*			if (!api.IsLoggedIn)
 			{
 				client.Login(LoginCompleted, "obash", "changeme");
@@ -43,7 +43,8 @@ namespace LilyBBS
 //			(Application.Current as App).LilyApi.FetchTopic(FetchTopicCompleted, 1324280901, "D_Computer");
 //			(Application.Current as App).LilyApi.FetchTopTenList(FetchTopTenListCompleted);
 //			(Application.Current as App).LilyApi.FetchPage(FetchPageCompleted, "NJUExpress");
-			(Application.Current as App).LilyApi.FetchBoardList(FetchBoardListCompleted);
+//			(Application.Current as App).LilyApi.FetchBoardList(FetchBoardListCompleted);
+			NavigationService.Navigate(new Uri(string.Format("/Views/BoardPage.xaml?Board={0}", "Python"),	UriKind.Relative));
 		}
 
 		private void LoginCompleted(object sender, BaseEventArgs e)
@@ -70,7 +71,7 @@ namespace LilyBBS
 
 		private void PivotItem_Loaded(object sender, RoutedEventArgs e)
 		{
-//			(Application.Current as App).LilyApi.FetchTopTenList(FetchTopTenListCompleted);
+			(Application.Current as App).LilyApi.FetchTopTenList(FetchTopTenListCompleted);
 		}
 
 		private void TopTenListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -81,12 +82,20 @@ namespace LilyBBS
 				string.Format("/Views/TopicPage.xaml?Board={0}&Pid={1}&Author={2}&Title={3}", 
 					header.Board, header.Pid, header.Author, header.Title), 
 				UriKind.Relative));
-			TopTenListBox.SelectedIndex = -1;
+			// TODO
+			//TopTenListBox.SelectedIndex = -1;
 		}
 
 		private void FetchBoardListCompleted(object sender, BaseEventArgs e)
 		{
 			//Dictionary<int, Section> BoardList = e.Result as Dictionary<int, Section>;
+		}
+
+		private void BoardListSelector_SelectionChanged(object sender, SelectionChangedEventArgs e)
+		{
+			if (BoardListSelector.SelectedItem == null) return;		// clicking group header triggers this event too..
+			Board brd = BoardListSelector.SelectedItem as Board;
+			NavigationService.Navigate(new Uri(string.Format("/Views/BoardPage.xaml?Board={0}", brd.Name), UriKind.Relative));
 		}
 
 	}

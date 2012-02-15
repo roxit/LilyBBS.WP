@@ -28,34 +28,4 @@ namespace LilyBBS.API
 		}
 	}
 
-	public class BoardManager : List<Section>
-	{
-		private static BoardManager instance;
-		private BoardManager() {
-			XDocument doc = XDocument.Load("Resources/BoardManager.xml");
-			foreach (var s in doc.Root.Elements("Section"))
-			{
-				int sid = Convert.ToInt32(s.Attribute("sid").Value);
-				string text = s.Attribute("text").Value;
-				Section sec = new Section(sid, text);
-				this.Add(sec);
-				foreach (var b in s.Elements("Board"))
-				{
-					Board brd = new Board(b.Attribute("name").Value, b.Attribute("text").Value);
-					sec.Add(brd);
-				}
-			}
-		}
-		public static BoardManager Instance {
-			get
-			{
-				if (instance == null)
-				{
-					instance = new BoardManager();
-				}
-				return instance;
-			}
-		}
-	}
-
 }

@@ -67,6 +67,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="API\BoardManager.cs" />
     <Compile Include="API\FetchBoardListRequest.cs" />
     <Compile Include="API\Requests\BaseRequest.cs" />
     <Compile Include="API\Requests\IsLoggedInRequest.cs" />

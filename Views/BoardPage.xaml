@@ -13,7 +13,7 @@
     SupportedOrientations="PortraitOrLandscape" Orientation="Portrait"
     mc:Ignorable="d" d:DesignHeight="768" d:DesignWidth="480"
     shell:SystemTray.IsVisible="True"
-	toolkit:TiltEffect.IsTiltEnabled="True">
+	toolkit:TiltEffect.IsTiltEnabled="False">
 	
 	<toolkit:TransitionService.NavigationInTransition>
 		<toolkit:NavigationInTransition>
@@ -46,11 +46,58 @@
         <!--TitlePanel contains the name of the application and page title-->
         <StackPanel x:Name="TitlePanel" Grid.Row="0" Margin="12,17,0,28">
             <TextBlock x:Name="ApplicationTitle" Text="{StaticResource ApplicationTitle}" Style="{StaticResource PhoneTextNormalStyle}"/>
-            <TextBlock x:Name="PageTitle" Text="page name" Margin="9,-7,0,0" Style="{StaticResource PhoneTextTitle1Style}"/>
+            <TextBlock x:Name="PageTitle" Text="Ttle" Margin="9,-7,0,0" Style="{StaticResource PhoneTextTitle1Style}"/>
+			<TextBlock x:Name="PageSubtitle" Text="Subtitle" Margin="9,-7,0,0" Style="{StaticResource PhoneTextSubtleStyle}" />
         </StackPanel>
 
         <!--ContentPanel - place additional content here-->
-        <Grid x:Name="ContentPanel" Grid.Row="1" Margin="12,0,12,0"></Grid>
+        <Grid x:Name="ContentPanel" Grid.Row="1" Margin="12,0,12,0">
+			<toolkit:LongListSelector x:Name="HeaderList"
+									  Loaded="HeaderList_Loaded"
+									  IsFlatList="True" 
+									  SelectionChanged="HeaderList_SelectionChanged">
+				<toolkit:LongListSelector.ItemTemplate>
+					<DataTemplate>
+						<Border BorderBrush="{StaticResource PhoneAccentBrush}"
+								BorderThickness="3,0,0,0"
+								Margin="3"
+								Padding="6,0">
+							<Grid>
+								<Grid.RowDefinitions>
+									<RowDefinition Height="*"/>
+									<RowDefinition Height="Auto"/>
+								</Grid.RowDefinitions>
+								<TextBlock Text="{Binding Title}"
+										   TextWrapping="Wrap"
+										   FontSize="{StaticResource PhoneFontSizeMediumLarge}"
+										   Margin="0,0,3,0"/>
+								<Grid Grid.Row="1">
+									<Grid.ColumnDefinitions>
+										<ColumnDefinition Width="*"/>
+										<ColumnDefinition Width="Auto"/>
+									</Grid.ColumnDefinitions>
+									<TextBlock Text="{Binding Author}"
+											   Style="{StaticResource PhoneTextSmallStyle}"
+											   Foreground="{StaticResource PhoneAccentBrush}"
+											   Margin="0"
+											   />
+									<TextBlock Grid.Column="1"
+											   Text="{Binding CountText}"
+											   Style="{StaticResource PhoneTextSmallStyle}"
+											   HorizontalAlignment="Right"/>
+								</Grid>
+							</Grid>
+						</Border>
+					</DataTemplate>
+				</toolkit:LongListSelector.ItemTemplate>
+				<toolkit:LongListSelector.ListFooterTemplate>
+					<DataTemplate>
+						<Button x:Name="LoadMoreButton" Content="更多"
+								Click="LoadMoreButton_Click" />
+					</DataTemplate>
+				</toolkit:LongListSelector.ListFooterTemplate>
+			</toolkit:LongListSelector>
+		</Grid>
     </Grid>
  
     <!--Sample code showing usage of ApplicationBar-->

@@ -13,7 +13,8 @@
     FontSize="{StaticResource PhoneFontSizeNormal}"
     Foreground="{StaticResource PhoneForegroundBrush}"
     SupportedOrientations="PortraitOrLandscape" Orientation="Portrait"
-    shell:SystemTray.IsVisible="True" Loaded="PhoneApplicationPage_Loaded">
+    shell:SystemTray.IsVisible="True" Loaded="PhoneApplicationPage_Loaded"
+	>
 
 	<phone:PhoneApplicationPage.Resources>
 		<DataTemplate x:Key="TopTenItemTemplate">
@@ -46,39 +47,54 @@
 		</controls:PivotItem>
 		<controls:PivotItem Header="讨论区">
 			<Grid>
-				<toolkit:LongListSelector Name="BoardListSelector">
+				<toolkit:LongListSelector Name="BoardListSelector"
+										  SelectionChanged="BoardListSelector_SelectionChanged"
+										  toolkit:TiltEffect.IsTiltEnabled="True">
 
 					<toolkit:LongListSelector.GroupItemTemplate>
 						<DataTemplate>
 							<Border Background="{StaticResource PhoneAccentBrush}"
-									Margin="0, 2">
+									Width="432" Height="62"
+									Margin="6" Padding="12,0,0,6" >
 								<TextBlock Text="{Binding Name}"
-                                           FontFamily="{StaticResource PhoneFontFamilySemiBold}"
-                                           FontSize="48"
-                                           VerticalAlignment="Bottom"/>
+										   Style="{StaticResource PhoneTextLargeStyle}"
+										   HorizontalAlignment="Left" VerticalAlignment="Center"
+										   />
 							</Border>
-
 						</DataTemplate>
 					</toolkit:LongListSelector.GroupItemTemplate>
+				
 					<toolkit:LongListSelector.GroupHeaderTemplate>
 						<DataTemplate>
 							<Border Background="Transparent" Margin="12,8,0,8">
-								<Border Background="{StaticResource PhoneAccentBrush}" 	
-                                        Padding="8,0,0,0"
+								<Border Background="{StaticResource PhoneAccentBrush}"
+										Width="432" Height="62"
+										Margin="6" Padding="12,0,0,6"
                                         HorizontalAlignment="Left">
 									<TextBlock Text="{Binding Name}" 
-                                               Foreground="#FFFFFF" 
-                                               FontSize="48"
-                                               FontFamily="{StaticResource PhoneFontFamilySemiLight}"
+											   FontSize="{StaticResource PhoneFontSizeExtraLarge}"
                                                HorizontalAlignment="Left"
                                                VerticalAlignment="Bottom"/>
 								</Border>
 							</Border>
 						</DataTemplate>
 					</toolkit:LongListSelector.GroupHeaderTemplate>
+					
 					<toolkit:LongListSelector.ItemTemplate>
 						<DataTemplate>
-							<TextBlock Text="{Binding Name}"/>
+							<Grid Margin="6,6">
+								<Grid.ColumnDefinitions>
+									<ColumnDefinition Width="*"/>
+									<ColumnDefinition Width="Auto"/>
+								</Grid.ColumnDefinitions>
+								<TextBlock Text="{Binding Text}"
+										   FontSize="{StaticResource PhoneFontSizeMediumLarge}"
+										   Style="{StaticResource PhoneTextNormalStyle}"/>
+								<TextBlock Grid.Column="1"
+										   Text="{Binding Name}"
+										   FontSize="{StaticResource PhoneFontSizeMedium}"
+										   Style="{StaticResource PhoneTextAccentStyle}"/>
+							</Grid>
 						</DataTemplate>
 					</toolkit:LongListSelector.ItemTemplate>
 
