@@ -42,10 +42,10 @@ namespace LilyBBS.API
 			req.FetchPost(pid, board, num);
 		}
 
-		public void FetchTopic(BaseHandler callback, int pid, string board)
+		public void FetchTopic(BaseHandler callback, string board, int pid, int? start=null)
 		{
 			FetchTopicRequest req = new FetchTopicRequest(this, callback);
-			req.FetchTopic(pid, board);
+			req.FetchTopic(board, pid, start);
 		}
 
 		public void FetchPage(BaseHandler callback, string board, int start=-1)
@@ -59,7 +59,8 @@ namespace LilyBBS.API
 			FetchTopTenListRequest req = new FetchTopTenListRequest(this, callback);
 			req.FetchTopTenList();
 		}
-		
+
+		#region FetchBoardList
 		public void FetchBoardList(BaseHandler callback)
 		{
 			FetchBoardListRequest req = new FetchBoardListRequest(this, callback);
@@ -70,6 +71,7 @@ namespace LilyBBS.API
 		{
 			int i;
 		}
+		#endregion
 
 	}
 

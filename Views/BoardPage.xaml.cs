@@ -43,6 +43,11 @@ namespace LilyBBS
 			 */
 			app.LilyApi.FetchPage(FetchPageCompleted, board, start);
 		}
+		
+		private void LoadMoreButton_Click(object sender, RoutedEventArgs e)
+		{
+			LoadMore(board, prevStart);
+		}
 
 		private void FetchPageCompleted(object sender, BaseEventArgs e)
 		{
@@ -58,7 +63,7 @@ namespace LilyBBS
 			foreach (var i in page.HeaderList)
 				itemsSource.Add(i);
 		}
-		
+
 		private void HeaderList_Loaded(object sender, RoutedEventArgs e)
 		{
 			board = this.NavigationContext.QueryString["Board"];
@@ -67,10 +72,6 @@ namespace LilyBBS
 			LoadMore(board);
 		}
 
-		private void LoadMoreButton_Click(object sender, RoutedEventArgs e)
-		{
-			LoadMore(board, prevStart);
-		}
 
 		private void HeaderList_SelectionChanged(object sender, SelectionChangedEventArgs e)
 		{

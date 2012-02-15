@@ -29,7 +29,7 @@ namespace LilyBBS.API
 		private void FetchPostCompleted(object sender, BaseEventArgs e)
 		{
 			if (this.callback == null) return;
-			Post post = new Post(Pid, Board, Num);
+			Post post = new Post(Board, Pid, Num);
 			HtmlDocument doc = new HtmlDocument();
 			doc.LoadHtml(e.Result as string);
 			string txt = doc.DocumentNode.SelectNodes("//textarea")[0].InnerHtml;

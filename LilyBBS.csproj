@@ -136,6 +136,7 @@
     <Content Include="Background.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Images\appbar.edit.rest.png" />
     <Content Include="Images\appbar.refresh.rest.png" />
     <Content Include="Resources\BoardManager.xml" />
     <Content Include="SplashScreenImage.jpg" />

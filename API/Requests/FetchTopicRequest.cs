@@ -4,23 +4,29 @@ namespace LilyBBS.API
 {
 	public class FetchTopicRequest : BaseRequest
 	{
-		private int Pid;
 		private string Board;
-		private int Num;
+		private int Pid;
+		private int? Start;
+		//private int Num;
 
 		public FetchTopicRequest(Connection connection, BaseHandler callback)
 			: base(connection, callback)
 		{
 		}
 
-		public void FetchTopic(int pid, string board)
+		public void FetchTopic(string board, int pid, int? start=null)
 		{
-			this.Pid = pid;
 			this.Board = board;
+			this.Pid = pid;
+			this.Start = start;
 
 			ParameterList qry = new ParameterList();
 			qry.Add("board", board);
 			qry.Add("file", Utils.Pid2Str(pid));
+			if (start != null)
+			{
+				qry.Add("start", start.Value.ToString());
+			}
 			DoAction(FetchTopicCompleted, "bbstcon", qry);
 		}
 
@@ -32,13 +38,23 @@ namespace LilyBBS.API
 			doc.LoadHtml(e.Result as string);
 			var items = doc.DocumentNode.SelectNodes("//table[@class='main']");
 			var bodies = doc.DocumentNode.SelectNodes("//textarea");
-			for (int i = 0; i < items.Count; i++)
+			int idx = 0;
+			if (Start != null) idx = 1;
+			for (int i = idx; i < items.Count; i++)
 			{
 				string c = items[i].SelectSingleNode("tr/td/a").GetAttributeValue("href", "");
-				Post p = new Post(Utils.ParsePid(c), topic.Board, Utils.ParserNum(c));
+				Post p = new Post(topic.Board, Utils.ParsePid(c), Utils.ParserNum(c));
 				c = bodies[i].InnerHtml;
 				p.ParsePost(c);
 				topic.PostList.Add(p);
+			}
+			if ((e.Result as string).Contains(">本主题下30篇</a>][<a href="))
+			{
+				topic.nextStart = Start.GetValueOrDefault(0) + 30;
+			}
+			else
+			{
+				topic.nextStart = null;
 			}
 			callback(this, new BaseEventArgs(topic));
 		}

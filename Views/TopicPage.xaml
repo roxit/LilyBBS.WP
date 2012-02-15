@@ -11,7 +11,7 @@
     FontSize="{StaticResource PhoneFontSizeNormal}"
     Foreground="{StaticResource PhoneForegroundBrush}"
     SupportedOrientations="PortraitOrLandscape" Orientation="Portrait"
-    mc:Ignorable="d" d:DesignHeight="768" d:DesignWidth="480"
+    mc:Ignorable="d" d:DesignHeight="696" d:DesignWidth="480"
     shell:SystemTray.IsVisible="True"
 	toolkit:TiltEffect.IsTiltEnabled="False">
 
@@ -63,9 +63,6 @@
 				</Grid>
 			</Border>
 		</DataTemplate>
-		<DataTemplate x:Key="TopicFooterTemplate">
-			<Button Content="下一页"/>
-		</DataTemplate>
 	</phone:PhoneApplicationPage.Resources>
 
 	<Grid x:Name="LayoutRoot" Background="Transparent">
@@ -77,43 +74,67 @@
         <StackPanel x:Name="TitlePanel" Grid.Row="0" Margin="12,17,0,28">
             <TextBlock x:Name="ApplicationTitle" Style="{StaticResource PhoneTextNormalStyle}" Text="{StaticResource ApplicationTitle}" />
 			<StackPanel>
-				<TextBlock x:Name="PageTitle" Margin="9,0,9,0"
+				<TextBlock x:Name="TitleTextBlock" Margin="9,0,9,0"
 						   Text="Place Holder"
 						   TextWrapping="Wrap"
 						   Style="{StaticResource PhoneTextTitle2Style}"/>
-				<Grid Margin="9,0">
-					<Grid.ColumnDefinitions>
-						<ColumnDefinition Width="*"/>
-						<ColumnDefinition Width="Auto"/>
-					</Grid.ColumnDefinitions>
-					<TextBlock Grid.Column="0" Name="Board"/>
-					<TextBlock Grid.Column="1" Name="TopicAuthor" />
-				</Grid>
+				<TextBlock Name="BoardTextBlock" 
+						   Text="board"
+						   Margin="9,0"
+						   Style="{StaticResource PhoneTextSubtleStyle}"/>
 			</StackPanel>
         </StackPanel>
 
-        <!--ContentPanel - place additional content here-->
         <Grid x:Name="ContentPanel" Grid.Row="1" Margin="12,0,12,0">
-			<toolkit:LongListSelector Name="TopicListBox"
-									  Loaded="TopicListBox_Loaded"
+			<toolkit:LongListSelector x:Name="PostList"
 									  IsFlatList="True"
-									  ItemTemplate="{StaticResource TopicItemTemplate}"
-									  GroupFooterTemplate="{StaticResource TopicFooterTemplate}"
-									  >
+									  Loaded="PostList_Loaded"
+									  SelectionChanged="PostList_SelectionChanged">
+				<toolkit:LongListSelector.ItemTemplate>
+					<DataTemplate>
+						<Border BorderBrush="{StaticResource PhoneAccentBrush}"
+								BorderThickness="0,3,0,0"
+								Margin="3"
+								Padding="6,0"
+								Opacity="0.5">
+							<Grid>
+								<Grid.RowDefinitions>
+									<RowDefinition Height="Auto"/>
+									<RowDefinition Height="*"/>
+								</Grid.RowDefinitions>
+								<TextBlock Text="{Binding Author}"
+										   Style="{StaticResource PhoneTextAccentStyle}"
+										   FontSize="{StaticResource PhoneFontSizeMediumLarge}"
+										   Margin="0,0,0,3"/>
+								<TextBlock Grid.Row="1"
+										   Text="{Binding Body}"
+										   Margin="0,6"
+										   TextWrapping="Wrap"
+										   Style="{StaticResource PhoneTextNormalStyle}"
+										   FontSize="{StaticResource PhoneFontSizeMedium}"
+										   />
+							</Grid>
+						</Border>
+					</DataTemplate>
+				</toolkit:LongListSelector.ItemTemplate>
+				<toolkit:LongListSelector.ListFooterTemplate>
+					<DataTemplate>
+						<Button Content="更多"
+								Click="LoadMoreButton_Click" />
+					</DataTemplate>
+				</toolkit:LongListSelector.ListFooterTemplate>
 			</toolkit:LongListSelector>
 		</Grid>
     </Grid>
  
-    <!--Sample code showing usage of ApplicationBar-->
-    <!--<phone:PhoneApplicationPage.ApplicationBar>
+	<phone:PhoneApplicationPage.ApplicationBar>
         <shell:ApplicationBar IsVisible="True" IsMenuEnabled="True">
-            <shell:ApplicationBarIconButton IconUri="/Images/appbar_button1.png" Text="Button 1"/>
-            <shell:ApplicationBarIconButton IconUri="/Images/appbar_button2.png" Text="Button 2"/>
+			<shell:ApplicationBarIconButton IconUri="/Images/appbar.edit.rest.png" Text="回复"/>
             <shell:ApplicationBar.MenuItems>
                 <shell:ApplicationBarMenuItem Text="MenuItem 1"/>
                 <shell:ApplicationBarMenuItem Text="MenuItem 2"/>
             </shell:ApplicationBar.MenuItems>
         </shell:ApplicationBar>
-    </phone:PhoneApplicationPage.ApplicationBar>-->
+    </phone:PhoneApplicationPage.ApplicationBar>
 
 </phone:PhoneApplicationPage>

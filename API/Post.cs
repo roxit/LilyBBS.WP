@@ -20,10 +20,10 @@ namespace LilyBBS.API
 		private static string TIME_FMT = "ddd MMM dd HH:mm:ss yyyy";
 		private static Regex TITLE_RE = new Regex(@"标  题: (.+?)\n");
 
-		public Post(int pid, string board, int num)
+		public Post(string board, int pid, int num)
 		{
-			Pid = pid;
 			Board = board;
+			Pid = pid;
 			Num = num;
 		}
 

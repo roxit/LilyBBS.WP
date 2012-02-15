@@ -9,6 +9,7 @@ namespace LilyBBS.API
 		public string Board { get; set; }
 //		public int Num { get; set; }
 		public List<Post> PostList { get; set; }
+		public int? nextStart { get; set; }
 		public Topic(int pid, string board)		//, int num)
 		{
 			Pid = pid;

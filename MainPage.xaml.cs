@@ -42,32 +42,14 @@ namespace LilyBBS
 //			(Application.Current as App).LilyApi.Login(LoginCompleted, "obash", "s3creed");
 //			NavigationService.Navigate(new Uri("/Views/SendPostPage.xaml", UriKind.Relative));
 //			(Application.Current as App).LilyApi.FetchPost(FetchPostCompleted, 1323076821, "Python", 1240);
-//			(Application.Current as App).LilyApi.FetchTopic(FetchTopicCompleted, 1324280901, "D_Computer");
-//			(Application.Current as App).LilyApi.FetchTopTenList(FetchTopTenListCompleted);
+			(Application.Current as App).LilyApi.FetchTopic(HelloButtonCompleted, "D_Computer", 1329204278, 60);
 //			(Application.Current as App).LilyApi.FetchPage(FetchPageCompleted, "NJUExpress");
 //			(Application.Current as App).LilyApi.FetchBoardList(FetchBoardListCompleted);
-			NavigationService.Navigate(new Uri(string.Format("/Views/BoardPage.xaml?Board={0}", "Python"),	UriKind.Relative));
 		}
 
-		private void LoginCompleted(object sender, BaseEventArgs e)
+		private void HelloButtonCompleted(object sender, BaseEventArgs e)
 		{
-			string cookie = e.Result as string;
-		}
-
-		private void FetchPostCompleted(object sender, BaseEventArgs e)
-		{
-			Post p = e.Result as Post;
-
-		}
-
-		private void FetchPageCompleted(object sender, BaseEventArgs e)
-		{
-			LilyBBS.API.Page page = e.Result as LilyBBS.API.Page;
-		}
-
-		private void FetchBoardListCompleted(object sender, BaseEventArgs e)
-		{
-			//Dictionary<int, Section> BoardList = e.Result as Dictionary<int, Section>;
+			var t = e.Result as Topic;
 		}
 
 		#region Board
