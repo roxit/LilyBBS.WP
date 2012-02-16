@@ -75,10 +75,12 @@ namespace LilyBBS
 		private void HeaderList_SelectionChanged(object sender, SelectionChangedEventArgs e)
 		{
 			Header hdr = HeaderList.SelectedItem as Header;
-			NavigationService.Navigate(new Uri(
-					string.Format("/Views/TopicPage.xaml?board={0}&Pid={1}&Author={2}&Title={3}",
-							hdr.Board, hdr.Pid, hdr.Author, hdr.Title),
-					UriKind.Relative));
+			string uri = string.Format("/Views/TopicPage.xaml?board={0}&Pid={1}&Author={2}&Title={3}",
+					hdr.Board, hdr.Pid, hdr.Author, hdr.Title);
+			// otherwise when user click this item again, it won't fire this event
+			// Navigation happens after this method exists, so build the uri before changing `hdr` to `null`
+			// TODO HeaderList.SelectedItem = null;
+			NavigationService.Navigate(new Uri(uri, UriKind.Relative));
 		}
 
 		private void SendPostButton_Click(object sender, EventArgs e)

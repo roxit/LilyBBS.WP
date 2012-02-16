@@ -86,7 +86,7 @@ namespace LilyBBS
 			conn.SendPost(SendPostCompleted,
 					board,
 					TitleTextBox.Text,
-					string.Format("{0}\n\n-_-||\n{1}", BodyTextBox.Text, settings.Signature));
+					string.Format("{0}\n\n{1}", BodyTextBox.Text, settings.Signature));
 		}
 
 		private void SendPostCompleted(object sender, BaseEventArgs e)

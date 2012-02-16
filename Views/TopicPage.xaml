@@ -48,14 +48,14 @@
         <StackPanel x:Name="TitlePanel" Grid.Row="0" Margin="12,17,0,28">
             <TextBlock x:Name="ApplicationTitle" Style="{StaticResource PhoneTextNormalStyle}" Text="{StaticResource ApplicationTitle}" />
 			<StackPanel>
+				<TextBlock Name="BoardTextBlock" 
+						   Text="board"
+						   Margin="9,6"
+						   Style="{StaticResource PhoneTextAccentStyle}"/>
 				<TextBlock x:Name="TitleTextBlock" Margin="9,0,9,0"
 						   Text="Place Holder"
 						   TextWrapping="Wrap"
 						   Style="{StaticResource PhoneTextTitle2Style}"/>
-				<TextBlock Name="BoardTextBlock" 
-						   Text="board"
-						   Margin="9,0"
-						   Style="{StaticResource PhoneTextSubtleStyle}"/>
 			</StackPanel>
         </StackPanel>
 

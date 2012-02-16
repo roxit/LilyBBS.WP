@@ -65,7 +65,10 @@ namespace LilyBBS
 			Settings settings = Application.Current.Resources["AppSettings"] as Settings;
 			if (!settings.NotFirstRun)
 			{
-				settings.Signature = string.Format("Sent from my Windows Phone {0} {1}", DeviceStatus.DeviceManufacturer, DeviceStatus.DeviceName);
+				settings.Signature = string.Format("-_-||\nSent from my Windows Phone {0} {1}", DeviceStatus.DeviceManufacturer, DeviceStatus.DeviceName);
+				settings.NotFirstRun = true;
+				settings.Username = "";
+				settings.Password = "";
 			}
 		}
 
