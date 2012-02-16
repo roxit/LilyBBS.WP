@@ -13,8 +13,7 @@
     FontSize="{StaticResource PhoneFontSizeNormal}"
     Foreground="{StaticResource PhoneForegroundBrush}"
     SupportedOrientations="PortraitOrLandscape" Orientation="Portrait"
-    shell:SystemTray.IsVisible="True"
-	>
+    shell:SystemTray.IsVisible="True">
 
 	<phone:PhoneApplicationPage.Resources>
 	</phone:PhoneApplicationPage.Resources>
@@ -186,7 +185,9 @@
 	<phone:PhoneApplicationPage.ApplicationBar>
 		<shell:ApplicationBar IsVisible="True" IsMenuEnabled="True" Mode="Default">
 			<shell:ApplicationBar.MenuItems>
-				<shell:ApplicationBarMenuItem Text="设置"/>
+				<shell:ApplicationBarMenuItem x:Name="SettingsButton" 
+											  Text="设置"
+											  Click="SettingsButton_Click"/>
 			</shell:ApplicationBar.MenuItems>
 		</shell:ApplicationBar>
 	</phone:PhoneApplicationPage.ApplicationBar>

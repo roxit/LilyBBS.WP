@@ -4,25 +4,13 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:phone="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone"
     xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone"
-	xmlns:sys="clr-namespace:System;assembly=mscorlib">
+	xmlns:sys="clr-namespace:System;assembly=mscorlib"
+	xmlns:local="clr-namespace:LilyBBS">
 
     <!--Application Resources-->
     <Application.Resources>
 		<sys:String x:Key="ApplicationTitle">小百合BBS</sys:String>
-		
-		<Style x:Key="HeaderTitleStyle" TargetType="TextBlock">
-			<Setter Property="FontStyle" Value="{StaticResource PhoneTextTitle2Style}"/>
-		</Style>
-		<Style x:Key="HeaderAuthorStyle" TargetType="TextBlock">
-			<Setter Property="FontStyle" Value="{StaticResource PhoneTextSubtleStyle}"/>
-		</Style>
-		<Style x:Key="PostAuthorStyle" TargetType="TextBlock">
-			<Setter Property="FontStyle" Value="{StaticResource PhoneTextAccentStyle}"/>
-		</Style>
-		<Style x:Key="PostBodyStyle" TargetType="TextBlock">
-			<Setter Property="FontStyle" Value="{StaticResource PhoneTextNormalStyle}"/>
-			<Setter Property="TextWrapping" Value="Wrap"/>
-		</Style>
+		<local:Settings x:Key="AppSettings"/>
 	</Application.Resources>
 
     <Application.ApplicationLifetimeObjects>

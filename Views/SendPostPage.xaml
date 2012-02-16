@@ -10,7 +10,7 @@
     FontSize="{StaticResource PhoneFontSizeNormal}"
     Foreground="{StaticResource PhoneForegroundBrush}"
     SupportedOrientations="PortraitOrLandscape" Orientation="Portrait"
-    mc:Ignorable="d" d:DesignHeight="768" d:DesignWidth="480"
+    mc:Ignorable="d" d:DesignHeight="696" d:DesignWidth="480"
     shell:SystemTray.IsVisible="True">
 
     <Grid x:Name="LayoutRoot" Background="Transparent">
@@ -30,25 +30,34 @@
 				<RowDefinition Height="Auto"/>
 				<RowDefinition Height="Auto"/>
 				<RowDefinition Height="*"/>
-				<RowDefinition Height="Auto"/>
 			</Grid.RowDefinitions>
-			<TextBlock Grid.Row="0" Text="标题"/>
-			<TextBox Grid.Row="1" Name="TitleTextBox" MaxLength="24" />
-			<TextBlock Grid.Row="2" Text="正文"/>
-			<TextBox Grid.Row="3" Name="BodyTextBox" TextWrapping="Wrap" AcceptsReturn="True" />
+			<TextBlock Grid.Row="0" Text="标题"
+					   Style="{StaticResource PhoneTextSubtleStyle}"
+					   Margin="12,0,6,0"/>
+			<TextBox Grid.Row="1" Name="TitleTextBox" MaxLength="24"
+					 Margin="0,1,0,6"/>
+			<TextBlock Grid.Row="2" Text="正文"
+					   Style="{StaticResource PhoneTextSubtleStyle}"
+					   Margin="12,0,6,0"/>
+			<TextBox Grid.Row="3" Name="BodyTextBox"
+					 Margin="0,1,0,6"
+					 InputScope="Text"
+					 TextWrapping="Wrap" 
+					 AcceptsReturn="True"/>
 		</Grid>
     </Grid>
  
-    <!--Sample code showing usage of ApplicationBar-->
-    <!--<phone:PhoneApplicationPage.ApplicationBar>
-        <shell:ApplicationBar IsVisible="True" IsMenuEnabled="True">
-            <shell:ApplicationBarIconButton IconUri="/Images/appbar_button1.png" Text="Button 1"/>
-            <shell:ApplicationBarIconButton IconUri="/Images/appbar_button2.png" Text="Button 2"/>
-            <shell:ApplicationBar.MenuItems>
-                <shell:ApplicationBarMenuItem Text="MenuItem 1"/>
-                <shell:ApplicationBarMenuItem Text="MenuItem 2"/>
-            </shell:ApplicationBar.MenuItems>
-        </shell:ApplicationBar>
-    </phone:PhoneApplicationPage.ApplicationBar>-->
+	<phone:PhoneApplicationPage.ApplicationBar>
+		<shell:ApplicationBar IsVisible="True" IsMenuEnabled="False">
+			<shell:ApplicationBarIconButton x:Name="SendButton"
+											IconUri="/Images/send.png" 
+											Text="发送"
+											Click="SendButton_Click"/>
+			<shell:ApplicationBarIconButton x:Name="SettingsButton"
+											IconUri="/Images/settings.png"
+											Text="设置"
+											Click="SettingsButton_Click"/>
+		</shell:ApplicationBar>
+	</phone:PhoneApplicationPage.ApplicationBar>
 
 </phone:PhoneApplicationPage>

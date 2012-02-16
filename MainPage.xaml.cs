@@ -138,7 +138,7 @@ namespace LilyBBS
 
 		private void InitializeApplicationBar()
 		{
-			RefreshButton = new ApplicationBarIconButton(new Uri("/Images/appbar.refresh.rest.png", UriKind.Relative));
+			RefreshButton = new ApplicationBarIconButton(new Uri("/Images/refresh.png", UriKind.Relative));
 			RefreshButton.Text = "刷新";
 			RefreshButton.Click += RefreshButton_Click;
 			ApplicationBar.Buttons.Add(RefreshButton);
@@ -157,7 +157,7 @@ namespace LilyBBS
 				case TopTenHeader:
 					ApplicationBar.Mode = ApplicationBarMode.Default;
 					if (!ApplicationBar.Buttons.Contains(RefreshButton))
-						ApplicationBar.Buttons.Add(RefreshButton);					
+						ApplicationBar.Buttons.Add(RefreshButton);	
 					break;
 				default:
 					ApplicationBar.Mode = ApplicationBarMode.Minimized;
@@ -183,6 +183,13 @@ namespace LilyBBS
 				default:
 					break;
 			}
+		}
+		#endregion
+
+		#region Settings
+		public void SettingsButton_Click(object sender, EventArgs e)
+		{
+			NavigationService.Navigate(new Uri("/Views/SettingsPage.xaml", UriKind.Relative));
 		}
 		#endregion
 	}

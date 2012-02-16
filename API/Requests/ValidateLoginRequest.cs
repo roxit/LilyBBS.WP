@@ -3,19 +3,19 @@ using HtmlAgilityPack;
 
 namespace LilyBBS.API
 {
-	public class IsLoggedInRequest : BaseRequest
+	public class ValidateLoginRequest : BaseRequest
 	{
-		public IsLoggedInRequest(Connection connection, BaseHandler callback)
+		public ValidateLoginRequest(Connection connection, BaseHandler callback)
 			: base(connection, callback)
 		{
 		}
 
-		public void IsLoggedIn()
+		public void ValidateLogin()
 		{
-			DoAction(IsLoggedInCompleted, "bbsfoot");
+			DoAction(ValidateLoginCompleted, "bbsfoot");
 		}
 
-		private void IsLoggedInCompleted(object sender, BaseEventArgs e)
+		private void ValidateLoginCompleted(object sender, BaseEventArgs e)
 		{
 			string html = e.Result as string;
 			// not using current id

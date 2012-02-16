@@ -17,7 +17,7 @@ namespace LilyBBS.API
 		// multiple ip's
 		// private static Regex IP_RE = new Regex(@"\[FROM: (.+)\]");
 		private static Regex TIME_RE = new Regex(@"发信站: .*?\((.+?)\)");
-		private static string TIME_FMT = "ddd MMM dd HH:mm:ss yyyy";
+		// private static string TIME_FMT = "ddd MMM dd HH:mm:ss yyyy";
 		private static Regex TITLE_RE = new Regex(@"标  题: (.+?)\n");
 
 		public Post(string board, int pid, int num)

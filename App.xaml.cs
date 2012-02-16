@@ -3,6 +3,7 @@ using System.Windows.Navigation;
 using LilyBBS.API;
 using Microsoft.Phone.Controls;
 using Microsoft.Phone.Shell;
+using Microsoft.Phone.Info;
 
 namespace LilyBBS
 {
@@ -60,8 +61,12 @@ namespace LilyBBS
 			{
 				IsVisible = false,
 				IsIndeterminate = true,
-				Text = "载入中"
 			};
+			Settings settings = Application.Current.Resources["AppSettings"] as Settings;
+			if (!settings.NotFirstRun)
+			{
+				settings.Signature = string.Format("Sent from my Windows Phone {0} {1}", DeviceStatus.DeviceManufacturer, DeviceStatus.DeviceName);
+			}
 		}
 
 		// Code to execute when the application is activated (brought to foreground)

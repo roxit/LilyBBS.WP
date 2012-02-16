@@ -24,10 +24,10 @@ namespace LilyBBS.API
 			req.Login(username, password);
 		}
 
-		public void IsLoggedIn(BaseHandler callback)
+		public void ValidateLogin(BaseHandler callback)
 		{
-			IsLoggedInRequest req = new IsLoggedInRequest(this, callback);
-			req.IsLoggedIn();
+			ValidateLoginRequest req = new ValidateLoginRequest(this, callback);
+			req.ValidateLogin();
 		}
 
 		public void SendPost(BaseHandler callback, string brd, string title, string text, string autocr="on", int signature=1)
@@ -75,7 +75,7 @@ namespace LilyBBS.API
 
 		private void FetchBoardListCompleted(object sender, BaseEventArgs e)
 		{
-			int i;
+			//int i;
 		}
 		#endregion
 
