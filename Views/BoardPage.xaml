@@ -76,7 +76,7 @@
 									<TextBlock Text="{Binding Author}"
 											   Style="{StaticResource PhoneTextSmallStyle}"
 											   Foreground="{StaticResource PhoneAccentBrush}"
-											   />
+											   Margin="0"/>
 									<TextBlock Grid.Column="1"
 											   Text="{Binding CountText}"
 											   Style="{StaticResource PhoneTextSmallStyle}"

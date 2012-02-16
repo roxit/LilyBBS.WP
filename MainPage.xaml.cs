@@ -18,39 +18,38 @@ namespace LilyBBS
 {
 	public partial class MainPage : PhoneApplicationPage
 	{
+		private const string BoardHeader = "讨论区";
+		private const string HotHeader = "各区热点";
+		private const string TopTenHeader = "全站十大";
+		private bool isTopTenListLoaded = false;
+		private bool isHotListLoaded = false;
+
+		private ApplicationBarIconButton RefreshButton;
 		// Constructor
 		public MainPage()
 		{
 			InitializeComponent();
+			InitializeApplicationBar();
 			var app = Application.Current as App;
 			SystemTray.SetProgressIndicator(this, app.Indicator);
 			BoardListSelector.ItemsSource = BoardManager.Instance;
 		}
 
-		private void PhoneApplicationPage_Loaded(object sender, RoutedEventArgs e)
-		{
-			Connection api = (Application.Current as App).LilyApi;
-/*			if (!api.IsLoggedIn)
-			{
-				client.Login(LoginCompleted, "obash", "changeme");
-			}
-*/		}
-
 		private void HelloButton_Click(object sender, RoutedEventArgs e)
 		{
 			
 //			(Application.Current as App).LilyApi.Login(LoginCompleted, "obash", "s3creed");
-//			NavigationService.Navigate(new Uri("/Views/SendPostPage.xaml", UriKind.Relative));
+			NavigationService.Navigate(new Uri("/Views/SendPostPage.xaml", UriKind.Relative));
 //			(Application.Current as App).LilyApi.FetchPost(FetchPostCompleted, 1323076821, "Python", 1240);
 //			(Application.Current as App).LilyApi.FetchTopic(HelloButtonCompleted, "D_Computer", 1329204278, 60);
 //			(Application.Current as App).LilyApi.FetchPage(FetchPageCompleted, "NJUExpress");
 //			(Application.Current as App).LilyApi.FetchBoardList(FetchBoardListCompleted);
-			(Application.Current as App).LilyApi.FetchHotList(HelloButtonCompleted);
+//			(Application.Current as App).LilyApi.FetchHotList(HelloButtonCompleted);
 		}
 
 		private void HelloButtonCompleted(object sender, BaseEventArgs e)
 		{
-			var t = e.Result as List<List<Header>>;
+			
 		}
 
 		#region Board
@@ -64,7 +63,7 @@ namespace LilyBBS
 
 		#region Hot
 
-		private void HotList_Loaded(object sender, RoutedEventArgs e)
+		private void FetchHotList()
 		{
 			var app = Application.Current as App;
 			app.Indicator.IsVisible = true;
@@ -73,10 +72,17 @@ namespace LilyBBS
 
 		private void FetchHotListCompleted(object sender, BaseEventArgs e)
 		{
+			isHotListLoaded = true;
 			var app = Application.Current as App;
 			app.Indicator.IsVisible = false;
 			List<HeaderGroup> hotList = e.Result as List<HeaderGroup>;
 			HotList.ItemsSource = hotList;
+		}
+
+		private void HotList_Loaded(object sender, RoutedEventArgs e)
+		{
+			if (isHotListLoaded) return;
+			FetchHotList();
 		}
 
 		private void HotList_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -92,7 +98,8 @@ namespace LilyBBS
 		#endregion
 
 		#region TopTen
-		private void TopTenList_Loaded(object sender, RoutedEventArgs e)
+
+		private void FetchTopTenList()
 		{
 			var app = Application.Current as App;
 			app.Indicator.IsVisible = true;
@@ -101,10 +108,17 @@ namespace LilyBBS
 
 		private void FetchTopTenListCompleted(object sender, BaseEventArgs e)
 		{
+			isTopTenListLoaded = true;
 			var app = Application.Current as App;
 			app.Indicator.IsVisible = false;
 			List<Header> topTenList = e.Result as List<Header>;
 			TopTenList.ItemsSource = topTenList;
+		}
+
+		private void TopTenList_Loaded(object sender, RoutedEventArgs e)
+		{
+			if (isTopTenListLoaded) return;
+			FetchTopTenList();
 		}
 
 		private void TopTenList_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -120,22 +134,56 @@ namespace LilyBBS
 		}
 		#endregion
 
+		#region ApplicationBar
+
+		private void InitializeApplicationBar()
+		{
+			RefreshButton = new ApplicationBarIconButton(new Uri("/Images/appbar.refresh.rest.png", UriKind.Relative));
+			RefreshButton.Text = "刷新";
+			RefreshButton.Click += RefreshButton_Click;
+			ApplicationBar.Buttons.Add(RefreshButton);
+		}
+
 		private void Pivot_LoadingPivotItem(object sender, PivotItemEventArgs e)
 		{
-			return;
-			int i;
-			if (e.Item.Header == "全站十大")
+			string pi = (this.Pivot.SelectedItem as PivotItem).Header as string;
+			switch (pi)
 			{
-				ApplicationBar.IsVisible = true;
-			}
-			else if (e.Item.Header == "讨论区")
-			{
-				ApplicationBar.IsVisible = false;
-			}
-			else
-			{
-				ApplicationBar.IsVisible = false;
+				case HotHeader:
+					ApplicationBar.Mode = ApplicationBarMode.Default;
+					if (!ApplicationBar.Buttons.Contains(RefreshButton))
+						ApplicationBar.Buttons.Add(RefreshButton);
+					break;
+				case TopTenHeader:
+					ApplicationBar.Mode = ApplicationBarMode.Default;
+					if (!ApplicationBar.Buttons.Contains(RefreshButton))
+						ApplicationBar.Buttons.Add(RefreshButton);					
+					break;
+				default:
+					ApplicationBar.Mode = ApplicationBarMode.Minimized;
+					if (ApplicationBar.Buttons.Contains(RefreshButton))
+					{
+						ApplicationBar.Buttons.Remove(RefreshButton);
+					}
+					break;
 			}
 		}
+
+		private void RefreshButton_Click(object sender, EventArgs e)
+		{
+			string pi = (this.Pivot.SelectedItem as PivotItem).Header as string;
+			switch (pi)
+			{
+				case HotHeader:
+					FetchHotList();
+					break;
+				case TopTenHeader:
+					FetchTopTenList();
+					break;
+				default:
+					break;
+			}
+		}
+		#endregion
 	}
 }

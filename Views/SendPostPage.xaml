@@ -36,8 +36,6 @@
 			<TextBox Grid.Row="1" Name="TitleTextBox" MaxLength="24" />
 			<TextBlock Grid.Row="2" Text="正文"/>
 			<TextBox Grid.Row="3" Name="BodyTextBox" TextWrapping="Wrap" AcceptsReturn="True" />
-			<Button Grid.Row="4" Name="SendPostButton" Content="发表文章"
-					Click="SendPostButton_Click"/>
 		</Grid>
     </Grid>
  
