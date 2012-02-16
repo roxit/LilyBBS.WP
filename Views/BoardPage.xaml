@@ -57,7 +57,7 @@
 					<DataTemplate>
 						<Border BorderBrush="{StaticResource PhoneAccentBrush}"
 								BorderThickness="3,0,0,0"
-								Margin="3"
+								Margin="12,6"
 								Padding="6,0">
 							<Grid>
 								<Grid.RowDefinitions>
@@ -76,7 +76,6 @@
 									<TextBlock Text="{Binding Author}"
 											   Style="{StaticResource PhoneTextSmallStyle}"
 											   Foreground="{StaticResource PhoneAccentBrush}"
-											   Margin="0"
 											   />
 									<TextBlock Grid.Column="1"
 											   Text="{Binding CountText}"

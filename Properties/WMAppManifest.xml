@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Deployment xmlns="http://schemas.microsoft.com/windowsphone/2009/deployment" AppPlatformVersion="7.1">
-  <App xmlns="" ProductID="{6229d952-b2db-4d65-aeb9-6f2f7e76f840}" Title="小百合BBS" RuntimeType="Silverlight" Version="1.0.0.0" Genre="apps.normal" Author="LilyBBS author" Description="Sample description" Publisher="LilyBBS">
-    <IconPath IsRelative="true" IsResource="false">ApplicationIcon.png</IconPath>
+  <App xmlns="" ProductID="{6229d952-b2db-4d65-aeb9-6f2f7e76f840}" Title="小百合BBS" RuntimeType="Silverlight" Version="1.0.0.0" Genre="apps.normal" Author="Shanshi Shi" Description="小百合BBS" Publisher="LilyBBS">
+    <IconPath IsRelative="true" IsResource="false">Images\ApplicationIcon.png</IconPath>
     <Capabilities>
       <Capability Name="ID_CAP_GAMERSERVICES" />
       <Capability Name="ID_CAP_IDENTITY_DEVICE" />
@@ -24,7 +24,7 @@
     <Tokens>
       <PrimaryToken TokenID="LilyBBSToken" TaskName="_default">
         <TemplateType5>
-          <BackgroundImageURI IsRelative="true" IsResource="false">Background.png</BackgroundImageURI>
+          <BackgroundImageURI IsRelative="true" IsResource="false">Images\Background.png</BackgroundImageURI>
           <Count>0</Count>
           <Title>小百合BBS</Title>
         </TemplateType5>
