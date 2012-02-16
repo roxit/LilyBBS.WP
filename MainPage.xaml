@@ -17,15 +17,14 @@
 	>
 
 	<phone:PhoneApplicationPage.Resources>
-		<DataTemplate x:Key="TopTenItemTemplate">
-
-		</DataTemplate>
 	</phone:PhoneApplicationPage.Resources>
 	
 	<controls:Pivot Name="Pivot" Title="{StaticResource ApplicationTitle}" LoadingPivotItem="Pivot_LoadingPivotItem">
 		<controls:PivotItem Header="Hello">
 			<Grid>
-				<Button Name="HelloButton" Content="金将军万岁！"
+				<Button Name="HelloButton" Content="信春哥，无bug！"
+						VerticalAlignment="Top"
+						Height="88"
 						Click="HelloButton_Click"/>
 			</Grid>
 		</controls:PivotItem>
@@ -50,23 +49,21 @@
 				
 					<toolkit:LongListSelector.GroupHeaderTemplate>
 						<DataTemplate>
-							<Border Background="Transparent" Margin="12,8,0,8">
-								<Border Background="{StaticResource PhoneAccentBrush}"
-										Width="432" Height="62"
-										Margin="6" Padding="12,0,0,6"
-                                        HorizontalAlignment="Left">
-									<TextBlock Text="{Binding Name}" 
-											   FontSize="{StaticResource PhoneFontSizeExtraLarge}"
-                                               HorizontalAlignment="Left"
-                                               VerticalAlignment="Bottom"/>
-								</Border>
+							<Border Background="{StaticResource PhoneAccentBrush}"
+									Width="432" Height="62"
+									Margin="12,28,0,24" Padding="12,0,0,6"
+									HorizontalAlignment="Left">
+								<TextBlock Text="{Binding Name}"
+										   FontSize="{StaticResource PhoneFontSizeExtraLarge}"
+										   HorizontalAlignment="Left"
+										   VerticalAlignment="Bottom"/>
 							</Border>
 						</DataTemplate>
 					</toolkit:LongListSelector.GroupHeaderTemplate>
 					
 					<toolkit:LongListSelector.ItemTemplate>
 						<DataTemplate>
-							<Grid Margin="6,6">
+							<Grid Margin="0,6">
 								<Grid.ColumnDefinitions>
 									<ColumnDefinition Width="*"/>
 									<ColumnDefinition Width="Auto"/>
@@ -86,20 +83,73 @@
 			</Grid>
 		</controls:PivotItem>
 		<controls:PivotItem Header="各区热点">
-			<Grid />
+			<Grid>
+				<toolkit:LongListSelector Name="HotList"
+										  DisplayAllGroups="False"
+										  toolkit:TiltEffect.IsTiltEnabled="True"
+										  Loaded="HotList_Loaded"
+										  SelectionChanged="HotList_SelectionChanged">
+
+					<toolkit:LongListSelector.GroupItemTemplate>
+						<DataTemplate>
+							<Border Background="{StaticResource PhoneAccentBrush}"
+									Width="432" Height="62"
+									Margin="6" Padding="12,0,0,6">
+								<TextBlock Text="{Binding GroupName}"
+										   Style="{StaticResource PhoneTextLargeStyle}"
+										   HorizontalAlignment="Left" VerticalAlignment="Center"
+										   />
+							</Border>
+						</DataTemplate>
+					</toolkit:LongListSelector.GroupItemTemplate>
+
+					<toolkit:LongListSelector.GroupHeaderTemplate>
+						<DataTemplate>
+							<Border Background="{StaticResource PhoneAccentBrush}"
+									Width="432" Height="62"
+									Margin="12,28,0,24" Padding="12,0,0,6"
+									HorizontalAlignment="Left">
+								<TextBlock Text="{Binding GroupName}" 
+										   FontSize="{StaticResource PhoneFontSizeExtraLarge}"
+										   HorizontalAlignment="Left"
+										   VerticalAlignment="Bottom"/>
+							</Border>
+						</DataTemplate>
+					</toolkit:LongListSelector.GroupHeaderTemplate>
+
+					<toolkit:LongListSelector.ItemTemplate>
+						<DataTemplate>
+							<Grid Margin="12,6">
+								<Grid.ColumnDefinitions>
+									<ColumnDefinition Width="*"/>
+									<ColumnDefinition Width="Auto"/>
+								</Grid.ColumnDefinitions>
+								<TextBlock Text="{Binding Title}"
+										   TextWrapping="NoWrap"
+										   FontSize="{StaticResource PhoneFontSizeMediumLarge}"/>
+								<TextBlock Grid.Column="1"
+										   Text="{Binding Board}"
+										   Style="{StaticResource PhoneTextSmallStyle}"
+										   VerticalAlignment="Center"
+										   HorizontalAlignment="Right"/>
+							</Grid>
+						</DataTemplate>
+					</toolkit:LongListSelector.ItemTemplate>
+
+				</toolkit:LongListSelector>
+			</Grid>
 		</controls:PivotItem>
 		<controls:PivotItem Header="全站十大">
 			<toolkit:LongListSelector x:Name="TopTenList"
+									  IsFlatList="True"
+									  toolkit:TiltEffect.IsTiltEnabled="True"
 									  Loaded="TopTenList_Loaded"
-									  IsFlatList="True" 
-									  SelectionChanged="TopTenList_SelectionChanged"
-									  toolkit:TiltEffect.IsTiltEnabled="True">
+									  SelectionChanged="TopTenList_SelectionChanged">
 				<toolkit:LongListSelector.ItemTemplate>
 					<DataTemplate>
 						<Border BorderBrush="{StaticResource PhoneAccentBrush}"
 								BorderThickness="3,0,0,0"
-								Margin="3"
-								Padding="6,0">
+								Margin="6" Padding="6,0">
 							<Grid>
 								<Grid.RowDefinitions>
 									<RowDefinition Height="*"/>

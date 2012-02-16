@@ -60,6 +60,12 @@ namespace LilyBBS.API
 			req.FetchTopTenList();
 		}
 
+		public void FetchHotList(BaseHandler callback)
+		{
+			FetchHotListRequest req = new FetchHotListRequest(this, callback);
+			req.FetchHotList();
+		}
+
 		#region FetchBoardList
 		public void FetchBoardList(BaseHandler callback)
 		{

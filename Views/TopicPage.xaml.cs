@@ -54,7 +54,7 @@ namespace LilyBBS
 			board = NavigationContext.QueryString["Board"];
 			pid = int.Parse(NavigationContext.QueryString["Pid"]);
 			title = NavigationContext.QueryString["Title"];
-			author = NavigationContext.QueryString["Author"];
+			NavigationContext.QueryString.TryGetValue("Author", out author);
 			BoardTextBlock.Text = board;
 			TitleTextBlock.Text = title;
 

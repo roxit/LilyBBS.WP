@@ -37,32 +37,6 @@
 	</toolkit:TransitionService.NavigationOutTransition>
 
 	<phone:PhoneApplicationPage.Resources>
-		<DataTemplate x:Key="TopicItemTemplate">
-			<Border Grid.Row="0" 
-					Margin="0,2"
-					BorderThickness="0,3,0,0" 
-					BorderBrush="{StaticResource PhoneAccentBrush}">
-					<!-- Border Opacity -->
-				<Grid>
-					<Grid.RowDefinitions>
-						<RowDefinition Height="Auto"/>
-						<RowDefinition Height="Auto"/>
-						<RowDefinition Height="*"/>
-					</Grid.RowDefinitions>
-					<Grid Grid.Row="1">
-						<Grid.ColumnDefinitions>
-							<ColumnDefinition Width="*"/>
-							<ColumnDefinition Width="Auto"/>
-						</Grid.ColumnDefinitions>
-						<TextBlock Grid.Column="1"
-								   Text="{Binding Author}"
-								   Style="{StaticResource PostAuthorStyle}" />
-					</Grid>
-					<TextBlock Grid.Row="2" Text="{Binding Body}" 
-							   Style="{StaticResource PostBodyStyle}"/>
-				</Grid>
-			</Border>
-		</DataTemplate>
 	</phone:PhoneApplicationPage.Resources>
 
 	<Grid x:Name="LayoutRoot" Background="Transparent">
@@ -92,11 +66,10 @@
 									  SelectionChanged="PostList_SelectionChanged">
 				<toolkit:LongListSelector.ItemTemplate>
 					<DataTemplate>
-						<Border BorderBrush="{StaticResource PhoneAccentBrush}"
-								BorderThickness="0,3,0,0"
-								Margin="3"
-								Padding="6,0"
-								Opacity="0.5">
+						<Border BorderThickness="0,1,0,0"
+								BorderBrush="{StaticResource PhoneSubtleBrush}"
+								Margin="12,6"
+								Padding="0,0">
 							<Grid>
 								<Grid.RowDefinitions>
 									<RowDefinition Height="Auto"/>
@@ -105,14 +78,13 @@
 								<TextBlock Text="{Binding Author}"
 										   Style="{StaticResource PhoneTextAccentStyle}"
 										   FontSize="{StaticResource PhoneFontSizeMediumLarge}"
-										   Margin="0,0,0,3"/>
+										   Margin="0,0,0,6"/>
 								<TextBlock Grid.Row="1"
 										   Text="{Binding Body}"
 										   Margin="0,6"
 										   TextWrapping="Wrap"
 										   Style="{StaticResource PhoneTextNormalStyle}"
-										   FontSize="{StaticResource PhoneFontSizeMedium}"
-										   />
+										   FontSize="{StaticResource PhoneFontSizeMedium}"/>
 							</Grid>
 						</Border>
 					</DataTemplate>

@@ -68,8 +68,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="API\BoardManager.cs" />
+    <Compile Include="API\HeaderGroup.cs" />
     <Compile Include="API\FetchBoardListRequest.cs" />
     <Compile Include="API\Requests\BaseRequest.cs" />
+    <Compile Include="API\Requests\FetchHotListRequest.cs" />
     <Compile Include="API\Requests\IsLoggedInRequest.cs" />
     <Compile Include="API\Requests\FetchPageRequest.cs" />
     <Compile Include="API\Requests\FetchPostRequest.cs" />

@@ -45,5 +45,11 @@ namespace LilyBBS.API
 		{
 			return Instance.boards[name].Text;
 		}
+
+		public static string GetSectionName(int idx)
+		{
+			// TODO: make sure idx == Instance[idx].Sid
+			return Instance[idx].Name;
+		}
 	}
 }
