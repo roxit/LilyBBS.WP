@@ -40,7 +40,7 @@ namespace LilyBBS
 				IsolatedStorageSettings.ApplicationSettings[NotFirstRunKey] = value;
 			}
 		}
-
+		// TODO invalidate connection.cookie
 		public string Username
 		{
 			get

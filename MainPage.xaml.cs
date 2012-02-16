@@ -57,7 +57,7 @@ namespace LilyBBS
 		{
 			if (BoardListSelector.SelectedItem == null) return;		// clicking group header triggers this event too..
 			Board brd = BoardListSelector.SelectedItem as Board;
-			NavigationService.Navigate(new Uri(string.Format("/Views/BoardPage.xaml?Board={0}", brd.Name), UriKind.Relative));
+			NavigationService.Navigate(new Uri(string.Format("/Views/BoardPage.xaml?board={0}", brd.Name), UriKind.Relative));
 		}
 		#endregion
 
@@ -90,7 +90,7 @@ namespace LilyBBS
 			Header hdr = (HotList.SelectedItem as Header);
 			if (hdr == null) return;
 			NavigationService.Navigate(new Uri(
-					string.Format("/Views/TopicPage.xaml?Board={0}&Pid={1}&Title={2}",
+					string.Format("/Views/TopicPage.xaml?board={0}&Pid={1}&Title={2}",
 							hdr.Board, hdr.Pid, hdr.Title),
 					UriKind.Relative));
 		}
@@ -126,7 +126,7 @@ namespace LilyBBS
 			Header hdr = (TopTenList.SelectedItem as Header);
 			if (hdr == null) return;
 			NavigationService.Navigate(new Uri(
-					string.Format("/Views/TopicPage.xaml?Board={0}&Pid={1}&Author={2}&Title={3}",
+					string.Format("/Views/TopicPage.xaml?board={0}&Pid={1}&Author={2}&Title={3}",
 							hdr.Board, hdr.Pid, hdr.Author, hdr.Title),
 					UriKind.Relative));
 			// TODO

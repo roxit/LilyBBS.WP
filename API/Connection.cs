@@ -14,8 +14,15 @@ namespace LilyBBS.API
 
 		public Connection()
 		{
-			//IsLoggedIn = false;
 			BaseUrl = BbsUrl;
+		}
+
+		public bool HasSession
+		{
+			get
+			{
+				return Cookie != null;
+			}
 		}
 
 		public void Login(BaseHandler callback, string username, string password)
@@ -48,7 +55,7 @@ namespace LilyBBS.API
 			req.FetchTopic(board, pid, start);
 		}
 
-		public void FetchPage(BaseHandler callback, string board, int start=-1)
+		public void FetchPage(BaseHandler callback, string board, int? start=null)
 		{
 			FetchPageRequest req = new FetchPageRequest(this, callback);
 			req.FetchPage(board, start);

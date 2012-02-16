@@ -20,6 +20,7 @@
 	
 	<controls:Pivot Name="Pivot" Title="{StaticResource ApplicationTitle}" 
 					LoadingPivotItem="Pivot_LoadingPivotItem">
+		<!--
 		<controls:PivotItem Header="Hello">
 			<Grid>
 				<Button Name="HelloButton" Content="信春哥，无bug！"
@@ -27,7 +28,7 @@
 						Height="88"
 						Click="HelloButton_Click"/>
 			</Grid>
-		</controls:PivotItem>
+		</controls:PivotItem>-->
 		<controls:PivotItem Header="讨论区">
 			<Grid>
 				<toolkit:LongListSelector Name="BoardListSelector"

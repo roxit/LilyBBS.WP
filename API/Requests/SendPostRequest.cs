@@ -32,10 +32,8 @@ namespace LilyBBS.API
 
 		private void SendPostCompleted(object sender, BaseEventArgs e)
 		{
-			if (callback != null)
-			{
-				callback(this, new BaseEventArgs(e.Result, e.Error));
-			}
+			if (callback == null) return;
+			callback(this, new BaseEventArgs(e.Result, e.Error));
 		}
 	}
 }

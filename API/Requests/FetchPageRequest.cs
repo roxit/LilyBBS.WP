@@ -12,22 +12,22 @@ namespace LilyBBS.API
 		private static readonly Regex COUNT_RE = new Regex("<font color=\"(black|red)\">(\\d+)</font>/<font color=\"(black|red)\">(\\d+)</font>");
 		private static readonly Regex PREV_START_RE = new Regex(@"bbstdoc\?board=(\w+)\&start=(\d+)>上一页");
 
-		private string Board;
-		private int Start;
+		private string board;
+		private int? start;
 
 		public FetchPageRequest(Connection connection, BaseHandler callback)
 			: base(connection, callback)
 		{
 		}
 
-		public void FetchPage(string board, int start)
+		public void FetchPage(string board, int? start=null)
 		{
-			this.Board = board;
-			this.Start = start;
+			this.board = board;
+			this.start = start;
 			ParameterList qry = new ParameterList();
 			qry.Add("board", board);
-			if (start != -1)
-				qry.Add("start", start.ToString());
+			if (start != null)
+				qry.Add("start", start.Value.ToString());
 			DoAction(this.FetchPageCompleted, "bbstdoc", qry);
 		}
 
@@ -37,8 +37,9 @@ namespace LilyBBS.API
 			doc.LoadHtml(e.Result as string);
 			string txt = doc.DocumentNode.SelectSingleNode("//table").InnerHtml;
 
-			Page page = new Page(Board);
+			Page page = new Page(board);
 			var r = PREV_START_RE.Match(e.Result as string);
+			// TODO check PrevStart
 			page.PrevStart = int.Parse(PREV_START_RE.Match(e.Result as string).Groups[2].ToString())-1;
 
 			List<Header> headerList = new List<Header>();

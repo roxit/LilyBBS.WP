@@ -42,7 +42,7 @@ namespace LilyBBS.API
 
 		protected void client_UploadStringCompleted(object sender, UploadStringCompletedEventArgs e)
 		{
-			// TODO: see client.CancelAsync docs
+			// TODO see client.CancelAsync docs
 			//if (e.Cancelled) return;
 			if (innerCallback != null)
 			{

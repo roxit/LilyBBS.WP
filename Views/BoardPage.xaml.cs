@@ -19,8 +19,8 @@ namespace LilyBBS
 {
 	public partial class BoardPage : PhoneApplicationPage
 	{
-		private string board = "";
-		private int prevStart = -1;
+		private string board;
+		private int? prevStart;
 		private ObservableCollection<Header> itemsSource;
 
 		public BoardPage()
@@ -32,7 +32,7 @@ namespace LilyBBS
 			HeaderList.ItemsSource = itemsSource;
 		}
 
-		private void LoadMore(string board, int start=-1)
+		private void LoadMore(string board, int? start=null)
 		{
 			var app = (Application.Current as App);
 			app.Indicator.IsVisible = true;
@@ -66,20 +66,33 @@ namespace LilyBBS
 
 		private void HeaderList_Loaded(object sender, RoutedEventArgs e)
 		{
-			board = this.NavigationContext.QueryString["Board"];
+			board = this.NavigationContext.QueryString["board"];
 			PageTitle.Text = BoardManager.GetBoardText(board);
 			PageSubtitle.Text = board;
 			LoadMore(board);
 		}
 
-
 		private void HeaderList_SelectionChanged(object sender, SelectionChangedEventArgs e)
 		{
 			Header hdr = HeaderList.SelectedItem as Header;
 			NavigationService.Navigate(new Uri(
-					string.Format("/Views/TopicPage.xaml?Board={0}&Pid={1}&Author={2}&Title={3}",
+					string.Format("/Views/TopicPage.xaml?board={0}&Pid={1}&Author={2}&Title={3}",
 							hdr.Board, hdr.Pid, hdr.Author, hdr.Title),
 					UriKind.Relative));
+		}
+
+		private void SendPostButton_Click(object sender, EventArgs e)
+		{
+			NavigationService.Navigate(new Uri(
+					string.Format("/Views/SendPostPage.xaml?board={0}", board),
+					UriKind.Relative));
+		}
+
+		private void RefreshButton_Click(object sender, EventArgs e)
+		{
+			itemsSource.Clear();
+			prevStart = null;
+			LoadMore(board);
 		}
 
 	}

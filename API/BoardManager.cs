@@ -48,7 +48,7 @@ namespace LilyBBS.API
 
 		public static string GetSectionName(int idx)
 		{
-			// TODO: make sure idx == Instance[idx].Sid
+			// TODO make sure idx == Instance[idx].Sid
 			return Instance[idx].Name;
 		}
 	}

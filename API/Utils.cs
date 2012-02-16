@@ -36,9 +36,9 @@ namespace LilyBBS.API
 		public List<KeyValuePair<string, string>> Items { get; private set; }
 		private static readonly List<char> ENC_CHARS = new List<char>()
 		{
-			' ', '%', '{', '}', '|', '\\', '^', '~',
+			'%', '{', '}', '|', '\\', '^', '~',
 			'[', ']', '`', ';', '/', '?', ':', '@', '=', '&', '$'//,
-			//'#', '<', '>',
+			//'#', '<', '>', ' ',
 		};
 
 		public ParameterList()

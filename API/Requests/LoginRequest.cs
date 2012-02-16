@@ -4,13 +4,6 @@ using System.Text.RegularExpressions;
 
 namespace LilyBBS.API
 {
-	/*
-	public class LoginCompletedEventArgs : BaseEventArgs
-	{
-	}
-
-	public delegate void LoginCompletedHandler(object sender, LoginCompletedEventArgs e);
-	*/
 	public class LoginRequest : BaseRequest
 	{
 		public LoginRequest(Connection connection, BaseHandler callback)
@@ -32,12 +25,14 @@ namespace LilyBBS.API
 
 		private void LoginCompleted(object sender, BaseEventArgs e)
 		{
+			if (callback == null) return;
 			Regex re = new Regex(@"setCookie\('(.*)'\)");
 			string s = re.Match(e.Result as string).Groups[1].ToString();
 			if (s == "")
 			{
-				// TODO
-				throw new LilyError();
+				connection.Cookie = null;
+				callback(this, new BaseEventArgs(false));
+				return;
 			}
 			StringBuilder sb = new StringBuilder();
 			string[] ss = s.Split(new char[] { '+' });
@@ -47,11 +42,7 @@ namespace LilyBBS.API
 			sb.AppendFormat("_U_NUM={0}", int.Parse(ss[0]) + 2);
 			String cookie = sb.ToString();
 			connection.Cookie = cookie;
-			//connection.IsLoggedIn = true;
-			if (callback != null)
-			{
-				callback(this, new BaseEventArgs(cookie, e.Error));
-			}
+			callback(this, new BaseEventArgs(true));
 		}
 	}
 }

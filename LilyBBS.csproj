@@ -141,7 +141,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Images\comment.png" />
-    <Resource Include="Images\edit.png" />
+    <Content Include="Images\edit.png" />
     <Content Include="Images\send.png" />
     <Content Include="Images\ApplicationIcon.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

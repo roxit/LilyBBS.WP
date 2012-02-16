@@ -26,7 +26,7 @@ namespace LilyBBS.API
 			doc.LoadHtml(e.Result as string);
 			List<Header> headerList = new List<Header>();
 			var items = doc.DocumentNode.SelectNodes("//tr");
-			// TODO: I'll try LINQ later
+			// TODO I'll try LINQ later
 			bool flag = true;
 			foreach (var i in items)
 			{
