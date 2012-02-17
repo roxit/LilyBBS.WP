@@ -82,5 +82,13 @@ namespace LilyBBS
 					UriKind.Relative));
 		}
 
+		private void RefreshButton_Click(object sender, EventArgs e)
+		{
+			itemsSource.Clear();
+			nextStart = null;
+			LoadMore(board, pid, nextStart);
+
+		}
+
 	}
 }

@@ -58,26 +58,22 @@
 								   HorizontalAlignment="Center"
 								   Style="{StaticResource PhoneTextTitle2Style}"
 								   Margin="{StaticResource PhoneTouchTargetLargeOverhang}" />
-						<TextBlock Text="版本 1.0"
+						<TextBlock Text="版本 1.0b"
 								   HorizontalAlignment="Center"
-								   Style="{StaticResource PhoneTextSubtleStyle}"/>
+								   Style="{StaticResource PhoneTextSubtleStyle}"
+								   Margin="{StaticResource PhoneTouchTargetOverhang}"/>
+						<HyperlinkButton Content="© rox"
+										 Margin="0,24,0,0"
+										 NavigateUri="http://bbs.nju.edu.cn/bbsqry?userid=rox"
+										 TargetName="_blank"/>
+						<HyperlinkButton Content="@roxonx"
+										 Margin="0,12,0,0" 
+										 NavigateUri="http://weibo.cn/srox"
+										 TargetName="_blank"/>
 					</StackPanel>
-					
 				</Grid>
 			</controls:PivotItem>
         </controls:Pivot>
     </Grid>
-
-    <!--Sample code showing usage of ApplicationBar-->
-    <!--<phone:PhoneApplicationPage.ApplicationBar>
-        <shell:ApplicationBar IsVisible="True" IsMenuEnabled="True">
-            <shell:ApplicationBarIconButton x:Name="appbar_button1" IconUri="/Images/appbar_button1.png" Text="Button 1"/>
-            <shell:ApplicationBarIconButton x:Name="appbar_button2" IconUri="/Images/appbar_button2.png" Text="Button 2"/>
-            <shell:ApplicationBar.MenuItems>
-                <shell:ApplicationBarMenuItem x:Name="menuItem1" Text="MenuItem 1"/>
-                <shell:ApplicationBarMenuItem x:Name="menuItem2" Text="MenuItem 2"/>
-            </shell:ApplicationBar.MenuItems>
-        </shell:ApplicationBar>
-    </phone:PhoneApplicationPage.ApplicationBar>-->
     
 </phone:PhoneApplicationPage>

@@ -104,11 +104,10 @@
 											IconUri="/Images/comment.png"
 											Text="回复"
 											Click="ReplyButton_Click"/>
-			<!--
-            <shell:ApplicationBar.MenuItems>
-                <shell:ApplicationBarMenuItem Text="MenuItem 1"/>
-                <shell:ApplicationBarMenuItem Text="MenuItem 2"/>
-            </shell:ApplicationBar.MenuItems>-->
+			<shell:ApplicationBarIconButton x:Name="RefreshButton"
+											IconUri="/Images/refresh.png" 
+											Text="刷新"
+											Click="RefreshButton_Click"/>
         </shell:ApplicationBar>
     </phone:PhoneApplicationPage.ApplicationBar>
 

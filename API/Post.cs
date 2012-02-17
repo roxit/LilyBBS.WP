@@ -66,6 +66,10 @@ namespace LilyBBS.API
 				 */
 				int begIdx = txt.IndexOf("\n", timeMatch.Index);
 				int endIdx = txt.LastIndexOf("--\n");
+				if (endIdx == -1)
+				{
+					endIdx = txt.Length - 1;
+				}
 				Body = txt.Substring(begIdx, endIdx-begIdx).Trim();
 //			} catch (Exception e)
 			{
