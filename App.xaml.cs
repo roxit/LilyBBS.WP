@@ -63,10 +63,10 @@ namespace LilyBBS
 				IsIndeterminate = true,
 			};
 			Settings settings = Application.Current.Resources["AppSettings"] as Settings;
-			if (!settings.NotFirstRun)
+			if (settings.IsFirstRun)
 			{
 				settings.Signature = string.Format("-_-||\nSent from my Windows Phone {0} {1}", DeviceStatus.DeviceManufacturer, DeviceStatus.DeviceName);
-				settings.NotFirstRun = true;
+				settings.IsFirstRun = false;
 				settings.Username = "";
 				settings.Password = "";
 			}

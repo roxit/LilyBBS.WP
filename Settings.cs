@@ -17,7 +17,7 @@ namespace LilyBBS
 		private const string UsernameKey = "Username";
 		private const string PasswordKey = "Password";
 		private const string SignatureKey = "Signature";
-		private const string NotFirstRunKey = "NotFirstRun";
+		private const string IsFirstRunKey = "IsFirstRun";
 
 		private T RetrieveSetting<T>(string key)
 		{
@@ -29,15 +29,19 @@ namespace LilyBBS
 			return default(T);
 		}
 
-		public bool NotFirstRun
+		public bool IsFirstRun
 		{
 			get
 			{
-				return RetrieveSetting<bool>(NotFirstRunKey);
+				object ret;
+				if (IsolatedStorageSettings.ApplicationSettings.TryGetValue(IsFirstRunKey, out ret))
+					return (bool)ret;
+				else
+					return true;
 			}
 			set
 			{
-				IsolatedStorageSettings.ApplicationSettings[NotFirstRunKey] = value;
+				IsolatedStorageSettings.ApplicationSettings[IsFirstRunKey] = value;
 			}
 		}
 		// TODO invalidate connection.cookie
@@ -50,6 +54,8 @@ namespace LilyBBS
 			set
 			{
 				IsolatedStorageSettings.ApplicationSettings[UsernameKey] = value;
+				var app = Application.Current as App;
+				app.LilyApi.Reset();
 			}
 		}
 
@@ -62,6 +68,8 @@ namespace LilyBBS
 			set
 			{
 				IsolatedStorageSettings.ApplicationSettings[PasswordKey] = value;
+				var app = Application.Current as App;
+				app.LilyApi.Reset();
 			}
 		}
 

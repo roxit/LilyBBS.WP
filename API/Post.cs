@@ -7,6 +7,8 @@ namespace LilyBBS.API
 		public string Author { get; set; }
 		public string Board { get; set; }
 		public string Body { get; set; }
+		// `Gid` will be send as 'pid' when replying a post
+		public int Gid { get; set; }
 		// public string Ip { get; set; }
 		public int Num { get; set; }
 		public int Pid { get; set; }

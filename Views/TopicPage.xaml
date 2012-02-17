@@ -62,8 +62,7 @@
         <Grid x:Name="ContentPanel" Grid.Row="1" Margin="12,0,12,0">
 			<toolkit:LongListSelector x:Name="PostList"
 									  IsFlatList="True"
-									  Loaded="PostList_Loaded"
-									  SelectionChanged="PostList_SelectionChanged">
+									  Loaded="PostList_Loaded">
 				<toolkit:LongListSelector.ItemTemplate>
 					<DataTemplate>
 						<Border BorderThickness="0,1,0,0"
@@ -101,7 +100,10 @@
  
 	<phone:PhoneApplicationPage.ApplicationBar>
         <shell:ApplicationBar IsVisible="True" IsMenuEnabled="True">
-			<shell:ApplicationBarIconButton IconUri="/Images/comment.png" Text="回复"/>
+			<shell:ApplicationBarIconButton x:Name="ReplyButton"
+											IconUri="/Images/comment.png"
+											Text="回复"
+											Click="ReplyButton_Click"/>
 			<!--
             <shell:ApplicationBar.MenuItems>
                 <shell:ApplicationBarMenuItem Text="MenuItem 1"/>

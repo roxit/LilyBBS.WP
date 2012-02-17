@@ -14,7 +14,7 @@ namespace LilyBBS.API
 
 		public Connection()
 		{
-			BaseUrl = BbsUrl;
+			Reset();
 		}
 
 		public bool HasSession
@@ -23,6 +23,12 @@ namespace LilyBBS.API
 			{
 				return Cookie != null;
 			}
+		}
+
+		public void Reset()
+		{
+			BaseUrl = BbsUrl;
+			Cookie = null;
 		}
 
 		public void Login(BaseHandler callback, string username, string password)
@@ -37,16 +43,16 @@ namespace LilyBBS.API
 			req.ValidateLogin();
 		}
 
-		public void SendPost(BaseHandler callback, string brd, string title, string text, string autocr="on", int signature=1)
+		public void SendPost(BaseHandler callback, string brd, string title, string text, int? pid=null, int? gid=null, int signature=1, string autocr="on")
 		{
 			SendPostRequest req = new SendPostRequest(this, callback);
-			req.SendPost(brd, title, text);
+			req.SendPost(brd, title, text, pid, gid);
 		}
 
-		public void FetchPost(BaseHandler callback, int pid, string board, int num)
+		public void FetchPost(BaseHandler callback, string board, int pid, int num)
 		{
 			FetchPostRequest req = new FetchPostRequest(this, callback);
-			req.FetchPost(pid, board, num);
+			req.FetchPost(board, pid, num);
 		}
 
 		public void FetchTopic(BaseHandler callback, string board, int pid, int? start=null)

@@ -39,8 +39,8 @@ namespace LilyBBS
 		{
 			
 //			(Application.Current as App).LilyApi.Login(LoginCompleted, "obash", "s3creed");
-			NavigationService.Navigate(new Uri("/Views/SendPostPage.xaml", UriKind.Relative));
-//			(Application.Current as App).LilyApi.FetchPost(FetchPostCompleted, 1323076821, "Python", 1240);
+//			NavigationService.Navigate(new Uri("/Views/SendPostPage.xaml", UriKind.Relative));
+			(Application.Current as App).LilyApi.FetchPost(HelloButtonCompleted, "Python", 1323076821, 1240);
 //			(Application.Current as App).LilyApi.FetchTopic(HelloButtonCompleted, "D_Computer", 1329204278, 60);
 //			(Application.Current as App).LilyApi.FetchPage(FetchPageCompleted, "NJUExpress");
 //			(Application.Current as App).LilyApi.FetchBoardList(FetchBoardListCompleted);
@@ -49,14 +49,21 @@ namespace LilyBBS
 
 		private void HelloButtonCompleted(object sender, BaseEventArgs e)
 		{
-			
+			object ret = e.Result;
+			string s = ret.ToString();
 		}
 
 		#region Board
+
+		private void BoardListSelector_Loaded(object sender, RoutedEventArgs e)
+		{
+			BoardListSelector.SelectedItem = null;
+		}
+
 		private void BoardListSelector_SelectionChanged(object sender, SelectionChangedEventArgs e)
 		{
-			if (BoardListSelector.SelectedItem == null) return;		// clicking group header triggers this event too..
 			Board brd = BoardListSelector.SelectedItem as Board;
+			if (brd == null) return;		// clicking group header triggers this event too..
 			NavigationService.Navigate(new Uri(string.Format("/Views/BoardPage.xaml?board={0}", brd.Name), UriKind.Relative));
 		}
 		#endregion
@@ -81,6 +88,7 @@ namespace LilyBBS
 
 		private void HotList_Loaded(object sender, RoutedEventArgs e)
 		{
+			HotList.SelectedItem = null;
 			if (isHotListLoaded) return;
 			FetchHotList();
 		}
@@ -117,6 +125,7 @@ namespace LilyBBS
 
 		private void TopTenList_Loaded(object sender, RoutedEventArgs e)
 		{
+			TopTenList.SelectedItem = null;
 			if (isTopTenListLoaded) return;
 			FetchTopTenList();
 		}

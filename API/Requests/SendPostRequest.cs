@@ -18,15 +18,20 @@ namespace LilyBBS.API
 		{
 		}
 
-		public void SendPost(string brd, string title, string text, string autocr = "on", int signature = 1)
+		public void SendPost(string brd, string title, string text, int? pid=null, int? gid=null, int signature=0, string autocr="on")
 		{
 			ParameterList qry = new ParameterList();
 			qry.Add("board", brd);
 			ParameterList data = new ParameterList();
 			data.Add("title", title);
 			data.Add("text", text);
-			data.Add("autocr", autocr);
+			if (pid != null)		// replying a post
+			{
+				data.Add("reid", pid.ToString());
+				data.Add("pid", gid.ToString());
+			}
 			data.Add("signature", signature.ToString());
+			data.Add("autocr", autocr);
 			DoAction(SendPostCompleted, "bbssnd", qry, data);
 		}
 

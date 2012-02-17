@@ -36,7 +36,8 @@ namespace LilyBBS.API
 		public List<KeyValuePair<string, string>> Items { get; private set; }
 		private static readonly List<char> ENC_CHARS = new List<char>()
 		{
-			'%', '{', '}', '|', '\\', '^', '~',
+			// put % first
+			'%', '+', '{', '}', '|', '\\', '^', '~',
 			'[', ']', '`', ';', '/', '?', ':', '@', '=', '&', '$'//,
 			//'#', '<', '>', ' ',
 		};
@@ -55,6 +56,7 @@ namespace LilyBBS.API
 		{
 			foreach (char c in ENC_CHARS)
 				s = s.Replace(c.ToString(), string.Format("%{0}", Convert.ToString(c, 16)));
+			s = s.Replace(" ", "+");
 			return s;
 		}
 

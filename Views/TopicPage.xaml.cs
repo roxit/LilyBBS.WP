@@ -3,6 +3,7 @@ using LilyBBS.API;
 using Microsoft.Phone.Controls;
 using Microsoft.Phone.Shell;
 using System.Collections.ObjectModel;
+using System;
 
 namespace LilyBBS
 {
@@ -38,12 +39,6 @@ namespace LilyBBS
 			app.LilyApi.FetchTopic(FetchTopicCompleted, board, pid, start);
 		}
 
-		private void LoadMoreButton_Click(object sender, RoutedEventArgs e)
-		{
-			if (nextStart == null) return;
-			LoadMore(board, pid, nextStart);
-		}
-
 		private void FetchTopicCompleted(object sender, BaseEventArgs e)
 		{
 			var app = Application.Current as App;
@@ -57,6 +52,8 @@ namespace LilyBBS
 
 		private void PostList_Loaded(object sender, RoutedEventArgs e)
 		{
+			PostList.SelectedItem = null;
+			if (itemsSource.Count != 0) return;
 			board = NavigationContext.QueryString["board"];
 			pid = int.Parse(NavigationContext.QueryString["Pid"]);
 			title = NavigationContext.QueryString["Title"];
@@ -67,9 +64,22 @@ namespace LilyBBS
 			LoadMore(board, pid);
 		}
 
-		private void PostList_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
+		private void LoadMoreButton_Click(object sender, RoutedEventArgs e)
 		{
+			if (nextStart == null)
+			{
+				MessageBox.Show("再也没有了");
+				return;
+			}
+			LoadMore(board, pid, nextStart);
+		}
 
+		private void ReplyButton_Click(object sender, EventArgs e)
+		{
+			NavigationService.Navigate(new Uri(
+					string.Format("/Views/SendPostPage.xaml?Board={0}&Title={1}&Pid={2}&Num={3}",
+							board, "Re: "+itemsSource[0].Title, pid, itemsSource[0].Num),
+					UriKind.Relative));
 		}
 
 	}

@@ -98,10 +98,10 @@
  
     <phone:PhoneApplicationPage.ApplicationBar>
         <shell:ApplicationBar IsVisible="True" IsMenuEnabled="False">
-            <shell:ApplicationBarIconButton x:Name="SendPostButton" 
+            <shell:ApplicationBarIconButton x:Name="ComposeButton" 
 											IconUri="/Images/edit.png"
 											Text="发帖"
-											Click="SendPostButton_Click"/>
+											Click="ComposeButton_Click"/>
             <shell:ApplicationBarIconButton x:Name="RefreshButton"
 											IconUri="/Images/refresh.png" 
 											Text="刷新"

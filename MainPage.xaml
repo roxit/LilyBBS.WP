@@ -17,7 +17,7 @@
 
 	<phone:PhoneApplicationPage.Resources>
 	</phone:PhoneApplicationPage.Resources>
-	
+
 	<controls:Pivot Name="Pivot" Title="{StaticResource ApplicationTitle}" 
 					LoadingPivotItem="Pivot_LoadingPivotItem">
 		<!--
@@ -33,7 +33,7 @@
 			<Grid>
 				<toolkit:LongListSelector Name="BoardListSelector"
 										  SelectionChanged="BoardListSelector_SelectionChanged"
-										  toolkit:TiltEffect.IsTiltEnabled="True">
+										  toolkit:TiltEffect.IsTiltEnabled="True" Loaded="BoardListSelector_Loaded">
 
 					<toolkit:LongListSelector.GroupItemTemplate>
 						<DataTemplate>
@@ -184,7 +184,7 @@
 	</controls:Pivot>
 
 	<phone:PhoneApplicationPage.ApplicationBar>
-		<shell:ApplicationBar IsVisible="True" IsMenuEnabled="True" Mode="Default">
+		<shell:ApplicationBar IsVisible="True" IsMenuEnabled="True" Mode="Minimized">
 			<shell:ApplicationBar.MenuItems>
 				<shell:ApplicationBarMenuItem x:Name="SettingsButton" 
 											  Text="设置"

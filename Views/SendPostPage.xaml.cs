@@ -12,6 +12,10 @@ namespace LilyBBS
 		Settings settings;
 		ProgressIndicator indicator;
 		private string board;
+		private int? pid;
+		private int? num;
+		private int? gid;
+		private string title;
 
 		public SendPostPage()
 		{
@@ -24,7 +28,24 @@ namespace LilyBBS
 
 		private void PhoneApplicationPage_Loaded(object sender, RoutedEventArgs e)
 		{
-			board = NavigationContext.QueryString["board"];
+			board = NavigationContext.QueryString["Board"];
+			if (NavigationContext.QueryString.TryGetValue("Title", out title))
+			{
+				TitleTextBox.Text = title;
+				TitleTextBox.IsReadOnly = true;
+				pid = int.Parse(NavigationContext.QueryString["Pid"]);
+				num = int.Parse(NavigationContext.QueryString["Num"]);
+				indicator.IsVisible = true;
+				FetchPostRequest req = new FetchPostRequest(conn, FetchGidCompleted);
+				req.FetchPost(board, pid.Value, num.Value);
+			}
+		}
+
+		private void FetchGidCompleted(object sender, BaseEventArgs e)
+		{
+			indicator.IsVisible = false;
+			Post p = e.Result as Post;
+			gid = p.Gid;
 		}
 
 		private void SettingsButton_Click(object sender, EventArgs e)
@@ -77,7 +98,11 @@ namespace LilyBBS
 			if (successful.Value)
 				SendPost();
 			else
+			{
 				MessageBox.Show("登录失败");
+				indicator.Text = "";
+				indicator.IsVisible = false;
+			}
 		}
 
 		private void SendPost()
@@ -86,11 +111,15 @@ namespace LilyBBS
 			conn.SendPost(SendPostCompleted,
 					board,
 					TitleTextBox.Text,
-					string.Format("{0}\n\n{1}", BodyTextBox.Text, settings.Signature));
+					string.Format("{0}\n\n{1}", BodyTextBox.Text, settings.Signature),
+					pid,
+					gid);
 		}
 
 		private void SendPostCompleted(object sender, BaseEventArgs e)
 		{
+			indicator.IsVisible = false;
+			indicator.Text = "";
 			MessageBox.Show("请手动刷新检查是否发送成功-_-||");
 			NavigationService.GoBack();
 		}

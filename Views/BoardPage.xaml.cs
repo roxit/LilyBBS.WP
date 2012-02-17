@@ -44,11 +44,6 @@ namespace LilyBBS
 			app.LilyApi.FetchPage(FetchPageCompleted, board, start);
 		}
 		
-		private void LoadMoreButton_Click(object sender, RoutedEventArgs e)
-		{
-			LoadMore(board, prevStart);
-		}
-
 		private void FetchPageCompleted(object sender, BaseEventArgs e)
 		{
 			var app = (Application.Current as App);
@@ -66,27 +61,34 @@ namespace LilyBBS
 
 		private void HeaderList_Loaded(object sender, RoutedEventArgs e)
 		{
+			// Otherwise when user click this item again, it won't fire SelectionChanged event
+			// Navigation happens after this method exists, so build the uri before changing `hdr` to `null`
+			HeaderList.SelectedItem = null;
+			if (itemsSource.Count != 0) return;
 			board = this.NavigationContext.QueryString["board"];
 			PageTitle.Text = BoardManager.GetBoardText(board);
 			PageSubtitle.Text = board;
 			LoadMore(board);
 		}
 
+		private void LoadMoreButton_Click(object sender, RoutedEventArgs e)
+		{
+			LoadMore(board, prevStart);
+		}
+
 		private void HeaderList_SelectionChanged(object sender, SelectionChangedEventArgs e)
 		{
 			Header hdr = HeaderList.SelectedItem as Header;
+			if (hdr == null) return;
 			string uri = string.Format("/Views/TopicPage.xaml?board={0}&Pid={1}&Author={2}&Title={3}",
 					hdr.Board, hdr.Pid, hdr.Author, hdr.Title);
-			// otherwise when user click this item again, it won't fire this event
-			// Navigation happens after this method exists, so build the uri before changing `hdr` to `null`
-			// TODO HeaderList.SelectedItem = null;
 			NavigationService.Navigate(new Uri(uri, UriKind.Relative));
 		}
 
-		private void SendPostButton_Click(object sender, EventArgs e)
+		private void ComposeButton_Click(object sender, EventArgs e)
 		{
 			NavigationService.Navigate(new Uri(
-					string.Format("/Views/SendPostPage.xaml?board={0}", board),
+					string.Format("/Views/SendPostPage.xaml?Board={0}", board),
 					UriKind.Relative));
 		}
 
@@ -96,6 +98,5 @@ namespace LilyBBS
 			prevStart = null;
 			LoadMore(board);
 		}
-
 	}
 }

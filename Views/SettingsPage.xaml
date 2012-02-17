@@ -52,7 +52,17 @@
 
 			<controls:PivotItem Header="关于">
 				<Grid>
-
+					<StackPanel HorizontalAlignment="Center">
+						<Image Stretch="None" Source="/LilyBBS;component/Images/logo.png" />
+						<TextBlock Text="小百合BBS"
+								   HorizontalAlignment="Center"
+								   Style="{StaticResource PhoneTextTitle2Style}"
+								   Margin="{StaticResource PhoneTouchTargetLargeOverhang}" />
+						<TextBlock Text="版本 1.0"
+								   HorizontalAlignment="Center"
+								   Style="{StaticResource PhoneTextSubtleStyle}"/>
+					</StackPanel>
+					
 				</Grid>
 			</controls:PivotItem>
         </controls:Pivot>
