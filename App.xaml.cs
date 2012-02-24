@@ -4,6 +4,9 @@ using LilyBBS.API;
 using Microsoft.Phone.Controls;
 using Microsoft.Phone.Shell;
 using Microsoft.Phone.Info;
+using System;
+using Coding4Fun.Phone.Controls;
+//using System.Diagnostics;
 
 namespace LilyBBS
 {
@@ -11,6 +14,7 @@ namespace LilyBBS
 	{
 		public Connection LilyApi;
 		public ProgressIndicator Indicator;
+
 		/// <summary>
 		/// Provides easy access to the root frame of the Phone Application.
 		/// </summary>
@@ -56,16 +60,21 @@ namespace LilyBBS
 		// This code will not execute when the application is reactivated
 		private void Application_Launching(object sender, LaunchingEventArgs e)
 		{
+			//Debug.WriteLine("Application_Launching");
 			LilyApi = new Connection();
-			Indicator = new ProgressIndicator()
-			{
-				IsVisible = false,
-				IsIndeterminate = true,
-			};
-			Settings settings = Application.Current.Resources["AppSettings"] as Settings;
+			Indicator = new ProgressIndicator()	{Text = "", IsVisible = false, IsIndeterminate = true};
+			Settings settings = Application.Current.Resources["Settings"] as Settings;
 			if (settings.IsFirstRun)
 			{
-				settings.Signature = string.Format("-_-||\nSent from my Windows Phone {0} {1}", DeviceStatus.DeviceManufacturer, DeviceStatus.DeviceName);
+				try
+				{
+					settings.Signature = string.Format("~~\nSent from my Windows Phone {0} {1}",
+							DeviceStatus.DeviceManufacturer, DeviceStatus.DeviceName);
+				}
+				catch (Exception)
+				{
+					settings.Signature = "~~\nSent from my Windows Phone";
+				}
 				settings.IsFirstRun = false;
 				settings.Username = "";
 				settings.Password = "";

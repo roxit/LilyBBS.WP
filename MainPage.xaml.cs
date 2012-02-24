@@ -13,6 +13,7 @@ using Microsoft.Phone.Controls;
 using LilyBBS.API;
 using Microsoft.Phone.Info;
 using Microsoft.Phone.Shell;
+using Coding4Fun.Phone.Controls;
 
 namespace LilyBBS
 {
@@ -21,20 +22,22 @@ namespace LilyBBS
 		private const string BoardHeader = "讨论区";
 		private const string HotHeader = "各区热点";
 		private const string TopTenHeader = "全站十大";
+
+		private App app;
 		private bool isTopTenListLoaded = false;
 		private bool isHotListLoaded = false;
 
 		private ApplicationBarIconButton RefreshButton;
-		// Constructor
+		
 		public MainPage()
 		{
 			InitializeComponent();
 			InitializeApplicationBar();
-			var app = Application.Current as App;
+			app = Application.Current as App;
 			SystemTray.SetProgressIndicator(this, app.Indicator);
 			BoardListSelector.ItemsSource = BoardManager.Instance;
 		}
-
+/*
 		private void HelloButton_Click(object sender, RoutedEventArgs e)
 		{
 			
@@ -52,7 +55,7 @@ namespace LilyBBS
 			object ret = e.Result;
 			string s = ret.ToString();
 		}
-
+*/
 		#region Board
 
 		private void BoardListSelector_Loaded(object sender, RoutedEventArgs e)
@@ -72,16 +75,21 @@ namespace LilyBBS
 
 		private void FetchHotList()
 		{
-			var app = Application.Current as App;
-			app.Indicator.IsVisible = true;
+			Utils.ShowIndicator("载入中");
 			app.LilyApi.FetchHotList(FetchHotListCompleted);
 		}
 
 		private void FetchHotListCompleted(object sender, BaseEventArgs e)
 		{
+			Utils.HideIndicator();
+			if (e.Error != null)
+			{
+				ShowError(HotList, HotErrorTextBox);
+				isHotListLoaded = false;
+				return;
+			}
+			HideError(HotList, HotErrorTextBox);
 			isHotListLoaded = true;
-			var app = Application.Current as App;
-			app.Indicator.IsVisible = false;
 			List<HeaderGroup> hotList = e.Result as List<HeaderGroup>;
 			HotList.ItemsSource = hotList;
 		}
@@ -109,16 +117,21 @@ namespace LilyBBS
 
 		private void FetchTopTenList()
 		{
-			var app = Application.Current as App;
-			app.Indicator.IsVisible = true;
+			Utils.ShowIndicator("载入中");
 			app.LilyApi.FetchTopTenList(FetchTopTenListCompleted);
 		}
 
 		private void FetchTopTenListCompleted(object sender, BaseEventArgs e)
 		{
+			Utils.HideIndicator();
+			if (e.Error != null)
+			{
+				ShowError(TopTenList, TopTenErrorTextBox);
+				isTopTenListLoaded = false;
+				return;
+			}
+			HideError(TopTenList, TopTenErrorTextBox);
 			isTopTenListLoaded = true;
-			var app = Application.Current as App;
-			app.Indicator.IsVisible = false;
 			List<Header> topTenList = e.Result as List<Header>;
 			TopTenList.ItemsSource = topTenList;
 		}
@@ -153,9 +166,9 @@ namespace LilyBBS
 			ApplicationBar.Buttons.Add(RefreshButton);
 		}
 
-		private void Pivot_LoadingPivotItem(object sender, PivotItemEventArgs e)
+		private void Pivot_SelectionChanged(object sender, SelectionChangedEventArgs e)
 		{
-			string pi = (this.Pivot.SelectedItem as PivotItem).Header as string;
+			string pi = (e.AddedItems[0] as PivotItem).Header as string;
 			switch (pi)
 			{
 				case HotHeader:
@@ -166,7 +179,7 @@ namespace LilyBBS
 				case TopTenHeader:
 					ApplicationBar.Mode = ApplicationBarMode.Default;
 					if (!ApplicationBar.Buttons.Contains(RefreshButton))
-						ApplicationBar.Buttons.Add(RefreshButton);	
+						ApplicationBar.Buttons.Add(RefreshButton);
 					break;
 				default:
 					ApplicationBar.Mode = ApplicationBarMode.Minimized;
@@ -200,6 +213,25 @@ namespace LilyBBS
 		{
 			NavigationService.Navigate(new Uri("/Views/SettingsPage.xaml", UriKind.Relative));
 		}
+		#endregion
+
+		#region Misc
+
+		private void ShowError(LongListSelector content, TextBlock error)
+		{
+			content.Visibility = Visibility.Collapsed;
+			error.Visibility = Visibility.Visible;
+			LilyToast toast = new LilyToast();
+			toast.Message = (app.Resources["NetworkErrorMessage"] as NetworkErrorMessage).Message;
+			toast.Show();
+		}
+
+		private void HideError(LongListSelector content, TextBlock error)
+		{
+			content.Visibility = Visibility.Visible;
+			error.Visibility = Visibility.Collapsed;			
+		}
+
 		#endregion
 	}
 }

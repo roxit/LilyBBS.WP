@@ -32,13 +32,13 @@
 					<TextBox Grid.Row="1"
 							 x:Name="UsernameTextBox"
 							 InputScope="Default"
-							 Text="{Binding Path=Username, Mode=TwoWay, Source={StaticResource AppSettings}}" />
+							 Text="{Binding Path=Username, Mode=TwoWay, Source={StaticResource Settings}}" />
 					<TextBlock Grid.Row="2"
 							   Text="密码"
 							   Style="{StaticResource PhoneTextSubtleStyle}"/>
 					<PasswordBox Grid.Row="3"
 								 x:Name="PasswordBox"
-								 Password="{Binding Path=Password, Mode=TwoWay, Source={StaticResource AppSettings}}" />
+								 Password="{Binding Path=Password, Mode=TwoWay, Source={StaticResource Settings}}" />
 					<TextBlock Grid.Row="4"
 							   Text="签名"
 							   Style="{StaticResource PhoneTextSubtleStyle}"/>
@@ -46,7 +46,7 @@
 							 x:Name="SignatureTextBox"
 							 TextWrapping="Wrap"
 							 AcceptsReturn="True"
-							 Text="{Binding Path=Signature, Mode=TwoWay, Source={StaticResource AppSettings}}" />
+							 Text="{Binding Path=Signature, Mode=TwoWay, Source={StaticResource Settings}}" />
 				</Grid>
 			</controls:PivotItem>
 
@@ -58,7 +58,7 @@
 								   HorizontalAlignment="Center"
 								   Style="{StaticResource PhoneTextTitle2Style}"
 								   Margin="{StaticResource PhoneTouchTargetLargeOverhang}" />
-						<TextBlock Text="版本 1.0b"
+						<TextBlock Text="版本 1.1"
 								   HorizontalAlignment="Center"
 								   Style="{StaticResource PhoneTextSubtleStyle}"
 								   Margin="{StaticResource PhoneTouchTargetOverhang}"/>

@@ -19,7 +19,7 @@
 	</phone:PhoneApplicationPage.Resources>
 
 	<controls:Pivot Name="Pivot" Title="{StaticResource ApplicationTitle}" 
-					LoadingPivotItem="Pivot_LoadingPivotItem">
+					SelectionChanged="Pivot_SelectionChanged">
 		<!--
 		<controls:PivotItem Header="Hello">
 			<Grid>
@@ -85,12 +85,21 @@
 		</controls:PivotItem>
 		<controls:PivotItem Header="各区热点">
 			<Grid>
+				<Grid.RowDefinitions>
+					<RowDefinition Height="*"/>
+				</Grid.RowDefinitions>
+				<TextBlock x:Name="HotErrorTextBox"
+						   Visibility="Collapsed"
+						   Text="出错了，请手动刷新"
+						   HorizontalAlignment="Center"
+						   VerticalAlignment="Center"
+						   Style="{StaticResource PhoneTextTitle2Style}">
+				</TextBlock>
 				<toolkit:LongListSelector Name="HotList"
 										  DisplayAllGroups="False"
 										  toolkit:TiltEffect.IsTiltEnabled="True"
 										  Loaded="HotList_Loaded"
 										  SelectionChanged="HotList_SelectionChanged">
-
 					<toolkit:LongListSelector.GroupItemTemplate>
 						<DataTemplate>
 							<Border Background="{StaticResource PhoneAccentBrush}"
@@ -141,46 +150,59 @@
 			</Grid>
 		</controls:PivotItem>
 		<controls:PivotItem Header="全站十大">
-			<toolkit:LongListSelector x:Name="TopTenList"
+			<Grid>
+				<Grid.RowDefinitions>
+					<RowDefinition Height="*"/>
+				</Grid.RowDefinitions>
+				<TextBlock x:Name="TopTenErrorTextBox"
+						   Visibility="Collapsed"
+						   Text="出错了，请手动刷新"
+						   HorizontalAlignment="Center"
+						   VerticalAlignment="Center"
+						   Style="{StaticResource PhoneTextTitle2Style}">
+				</TextBlock>
+				<toolkit:LongListSelector x:Name="TopTenList"
 									  IsFlatList="True"
 									  toolkit:TiltEffect.IsTiltEnabled="True"
 									  Loaded="TopTenList_Loaded"
 									  SelectionChanged="TopTenList_SelectionChanged">
-				<toolkit:LongListSelector.ItemTemplate>
-					<DataTemplate>
-						<Border BorderBrush="{StaticResource PhoneAccentBrush}"
+					<toolkit:LongListSelector.ItemTemplate>
+						<DataTemplate>
+							<Border BorderBrush="{StaticResource PhoneAccentBrush}"
 								BorderThickness="3,0,0,0"
 								Margin="6" Padding="6,0">
-							<Grid>
-								<Grid.RowDefinitions>
-									<RowDefinition Height="*"/>
-									<RowDefinition Height="Auto"/>
-								</Grid.RowDefinitions>
-								<TextBlock Text="{Binding Title}"
+								<Grid>
+									<Grid.RowDefinitions>
+										<RowDefinition Height="*"/>
+										<RowDefinition Height="Auto"/>
+									</Grid.RowDefinitions>
+									<TextBlock Text="{Binding Title}"
 										   TextWrapping="Wrap"
 										   FontSize="{StaticResource PhoneFontSizeMediumLarge}"
 										   Margin="0,0,3,0"/>
-								<Grid Grid.Row="1">
-									<Grid.ColumnDefinitions>
-										<ColumnDefinition Width="*"/>
-										<ColumnDefinition Width="Auto"/>
-									</Grid.ColumnDefinitions>
-									<TextBlock Text="{Binding Author}"
+									<Grid Grid.Row="1">
+										<Grid.ColumnDefinitions>
+											<ColumnDefinition Width="*"/>
+											<ColumnDefinition Width="Auto"/>
+										</Grid.ColumnDefinitions>
+										<TextBlock Text="{Binding Author}"
 											   Style="{StaticResource PhoneTextSmallStyle}"
 											   Foreground="{StaticResource PhoneAccentBrush}"
 											   Margin="0"
 											   />
-									<TextBlock Grid.Column="1"
+										<TextBlock Grid.Column="1"
 											   Text="{Binding Board}"
 											   Style="{StaticResource PhoneTextSmallStyle}"
 											   HorizontalAlignment="Right"/>
+									</Grid>
 								</Grid>
-							</Grid>
-						</Border>
-					</DataTemplate>
-				</toolkit:LongListSelector.ItemTemplate>
-			</toolkit:LongListSelector>
+							</Border>
+						</DataTemplate>
+					</toolkit:LongListSelector.ItemTemplate>
+				</toolkit:LongListSelector>
+			</Grid>
 		</controls:PivotItem>
+
 	</controls:Pivot>
 
 	<phone:PhoneApplicationPage.ApplicationBar>

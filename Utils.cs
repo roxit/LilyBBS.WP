@@ -9,9 +9,67 @@ using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Shapes;
 using System.IO.IsolatedStorage;
+using System.Collections.Generic;
+using Coding4Fun.Phone.Controls;
 
 namespace LilyBBS
 {
+	public class Utils
+	{
+		public static void ShowIndicator(string text=null)
+		{
+			var app = Application.Current as App;
+			app.Indicator.Text = text;
+			app.Indicator.IsVisible = true;
+		}
+
+		public static void HideIndicator()
+		{
+			var app = Application.Current as App;
+			app.Indicator.Text = "";
+			app.Indicator.IsVisible = false;
+		}
+	}
+
+	public class LilyToast : ToastPrompt
+	{
+		public LilyToast(string msg=null) : base()
+		{
+			Message = msg;
+			Margin = new Thickness(-20, -20, 0, 0);
+			FontSize = 24;
+		}
+
+		public void ShowNetworkError()
+		{
+			var app = Application.Current as App;
+			Message = (app.Resources["NetworkErrorMessage"] as NetworkErrorMessage).Message;
+			Show();
+		}
+	}
+
+	public class NetworkErrorMessage
+	{
+		private static List<string> msgList;
+
+		public NetworkErrorMessage()
+		{
+			msgList = new List<string>();
+			msgList.Add("连不上网了:-(");
+			msgList.Add("没网上个毛毛啊");
+			msgList.Add("亲，把天线插好啊");
+		}
+
+		public string Message
+		{
+			get
+			{
+				Random rnd = new Random();
+				return msgList[rnd.Next(msgList.Count)];
+			}
+		}
+	}
+
 	public class Settings
 	{
 		private const string UsernameKey = "Username";

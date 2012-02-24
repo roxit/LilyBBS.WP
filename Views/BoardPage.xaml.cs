@@ -19,6 +19,7 @@ namespace LilyBBS
 {
 	public partial class BoardPage : PhoneApplicationPage
 	{
+		App app;
 		private string board;
 		private int? prevStart;
 		private ObservableCollection<Header> itemsSource;
@@ -26,7 +27,7 @@ namespace LilyBBS
 		public BoardPage()
 		{
 			InitializeComponent();
-			var app = (Application.Current as App);
+			app = (Application.Current as App);
 			SystemTray.SetProgressIndicator(this, app.Indicator);
 			itemsSource = new ObservableCollection<Header>();
 			HeaderList.ItemsSource = itemsSource;
@@ -34,8 +35,7 @@ namespace LilyBBS
 
 		private void LoadMore(string board, int? start=null)
 		{
-			var app = (Application.Current as App);
-			app.Indicator.IsVisible = true;
+			Utils.ShowIndicator("载入中");
 			/* null
 			var LoadMoreButton = HeaderList.ListFooter as Button;
 			LoadMoreButton.Content = "载入中";
@@ -46,8 +46,13 @@ namespace LilyBBS
 		
 		private void FetchPageCompleted(object sender, BaseEventArgs e)
 		{
-			var app = (Application.Current as App);
-			app.Indicator.IsVisible = false;
+			Utils.HideIndicator();
+			if (e.Error != null)
+			{
+				LilyToast toast = new LilyToast();
+				toast.ShowNetworkError();
+				return;
+			}
 			/*	null
 			var LoadMoreButton = HeaderList.ListFooter as Button;
 			LoadMoreButton.Content = "更多";

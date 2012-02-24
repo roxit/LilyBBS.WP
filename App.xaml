@@ -10,7 +10,8 @@
     <!--Application Resources-->
     <Application.Resources>
 		<sys:String x:Key="ApplicationTitle">小百合BBS</sys:String>
-		<local:Settings x:Key="AppSettings"/>
+		<local:Settings x:Key="Settings"/>
+		<local:NetworkErrorMessage x:Key="NetworkErrorMessage"/>
 	</Application.Resources>
 
     <Application.ApplicationLifetimeObjects>

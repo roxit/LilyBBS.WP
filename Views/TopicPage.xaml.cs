@@ -4,6 +4,7 @@ using Microsoft.Phone.Controls;
 using Microsoft.Phone.Shell;
 using System.Collections.ObjectModel;
 using System;
+using Coding4Fun.Phone.Controls;
 
 namespace LilyBBS
 {
@@ -15,6 +16,7 @@ namespace LilyBBS
 	 */
 	public partial class TopicPage : PhoneApplicationPage
 	{
+		App app;
 		private string board;
 		private int pid;
 		private string title;
@@ -25,7 +27,7 @@ namespace LilyBBS
 		public TopicPage()
 		{
 			InitializeComponent();
-			var app = Application.Current as App;
+			app = Application.Current as App;
 			SystemTray.SetProgressIndicator(this, app.Indicator);
 
 			itemsSource = new ObservableCollection<Post>();
@@ -34,16 +36,19 @@ namespace LilyBBS
 
 		private void LoadMore(string board, int pid, int? start=null)
 		{
-			var app = (Application.Current as App);
-			app.Indicator.IsVisible = true;
+			Utils.ShowIndicator("载入中");			
 			app.LilyApi.FetchTopic(FetchTopicCompleted, board, pid, start);
 		}
 
 		private void FetchTopicCompleted(object sender, BaseEventArgs e)
 		{
-			var app = Application.Current as App;
-			app.Indicator.IsVisible = false;
-
+			Utils.HideIndicator();
+			if (e.Error != null)
+			{
+				LilyToast toast = new LilyToast();
+				toast.ShowNetworkError();
+				return;
+			}
 			Topic t = e.Result as Topic;
 			nextStart = t.nextStart;
 			foreach (var i in t.PostList)
@@ -68,7 +73,8 @@ namespace LilyBBS
 		{
 			if (nextStart == null)
 			{
-				MessageBox.Show("再也没有了");
+				LilyToast toast = new LilyToast("再也没有了");
+				toast.Show();
 				return;
 			}
 			LoadMore(board, pid, nextStart);
@@ -87,7 +93,6 @@ namespace LilyBBS
 			itemsSource.Clear();
 			nextStart = null;
 			LoadMore(board, pid, nextStart);
-
 		}
 
 	}

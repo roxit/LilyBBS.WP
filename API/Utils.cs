@@ -5,8 +5,25 @@ using System.Text.RegularExpressions;
 
 namespace LilyBBS.API
 {
-	class LilyError : Exception
+	public class LilyError : Exception
 	{
+		public LilyError(string s) : base(s)
+		{
+		}
+	}
+
+	public class NetworkError : LilyError
+	{
+		public NetworkError(string s) : base(s)
+		{
+		}
+	}
+
+	public class ContentError : LilyError
+	{
+		public ContentError(string s) : base(s)
+		{
+		}
 	}
 
 	public class Utils
