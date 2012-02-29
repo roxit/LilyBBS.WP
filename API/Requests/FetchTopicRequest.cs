@@ -38,12 +38,17 @@ namespace LilyBBS.API
 			doc.LoadHtml(e.Result as string);
 			var items = doc.DocumentNode.SelectNodes("//table[@class='main']");
 			var bodies = doc.DocumentNode.SelectNodes("//textarea");
-			int idx = 0;
-			if (Start != null) idx = 1;
+			int idx, floor;
+			if (Start != null)
+			{
+				idx = 1; floor = Start.Value;
+			} else {
+				idx = 0; floor = 0;
+			}
 			for (int i = idx; i < items.Count; i++)
 			{
 				string c = items[i].SelectSingleNode("tr/td/a").GetAttributeValue("href", "");
-				Post p = new Post(topic.Board, Utils.ParsePid(c), Utils.ParserNum(c));
+				Post p = new Post(topic.Board, Utils.ParsePid(c), Utils.ParserNum(c), floor++);
 				c = bodies[i].InnerHtml;
 				p.ParsePost(c);
 				topic.PostList.Add(p);

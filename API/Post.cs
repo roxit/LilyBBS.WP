@@ -1,4 +1,5 @@
 ﻿using System.Text.RegularExpressions;
+using System;
 
 namespace LilyBBS.API
 {
@@ -14,6 +15,7 @@ namespace LilyBBS.API
 		public int Pid { get; set; }
 		// public DateTime Time { get; set; }
 		public string Title { get; set; }
+		public int Floor { get; set; }
 
 		private static Regex AUTHOR_RE = new Regex(@"发信人: (\w+?) \(");
 		// multiple ip's
@@ -22,11 +24,12 @@ namespace LilyBBS.API
 		// private static string TIME_FMT = "ddd MMM dd HH:mm:ss yyyy";
 		private static Regex TITLE_RE = new Regex(@"标  题: (.+?)\n");
 
-		public Post(string board, int pid, int num)
+		public Post(string board, int pid, int num, int floor=-1)
 		{
 			Board = board;
 			Pid = pid;
 			Num = num;
+			Floor = floor;
 		}
 
 		/*
@@ -55,8 +58,7 @@ namespace LilyBBS.API
 		public void ParsePost(string txt)
 		{
 			// just ignore the f**king exceptions
-			// Trim() everything
-//			try {
+			try {
 				Author = AUTHOR_RE.Match(txt).Groups[1].ToString().Trim();
 				Title = TITLE_RE.Match(txt).Groups[1].ToString().Trim();
 				Match timeMatch = TIME_RE.Match(txt);
@@ -71,8 +73,11 @@ namespace LilyBBS.API
 					endIdx = txt.Length - 1;
 				}
 				Body = txt.Substring(begIdx, endIdx-begIdx).Trim();
-//			} catch (Exception e)
+			} catch (Exception e)
 			{
+				Author = "春哥";
+				Title = "出错了";
+				Body = "出错了";
 			}
 		}
 

@@ -5,6 +5,7 @@ using Microsoft.Phone.Shell;
 using System.Collections.ObjectModel;
 using System;
 using Coding4Fun.Phone.Controls;
+using System.Collections.Generic;
 
 namespace LilyBBS
 {
@@ -22,16 +23,15 @@ namespace LilyBBS
 		private string title;
 		private string author;
 		private int? nextStart;
-		private ObservableCollection<Post> itemsSource;
+		private ObservableCollection<Post> items;
 
 		public TopicPage()
 		{
 			InitializeComponent();
 			app = Application.Current as App;
 			SystemTray.SetProgressIndicator(this, app.Indicator);
-
-			itemsSource = new ObservableCollection<Post>();
-			PostList.ItemsSource = itemsSource;
+			items = new ObservableCollection<Post>();
+			PostList.ItemsSource = items;
 		}
 
 		private void LoadMore(string board, int pid, int? start=null)
@@ -49,23 +49,23 @@ namespace LilyBBS
 				toast.ShowNetworkError();
 				return;
 			}
+			
 			Topic t = e.Result as Topic;
 			nextStart = t.nextStart;
 			foreach (var i in t.PostList)
-				itemsSource.Add(i);
+				items.Add(i);
 		}
 
 		private void PostList_Loaded(object sender, RoutedEventArgs e)
 		{
 			PostList.SelectedItem = null;
-			if (itemsSource.Count != 0) return;
+			if (items.Count != 0) return;
 			board = NavigationContext.QueryString["board"];
 			pid = int.Parse(NavigationContext.QueryString["Pid"]);
 			title = NavigationContext.QueryString["Title"];
 			NavigationContext.QueryString.TryGetValue("Author", out author);
 			BoardTextBlock.Text = board;
 			TitleTextBlock.Text = title;
-
 			LoadMore(board, pid);
 		}
 
@@ -84,13 +84,13 @@ namespace LilyBBS
 		{
 			NavigationService.Navigate(new Uri(
 					string.Format("/Views/SendPostPage.xaml?Board={0}&Title={1}&Pid={2}&Num={3}",
-							board, "Re: "+itemsSource[0].Title, pid, itemsSource[0].Num),
+							board, "Re: "+items[0].Title, pid, items[0].Num),
 					UriKind.Relative));
 		}
 
 		private void RefreshButton_Click(object sender, EventArgs e)
 		{
-			itemsSource.Clear();
+			items.Clear();
 			nextStart = null;
 			LoadMore(board, pid, nextStart);
 		}

@@ -7,6 +7,7 @@
 	xmlns:toolkit="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls.Toolkit"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+	xmlns:local="clr-namespace:LilyBBS"
     FontFamily="{StaticResource PhoneFontFamilyNormal}"
     FontSize="{StaticResource PhoneFontSizeNormal}"
     Foreground="{StaticResource PhoneForegroundBrush}"
@@ -65,27 +66,9 @@
 									  Loaded="PostList_Loaded">
 				<toolkit:LongListSelector.ItemTemplate>
 					<DataTemplate>
-						<Border BorderThickness="0,1,0,0"
-								BorderBrush="{StaticResource PhoneSubtleBrush}"
-								Margin="12,6"
-								Padding="0,0">
-							<Grid>
-								<Grid.RowDefinitions>
-									<RowDefinition Height="Auto"/>
-									<RowDefinition Height="*"/>
-								</Grid.RowDefinitions>
-								<TextBlock Text="{Binding Author}"
-										   Style="{StaticResource PhoneTextAccentStyle}"
-										   FontSize="{StaticResource PhoneFontSizeMediumLarge}"
-										   Margin="0,0,0,6"/>
-								<TextBlock Grid.Row="1"
-										   Text="{Binding Body}"
-										   Margin="0,6"
-										   TextWrapping="Wrap"
-										   Style="{StaticResource PhoneTextNormalStyle}"
-										   FontSize="{StaticResource PhoneFontSizeMedium}"/>
-							</Grid>
-						</Border>
+						<local:PostControl Author="{Binding Author}"
+										   Body="{Binding Body}"
+										   Floor="{Binding Floor}"/>
 					</DataTemplate>
 				</toolkit:LongListSelector.ItemTemplate>
 				<toolkit:LongListSelector.ListFooterTemplate>
