@@ -3,7 +3,6 @@ using System.Windows;
 using LilyBBS.API;
 using Microsoft.Phone.Controls;
 using Microsoft.Phone.Shell;
-using Coding4Fun.Phone.Controls;
 
 namespace LilyBBS
 {

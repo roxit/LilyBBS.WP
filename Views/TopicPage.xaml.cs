@@ -1,11 +1,11 @@
-﻿using System.Windows;
+﻿using System;
+using System.Collections.ObjectModel;
+using System.Globalization;
+using System.Windows;
+using System.Windows.Data;
 using LilyBBS.API;
 using Microsoft.Phone.Controls;
 using Microsoft.Phone.Shell;
-using System.Collections.ObjectModel;
-using System;
-using Coding4Fun.Phone.Controls;
-using System.Collections.Generic;
 
 namespace LilyBBS
 {
@@ -22,8 +22,47 @@ namespace LilyBBS
 		private int pid;
 		private string title;
 		private string author;
-		private int? nextStart;
 		private ObservableCollection<Post> items;
+
+		#region IsLoading
+		public static readonly DependencyProperty IsLoadingProperty = DependencyProperty.Register("IsLoading",
+				typeof(bool?),
+				typeof(TopicPage),
+				new PropertyMetadata(false));
+
+		public bool? IsLoading
+		{
+			get
+			{
+				return GetValue(IsLoadingProperty) as bool?;
+			}
+			set
+			{
+				bool isLoading = (value as bool?).Value;
+				if (isLoading)
+					Utils.ShowIndicator("载入中");
+				else
+					Utils.HideIndicator();
+				SetValue(IsLoadingProperty, value);
+			}
+		}
+		#endregion
+
+		#region NextStart
+		public static readonly DependencyProperty NextStartProperty = DependencyProperty.Register("NextStart",
+				typeof(int?),
+				typeof(TopicPage),
+				new PropertyMetadata(null));
+
+		public int? NextStart
+		{
+			get
+			{
+				return GetValue(NextStartProperty) as int?;
+			}
+			set { SetValue(NextStartProperty, value); }
+		}
+		#endregion
 
 		public TopicPage()
 		{
@@ -32,17 +71,18 @@ namespace LilyBBS
 			SystemTray.SetProgressIndicator(this, app.Indicator);
 			items = new ObservableCollection<Post>();
 			PostList.ItemsSource = items;
+			PostList.DataContext = this;
 		}
 
 		private void LoadMore(string board, int pid, int? start=null)
 		{
-			Utils.ShowIndicator("载入中");			
+			IsLoading = true;
 			app.LilyApi.FetchTopic(FetchTopicCompleted, board, pid, start);
 		}
 
 		private void FetchTopicCompleted(object sender, BaseEventArgs e)
 		{
-			Utils.HideIndicator();
+			IsLoading = false;
 			if (e.Error != null)
 			{
 				LilyToast toast = new LilyToast();
@@ -51,7 +91,7 @@ namespace LilyBBS
 			}
 			
 			Topic t = e.Result as Topic;
-			nextStart = t.nextStart;
+			NextStart = t.nextStart;
 			foreach (var i in t.PostList)
 				items.Add(i);
 		}
@@ -71,13 +111,13 @@ namespace LilyBBS
 
 		private void LoadMoreButton_Click(object sender, RoutedEventArgs e)
 		{
-			if (nextStart == null)
+			if (NextStart == null)
 			{
 				LilyToast toast = new LilyToast("再也没有了");
 				toast.Show();
 				return;
 			}
-			LoadMore(board, pid, nextStart);
+			LoadMore(board, pid, NextStart);
 		}
 
 		private void ReplyButton_Click(object sender, EventArgs e)
@@ -91,9 +131,22 @@ namespace LilyBBS
 		private void RefreshButton_Click(object sender, EventArgs e)
 		{
 			items.Clear();
-			nextStart = null;
-			LoadMore(board, pid, nextStart);
+			NextStart = null;
+			LoadMore(board, pid, NextStart);
+		}
+	}
+
+	public class HasMoreConverter : IValueConverter
+	{
+		public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+		{
+			return value != null;
 		}
 
+		public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+		{
+			return null;
+		}
 	}
+
 }

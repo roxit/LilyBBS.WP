@@ -13,7 +13,8 @@
     SupportedOrientations="PortraitOrLandscape" Orientation="Portrait"
     mc:Ignorable="d" d:DesignHeight="768" d:DesignWidth="480"
     shell:SystemTray.IsVisible="True"
-	toolkit:TiltEffect.IsTiltEnabled="True">
+	toolkit:TiltEffect.IsTiltEnabled="True"
+	Name="this">
 	
 	<toolkit:TransitionService.NavigationInTransition>
 		<toolkit:NavigationInTransition>
@@ -88,7 +89,7 @@
 				</toolkit:LongListSelector.ItemTemplate>
 				<toolkit:LongListSelector.ListFooterTemplate>
 					<DataTemplate>
-						<Button Content="更多"
+						<Button Content="{Binding ElementName=this,Path=IsLoading,Converter={StaticResource IsLoadingConverter}}"
 								Click="LoadMoreButton_Click" />
 					</DataTemplate>
 				</toolkit:LongListSelector.ListFooterTemplate>

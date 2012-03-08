@@ -1,15 +1,9 @@
 ﻿using System;
-using System.Net;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Documents;
-using System.Windows.Ink;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Animation;
-using System.Windows.Shapes;
-using System.IO.IsolatedStorage;
 using System.Collections.Generic;
+using System.Globalization;
+using System.IO.IsolatedStorage;
+using System.Windows;
+using System.Windows.Data;
 using Coding4Fun.Phone.Controls;
 
 namespace LilyBBS
@@ -143,4 +137,20 @@ namespace LilyBBS
 			}
 		}
 	}
+
+	public class IsLoadingConverter : IValueConverter
+	{
+		public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+		{
+			bool isLoading = (value as bool?).Value;
+			if (isLoading) return "载入中...";
+			else return "更多";
+		}
+
+		public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+		{
+			return null;
+		}
+	}
+
 }

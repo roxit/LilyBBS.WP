@@ -33,15 +33,19 @@
 							   VerticalAlignment="Center"
 							   Style="{StaticResource PhoneTextSubtleStyle}"
 							   FontSize="{StaticResource PhoneFontSizeSmall}"
-							   Margin="0"
-							   />
+							   Margin="0"/>
 				</Grid>
+				<StackPanel Grid.Row="1"
+							x:Name="BodyPanel"
+							Margin="0,6"/>
+				<!--
 				<TextBlock Grid.Row="1"
 						   x:Name="BodyTextBlock"
 						   Margin="0,6"
 						   TextWrapping="Wrap"
 						   Style="{StaticResource PhoneTextNormalStyle}"
 						   FontSize="{StaticResource PhoneFontSizeMedium}"/>
+				-->
 			</Grid>
 		</Border>
     </Grid>

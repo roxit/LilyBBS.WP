@@ -1,19 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Net;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Animation;
-using System.Windows.Shapes;
-using Microsoft.Phone.Controls;
-
-using Microsoft.Phone.Shell;
 using LilyBBS.API;
+using Microsoft.Phone.Controls;
+using Microsoft.Phone.Shell;
 
 namespace LilyBBS
 {
@@ -23,6 +14,30 @@ namespace LilyBBS
 		private string board;
 		private int? prevStart;
 		private ObservableCollection<Header> itemsSource;
+
+		#region IsLoading
+		public static readonly DependencyProperty IsLoadingProperty = DependencyProperty.Register("IsLoading",
+				typeof(bool?),
+				typeof(BoardPage),
+				new PropertyMetadata(false));
+
+		public bool? IsLoading
+		{
+			get
+			{
+				return GetValue(IsLoadingProperty) as bool?;
+			}
+			set
+			{
+				bool isLoading = (value as bool?).Value;
+				if (isLoading)
+					Utils.ShowIndicator("载入中");
+				else
+					Utils.HideIndicator();
+				SetValue(IsLoadingProperty, value);
+			}
+		}
+		#endregion
 
 		public BoardPage()
 		{
@@ -35,29 +50,19 @@ namespace LilyBBS
 
 		private void LoadMore(string board, int? start=null)
 		{
-			Utils.ShowIndicator("载入中");
-			/* null
-			var LoadMoreButton = HeaderList.ListFooter as Button;
-			LoadMoreButton.Content = "载入中";
-			LoadMoreButton.IsEnabled = false;
-			 */
+			IsLoading = true;
 			app.LilyApi.FetchPage(FetchPageCompleted, board, start);
 		}
 		
 		private void FetchPageCompleted(object sender, BaseEventArgs e)
 		{
-			Utils.HideIndicator();
+			IsLoading = false;
 			if (e.Error != null)
 			{
 				LilyToast toast = new LilyToast();
 				toast.ShowNetworkError();
 				return;
 			}
-			/*	null
-			var LoadMoreButton = HeaderList.ListFooter as Button;
-			LoadMoreButton.Content = "更多";
-			LoadMoreButton.IsEnabled = true;
-			*/
 			LilyBBS.API.Page page = e.Result as LilyBBS.API.Page;
 			prevStart = page.PrevStart;
 			foreach (var i in page.HeaderList)

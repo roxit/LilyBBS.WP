@@ -1,11 +1,10 @@
-﻿using System.Windows;
+﻿using System;
+using System.Windows;
 using System.Windows.Navigation;
 using LilyBBS.API;
 using Microsoft.Phone.Controls;
-using Microsoft.Phone.Shell;
 using Microsoft.Phone.Info;
-using System;
-using Coding4Fun.Phone.Controls;
+using Microsoft.Phone.Shell;
 //using System.Diagnostics;
 
 namespace LilyBBS

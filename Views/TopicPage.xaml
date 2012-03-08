@@ -14,7 +14,8 @@
     SupportedOrientations="PortraitOrLandscape" Orientation="Portrait"
     mc:Ignorable="d" d:DesignHeight="696" d:DesignWidth="480"
     shell:SystemTray.IsVisible="True"
-	toolkit:TiltEffect.IsTiltEnabled="False">
+	toolkit:TiltEffect.IsTiltEnabled="False"
+	Name="this">
 
 	<toolkit:TransitionService.NavigationInTransition>
 		<toolkit:NavigationInTransition>
@@ -38,6 +39,7 @@
 	</toolkit:TransitionService.NavigationOutTransition>
 
 	<phone:PhoneApplicationPage.Resources>
+		<local:HasMoreConverter x:Key="HasMoreConverter" />
 	</phone:PhoneApplicationPage.Resources>
 
 	<Grid x:Name="LayoutRoot" Background="Transparent">
@@ -63,7 +65,8 @@
         <Grid x:Name="ContentPanel" Grid.Row="1" Margin="12,0,12,0">
 			<toolkit:LongListSelector x:Name="PostList"
 									  IsFlatList="True"
-									  Loaded="PostList_Loaded">
+									  Loaded="PostList_Loaded"
+									  ShowListFooter="{Binding ElementName=this,Path=NextStart,Converter={StaticResource HasMoreConverter}}">
 				<toolkit:LongListSelector.ItemTemplate>
 					<DataTemplate>
 						<local:PostControl Author="{Binding Author}"
@@ -73,7 +76,7 @@
 				</toolkit:LongListSelector.ItemTemplate>
 				<toolkit:LongListSelector.ListFooterTemplate>
 					<DataTemplate>
-						<Button Content="更多"
+						<Button Content="{Binding ElementName=this,Path=IsLoading,Converter={StaticResource IsLoadingConverter}}"
 								Click="LoadMoreButton_Click" />
 					</DataTemplate>
 				</toolkit:LongListSelector.ListFooterTemplate>
