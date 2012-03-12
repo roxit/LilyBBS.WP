@@ -19,14 +19,15 @@ namespace LilyBBS
 		private bool isHotListLoaded = false;
 
 		private ApplicationBarIconButton RefreshButton;
-		
+
 		public MainPage()
 		{
 			InitializeComponent();
 			InitializeApplicationBar();
 			app = Application.Current as App;
 			SystemTray.SetProgressIndicator(this, app.Indicator);
-			BoardListSelector.ItemsSource = BoardManager.Instance;
+			AllBoardListSelector.ItemsSource = BoardManager.Instance;
+			LoadFavoriteBoardList();
 		}
 /*
 		private void HelloButton_Click(object sender, RoutedEventArgs e)
@@ -49,16 +50,63 @@ namespace LilyBBS
 */
 		#region Board
 
+		private void LoadFavoriteBoardList()
+		{
+			Settings settings = app.Resources["Settings"] as Settings;
+			List<Board> favBrd = new List<Board>();
+			if (settings.FavoriteBoardList == null) return;
+			foreach (var i in settings.FavoriteBoardList)
+			{
+				favBrd.Add(new Board(i, BoardManager.GetBoardText(i)));
+			}
+			FavoriteBoardListSelector.ItemsSource = favBrd;
+		}
+
+
+		private void AddFavoriteBoard_Click(object sender, RoutedEventArgs e)
+		{
+			Settings settings = app.Resources["Settings"] as Settings;
+			Board brd = (sender as MenuItem).DataContext as Board;
+			settings.AddFavoriteBoard(brd.Name);
+			LoadFavoriteBoardList();
+		}
+
+		private void RemoveFavoriteBoard_Click(object sender, RoutedEventArgs e)
+		{
+			Settings settings = app.Resources["Settings"] as Settings;
+			Board brd = (sender as MenuItem).DataContext as Board;
+			settings.RemoveFavoriteBoard(brd.Name);
+			LoadFavoriteBoardList();
+		}
+
 		private void BoardListSelector_Loaded(object sender, RoutedEventArgs e)
 		{
-			BoardListSelector.SelectedItem = null;
+			(sender as LongListSelector).SelectedItem = null;
 		}
 
 		private void BoardListSelector_SelectionChanged(object sender, SelectionChangedEventArgs e)
 		{
-			Board brd = BoardListSelector.SelectedItem as Board;
+			Board brd = (sender as LongListSelector).SelectedItem as Board;
 			if (brd == null) return;		// clicking group header triggers this event too..
-			NavigationService.Navigate(new Uri(string.Format("/Views/BoardPage.xaml?board={0}", brd.Name), UriKind.Relative));
+			gotoBoard(brd.Name);
+		}
+
+		private void FavoriteBoardButton_Click(object sender, RoutedEventArgs e)
+		{
+			if (FavoriteBoardListSelector.Visibility != Visibility.Visible)
+			{
+				FavoriteBoardListSelector.Visibility = Visibility.Visible;
+				AllBoardListSelector.Visibility = Visibility.Collapsed;
+			}
+		}
+
+		private void AllBoardButton_Click(object sender, RoutedEventArgs e)
+		{
+			if (AllBoardListSelector.Visibility != Visibility.Visible)
+			{
+				AllBoardListSelector.Visibility = Visibility.Visible;
+				FavoriteBoardListSelector.Visibility = Visibility.Collapsed;
+			}
 		}
 		#endregion
 
@@ -207,6 +255,11 @@ namespace LilyBBS
 		#endregion
 
 		#region Misc
+		
+		private void gotoBoard(string brd)
+		{
+			NavigationService.Navigate(new Uri("/Views/BoardPage.xaml?board=" + brd, UriKind.Relative));
+		}
 
 		private void ShowError(LongListSelector content, TextBlock error)
 		{
@@ -224,5 +277,15 @@ namespace LilyBBS
 		}
 
 		#endregion
+
+		#region ContextMenu
+
+		private void GotoBoard_Click(object sender, RoutedEventArgs e)
+		{
+			Header h = (sender as MenuItem).DataContext as Header;
+			gotoBoard(h.Board);
+		}
+		#endregion
+
 	}
 }

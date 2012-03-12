@@ -70,6 +70,9 @@ namespace LilyBBS
 		private const string PasswordKey = "Password";
 		private const string SignatureKey = "Signature";
 		private const string IsFirstRunKey = "IsFirstRun";
+		private const string FavoriteBoardKey = "FavoriteBoard";
+		private const char FavoriteBoardSep = '\n';
+		private List<string> favoriteBoardList = null;
 
 		private T RetrieveSetting<T>(string key)
 		{
@@ -101,7 +104,9 @@ namespace LilyBBS
 		{
 			get
 			{
-				return RetrieveSetting<string>(UsernameKey);
+				string ret = RetrieveSetting<string>(UsernameKey);
+				if (ret == null) return "";
+				else return ret;
 			}
 			set
 			{
@@ -115,7 +120,9 @@ namespace LilyBBS
 		{
 			get
 			{
-				return RetrieveSetting<string>(PasswordKey);
+				string ret = RetrieveSetting<string>(PasswordKey);
+				if (ret == null) return "";
+				else return ret;
 			}
 			set
 			{
@@ -129,12 +136,57 @@ namespace LilyBBS
 		{
 			get
 			{
-				return RetrieveSetting<string>(SignatureKey);
+				string ret = RetrieveSetting<string>(SignatureKey);
+				if (ret == null) return "";
+				else return ret;
 			}
 			set
 			{
 				IsolatedStorageSettings.ApplicationSettings[SignatureKey] = value;
 			}
+		}
+
+		private string FavoriteBoard
+		{
+			get
+			{
+				string ret = RetrieveSetting<string>(FavoriteBoardKey);
+				if (ret == null) return "";
+				else return ret;
+			}
+			set
+			{
+				IsolatedStorageSettings.ApplicationSettings[FavoriteBoardKey] = value;
+			}
+		}
+
+		public List<string> FavoriteBoardList
+		{ 
+			get
+			{
+				if (favoriteBoardList == null)
+				{
+					if (FavoriteBoard.Length > 0)
+						favoriteBoardList = new List<string>(FavoriteBoard.Split(FavoriteBoardSep));
+					else
+						favoriteBoardList = new List<string>();
+				}
+				return favoriteBoardList;
+			}
+		}
+
+		public void AddFavoriteBoard(string brd)
+		{
+			if (FavoriteBoardList.Contains(brd)) return;
+			FavoriteBoardList.Add(brd);
+			FavoriteBoardList.Sort();
+			FavoriteBoard = string.Join(FavoriteBoardSep.ToString(), FavoriteBoardList);
+		}
+
+		public void RemoveFavoriteBoard(string brd)
+		{
+			FavoriteBoardList.Remove(brd);
+			FavoriteBoard = string.Join(FavoriteBoardSep.ToString(), FavoriteBoardList);
 		}
 	}
 

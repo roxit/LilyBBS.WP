@@ -75,8 +75,6 @@ namespace LilyBBS
 					settings.Signature = "~~\nSent from my Windows Phone";
 				}
 				settings.IsFirstRun = false;
-				settings.Username = "";
-				settings.Password = "";
 			}
 		}
 

@@ -156,6 +156,9 @@
     <Content Include="Images\comment.png" />
     <Content Include="Images\edit.png" />
     <Resource Include="Images\logo.png" />
+    <Content Include="Images\favorite.png" />
+    <Content Include="Images\pivotheader.all.png" />
+    <Content Include="Images\pivotheader.favorite.png" />
     <Content Include="Images\send.png" />
     <Content Include="Images\ApplicationIcon.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

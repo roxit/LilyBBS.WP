@@ -76,7 +76,8 @@
 				</toolkit:LongListSelector.ItemTemplate>
 				<toolkit:LongListSelector.ListFooterTemplate>
 					<DataTemplate>
-						<Button Content="{Binding ElementName=this,Path=IsLoading,Converter={StaticResource IsLoadingConverter}}"
+						<Button BorderThickness="0"
+								Content="{Binding ElementName=this,Path=IsLoading,Converter={StaticResource IsLoadingConverter}}"
 								Click="LoadMoreButton_Click" />
 					</DataTemplate>
 				</toolkit:LongListSelector.ListFooterTemplate>
