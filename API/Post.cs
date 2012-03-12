@@ -1,10 +1,11 @@
-﻿using System.Text.RegularExpressions;
-using System;
+﻿using System;
+using System.Text.RegularExpressions;
 
 namespace LilyBBS.API
 {
 	public class Post
 	{
+		public static readonly int MAX_LINE_LEN = 37;
 		public string Author { get; set; }
 		public string Board { get; set; }
 		public string Body { get; set; }
@@ -17,12 +18,13 @@ namespace LilyBBS.API
 		public string Title { get; set; }
 		public int Floor { get; set; }
 
-		private static Regex AUTHOR_RE = new Regex(@"发信人: (\w+?) \(");
+		private static readonly Regex AUTHOR_RE = new Regex(@"发信人: (\w+?) \(", RegexOptions.Compiled);
 		// multiple ip's
 		// private static Regex IP_RE = new Regex(@"\[FROM: (.+)\]");
-		private static Regex TIME_RE = new Regex(@"发信站: .*?\((.+?)\)");
+		private static readonly Regex TIME_RE = new Regex(@"发信站: .*?\((.+?)\)", RegexOptions.Compiled);
 		// private static string TIME_FMT = "ddd MMM dd HH:mm:ss yyyy";
-		private static Regex TITLE_RE = new Regex(@"标  题: (.+?)\n");
+		private static readonly Regex TITLE_RE = new Regex(@"标  题: (.+?)\n", RegexOptions.Compiled);
+		private static readonly Regex COLOR_RE = new Regex(@"\x1b\[\d*(;\d+)?m");
 
 		public Post(string board, int pid, int num, int floor=-1)
 		{
@@ -55,6 +57,7 @@ namespace LilyBBS.API
 			Ip = IP_RE.Match(txt.Substring(ib, txt.Length-ib)).Groups[1].ToString();
 		}
 		*/
+
 		public void ParsePost(string txt)
 		{
 			// just ignore the f**king exceptions
@@ -72,12 +75,33 @@ namespace LilyBBS.API
 				{
 					endIdx = txt.Length - 1;
 				}
-				Body = txt.Substring(begIdx, endIdx-begIdx).Trim();
-			} catch (Exception e)
+				string raw = txt.Substring(begIdx, endIdx-begIdx).Trim();
+				raw = COLOR_RE.Replace(raw, "");
+				Body = raw;
+				/*
+				List<String> body = new List<string>();
+				var lines = raw.Split(new char[] {'\r', '\n'}, StringSplitOptions.RemoveEmptyEntries);
+				string prev = lines[0];
+				int prevLen = prev.Length;
+				body.Add(prev);
+				for (int i = 1; i < lines.Length; i++)
+				{
+					lines[i] = lines[i].Trim();
+					//if (lines[i].Trim().Length == 0) continue;
+					if (lines[i][0] != ' ' && prevLen > MAX_LINE_LEN)
+						body[body.Count - 1] = prev + lines[i];
+					else
+						body.Add(lines[i]);
+					prevLen = lines[i].Length;
+					prev = body[body.Count - 1];
+				}
+				Body = string.Join("\n", body);
+				*/
+			} catch (Exception)
 			{
-				Author = "春哥";
-				Title = "出错了";
-				Body = "出错了";
+				Author = "错误的用户";
+				Title = "错误的标题";
+				Body = "错误的正文";
 			}
 		}
 

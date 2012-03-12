@@ -35,9 +35,9 @@ namespace LilyBBS.API
 				return;
 			}
 			StringBuilder sb = new StringBuilder();
-			string[] ss = s.Split(new char[] { '+' });
+			string[] ss = s.Split('+');
 			sb.AppendFormat("_U_KEY={0}; ", int.Parse(ss[1]) - 2);
-			ss = ss[0].Split(new char[] { 'N' });
+			ss = ss[0].Split('N');
 			sb.AppendFormat("_U_UID={0}; ", ss[1]);
 			sb.AppendFormat("_U_NUM={0}", int.Parse(ss[0]) + 2);
 			String cookie = sb.ToString();

@@ -6,9 +6,9 @@ namespace LilyBBS.API
 {
 	public class FetchHotListRequest : BaseRequest
 	{
-		private static readonly Regex PID_RE = new Regex(@"bbstcon\?board=(\w+)\&file=M\.(\d+)\.A");
-		private static readonly Regex TITLE_RE = new Regex(@"bbstcon\?board=.+?>(.*?)\n</a>");
-		private static readonly Regex RE = new Regex("○<a href=\"bbstcon\\?board=(\\w+)\\&file=M\\.(\\d+)\\.A\">(.*?)\\n</a> \\[<a href=\"bbsdoc\\?board=(\\w+)\">(\\w+?)</a>\\]\\n<t");
+		private static readonly Regex PID_RE = new Regex(@"bbstcon\?board=(\w+)\&file=M\.(\d+)\.A", RegexOptions.Compiled);
+		private static readonly Regex TITLE_RE = new Regex(@"bbstcon\?board=.+?>(.*?)\n</a>", RegexOptions.Compiled);
+		private static readonly Regex RE = new Regex("○<a href=\"bbstcon\\?board=(\\w+)\\&file=M\\.(\\d+)\\.A\">(.*?)\\n</a> \\[<a href=\"bbsdoc\\?board=(\\w+)\">(\\w+?)</a>\\]\\n<t", RegexOptions.Compiled);
 		public FetchHotListRequest(Connection connection, BaseHandler callback)
 			: base(connection, callback)
 		{

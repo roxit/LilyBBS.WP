@@ -6,11 +6,11 @@ namespace LilyBBS.API
 {
 	public class FetchPageRequest : BaseRequest
 	{
-		private static readonly Regex PID_RE = new Regex(@"bbstcon\?board=(\w+)\&file=M\.(\d+)\.A");
-		private static readonly Regex TITLE_RE = new Regex(@"bbstcon\?board=.+?>(.*?)</a>");
-		private static readonly Regex AUTHOR_RE = new Regex(@"bbsqry\?userid=(\w+)");
-		private static readonly Regex COUNT_RE = new Regex("<font color=\"(black|red)\">(\\d+)</font>/<font color=\"(black|red)\">(\\d+)</font>");
-		private static readonly Regex PREV_START_RE = new Regex(@"bbstdoc\?board=(\w+)\&start=(\d+)>上一页");
+		private static readonly Regex PID_RE = new Regex(@"bbstcon\?board=(\w+)\&file=M\.(\d+)\.A", RegexOptions.Compiled);
+		private static readonly Regex TITLE_RE = new Regex(@"bbstcon\?board=.+?>(.*?)</a>", RegexOptions.Compiled);
+		private static readonly Regex AUTHOR_RE = new Regex(@"bbsqry\?userid=(\w+)", RegexOptions.Compiled);
+		private static readonly Regex COUNT_RE = new Regex("<font color=\"(black|red)\">(\\d+)</font>/<font color=\"(black|red)\">(\\d+)</font>", RegexOptions.Compiled);
+		private static readonly Regex PREV_START_RE = new Regex(@"bbstdoc\?board=(\w+)\&start=(\d+)>上一页", RegexOptions.Compiled);
 
 		private string board;
 		private int? start;

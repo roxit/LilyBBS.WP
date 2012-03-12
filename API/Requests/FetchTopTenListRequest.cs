@@ -6,9 +6,9 @@ namespace LilyBBS.API
 {
 	public class FetchTopTenListRequest : BaseRequest
 	{
-		private static readonly Regex PID_RE = new Regex(@"bbstcon\?board=(\w+)\&file=M\.(\d+)\.A");
-		private static readonly Regex TITLE_RE = new Regex(@"bbstcon\?board=.+?>(.*?)\n</a>");
-		private static readonly Regex AUTHOR_RE = new Regex(@"bbsqry\?userid=(\w+)");
+		private static readonly Regex PID_RE = new Regex(@"bbstcon\?board=(\w+)\&file=M\.(\d+)\.A", RegexOptions.Compiled);
+		private static readonly Regex TITLE_RE = new Regex(@"bbstcon\?board=.+?>(.*?)\n</a>", RegexOptions.Compiled);
+		private static readonly Regex AUTHOR_RE = new Regex(@"bbsqry\?userid=(\w+)", RegexOptions.Compiled);
 
 		public FetchTopTenListRequest(Connection connection, BaseHandler callback)
 			: base(connection, callback)

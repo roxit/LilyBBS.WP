@@ -5,8 +5,8 @@ namespace LilyBBS.API
 {
 	public class FetchSectionRequest : BaseRequest
 	{
-		private static readonly Regex BOARD_RE = new Regex("<a href=bbsdoc\\?board=(\\w+?)> ○ (\\w+?)</a>");
-		private static readonly Regex GROUP_RE = new Regex("\\[(\\w+?)区\\]<hr");
+		private static readonly Regex BOARD_RE = new Regex("<a href=bbsdoc\\?board=(\\w+?)> ○ (\\w+?)</a>", RegexOptions.Compiled);
+		private static readonly Regex GROUP_RE = new Regex("\\[(\\w+?)区\\]<hr", RegexOptions.Compiled);
 		private int Sid;
 
 		public FetchSectionRequest(Connection connection, BaseHandler callback)

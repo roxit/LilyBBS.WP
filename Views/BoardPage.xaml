@@ -98,7 +98,7 @@
     </Grid>
  
     <phone:PhoneApplicationPage.ApplicationBar>
-        <shell:ApplicationBar IsVisible="True" IsMenuEnabled="False">
+		<shell:ApplicationBar IsVisible="True" IsMenuEnabled="False" Opacity="1">
             <shell:ApplicationBarIconButton x:Name="ComposeButton" 
 											IconUri="/Images/edit.png"
 											Text="发帖"

@@ -29,8 +29,8 @@ namespace LilyBBS.API
 	public class Utils
 	{
 		public static readonly Encoding Enc = new GB2312.GB2312Encoding();
-		private static readonly Regex PID_RE = new Regex(@"M\.(\d+)\.A");
-		private static readonly Regex NUM_RE = new Regex(@"num=(\d+)");
+		private static readonly Regex PID_RE = new Regex(@"M\.(\d+)\.A", RegexOptions.Compiled);
+		private static readonly Regex NUM_RE = new Regex(@"num=(\d+)", RegexOptions.Compiled);
 
 		public static string Pid2Str(int pid)
 		{

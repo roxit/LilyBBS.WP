@@ -5,7 +5,7 @@ namespace LilyBBS.API
 {
 	public class FetchPostRequest : BaseRequest
 	{
-		private static readonly Regex GID_RE = new Regex(@"</a>\]\[<a href='bbstfind\?board=(\w+)\&gid=(\d+)' >同主题阅读</a>");
+		private static readonly Regex GID_RE = new Regex(@"</a>\]\[<a href='bbstfind\?board=(\w+)\&gid=(\d+)' >同主题阅读</a>", RegexOptions.Compiled);
 		private int Pid;
 		private string Board;
 		private int Num;
