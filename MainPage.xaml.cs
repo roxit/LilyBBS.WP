@@ -54,10 +54,17 @@ namespace LilyBBS
 		{
 			Settings settings = app.Resources["Settings"] as Settings;
 			List<Board> favBrd = new List<Board>();
-			if (settings.FavoriteBoardList == null) return;
-			foreach (var i in settings.FavoriteBoardList)
+			if (settings.FavoriteBoardList.Count > 0)
 			{
-				favBrd.Add(new Board(i, BoardManager.GetBoardText(i)));
+				FavoriteBoardListSelector.Visibility = Visibility.Visible;
+				NoFavoriteBoardTextBox.Visibility = Visibility.Collapsed;
+				foreach (var i in settings.FavoriteBoardList)
+					favBrd.Add(new Board(i, BoardManager.GetBoardText(i)));
+			}
+			else
+			{
+				NoFavoriteBoardTextBox.Visibility = Visibility.Visible;
+				FavoriteBoardListSelector.Visibility = Visibility.Collapsed;
 			}
 			FavoriteBoardListSelector.ItemsSource = favBrd;
 		}
@@ -93,9 +100,10 @@ namespace LilyBBS
 
 		private void FavoriteBoardButton_Click(object sender, RoutedEventArgs e)
 		{
-			if (FavoriteBoardListSelector.Visibility != Visibility.Visible)
+			if (FavoriteBoardGrid.Visibility != Visibility.Visible)
 			{
-				FavoriteBoardListSelector.Visibility = Visibility.Visible;
+				FavoriteBoardGrid.Visibility = Visibility.Visible;
+				LoadFavoriteBoardList();
 				AllBoardListSelector.Visibility = Visibility.Collapsed;
 			}
 		}
@@ -105,7 +113,7 @@ namespace LilyBBS
 			if (AllBoardListSelector.Visibility != Visibility.Visible)
 			{
 				AllBoardListSelector.Visibility = Visibility.Visible;
-				FavoriteBoardListSelector.Visibility = Visibility.Collapsed;
+				FavoriteBoardGrid.Visibility = Visibility.Collapsed;
 			}
 		}
 		#endregion

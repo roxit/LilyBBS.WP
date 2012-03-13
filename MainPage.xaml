@@ -46,36 +46,48 @@
 				</StackPanel>
 			</controls:PivotItem.Header>
 			<Grid>
-				<toolkit:LongListSelector Name="FavoriteBoardListSelector"
+				<Grid x:Name="FavoriteBoardGrid">
+					<Grid.RowDefinitions>
+						<RowDefinition Height="*"/>
+					</Grid.RowDefinitions>
+					<TextBlock x:Name="NoFavoriteBoardTextBox"
+						   Visibility="Collapsed"
+						   Text="收藏为空"
+						   HorizontalAlignment="Center"
+						   VerticalAlignment="Center"
+						   Style="{StaticResource PhoneTextTitle2Style}">
+					</TextBlock>
+
+					<toolkit:LongListSelector Name="FavoriteBoardListSelector"
 										  Visibility="Visible"
 										  IsFlatList="True"
 										  SelectionChanged="BoardListSelector_SelectionChanged"
 										  Loaded="BoardListSelector_Loaded">
-					<toolkit:LongListSelector.ItemTemplate>
-						<DataTemplate>
-							<Grid Margin="0,6">
-								<toolkit:ContextMenuService.ContextMenu>
-									<toolkit:ContextMenu>
-										<toolkit:MenuItem Header="取消收藏" Click="RemoveFavoriteBoard_Click"/>
-									</toolkit:ContextMenu>
-								</toolkit:ContextMenuService.ContextMenu>
-								<Grid.ColumnDefinitions>
-									<ColumnDefinition Width="*"/>
-									<ColumnDefinition Width="Auto"/>
-								</Grid.ColumnDefinitions>
-								<TextBlock Text="{Binding Text}"
-										   FontSize="{StaticResource PhoneFontSizeLarge}"
-										   Style="{StaticResource PhoneTextNormalStyle}"/>
-								<TextBlock Grid.Column="1"
-										   Text="{Binding Name}"
-										   VerticalAlignment="Center"
-										   FontSize="{StaticResource PhoneFontSizeMediumLarge}"
-										   Style="{StaticResource PhoneTextAccentStyle}"/>
-							</Grid>
-						</DataTemplate>
-					</toolkit:LongListSelector.ItemTemplate>
-				</toolkit:LongListSelector>
-				
+						<toolkit:LongListSelector.ItemTemplate>
+							<DataTemplate>
+								<Grid Margin="0,6">
+									<toolkit:ContextMenuService.ContextMenu>
+										<toolkit:ContextMenu>
+											<toolkit:MenuItem Header="取消收藏" Click="RemoveFavoriteBoard_Click"/>
+										</toolkit:ContextMenu>
+									</toolkit:ContextMenuService.ContextMenu>
+									<Grid.ColumnDefinitions>
+										<ColumnDefinition Width="*"/>
+										<ColumnDefinition Width="Auto"/>
+									</Grid.ColumnDefinitions>
+									<TextBlock Text="{Binding Text}"
+											   FontSize="{StaticResource PhoneFontSizeLarge}"
+											   Style="{StaticResource PhoneTextNormalStyle}"/>
+									<TextBlock Grid.Column="1"
+											   Text="{Binding Name}"
+											   VerticalAlignment="Center"
+											   FontSize="{StaticResource PhoneFontSizeMediumLarge}"
+											   Style="{StaticResource PhoneTextAccentStyle}"/>
+								</Grid>
+							</DataTemplate>
+						</toolkit:LongListSelector.ItemTemplate>
+					</toolkit:LongListSelector>
+				</Grid>
 				<toolkit:LongListSelector Name="AllBoardListSelector"
 										  Visibility="Collapsed"
 										  toolkit:TiltEffect.IsTiltEnabled="True"

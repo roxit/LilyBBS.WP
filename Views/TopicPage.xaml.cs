@@ -89,7 +89,6 @@ namespace LilyBBS
 				toast.ShowNetworkError();
 				return;
 			}
-			
 			Topic t = e.Result as Topic;
 			NextStart = t.nextStart;
 			foreach (var i in t.PostList)

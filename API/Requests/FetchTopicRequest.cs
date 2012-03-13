@@ -41,7 +41,7 @@ namespace LilyBBS.API
 			int idx, floor;
 			if (Start != null)
 			{
-				idx = 1; floor = Start.Value;
+				idx = 1; floor = Start.Value+1;
 			} else {
 				idx = 0; floor = 0;
 			}

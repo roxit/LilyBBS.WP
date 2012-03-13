@@ -89,7 +89,9 @@
 				</toolkit:LongListSelector.ItemTemplate>
 				<toolkit:LongListSelector.ListFooterTemplate>
 					<DataTemplate>
-						<Button BorderThickness="0"
+						<Button BorderThickness="0,1,0,0"
+								BorderBrush="{StaticResource PhoneAccentBrush}"
+								Opacity="0.6"
 								Content="{Binding ElementName=this,Path=IsLoading,Converter={StaticResource IsLoadingConverter}}"
 								Click="LoadMoreButton_Click" />
 					</DataTemplate>
