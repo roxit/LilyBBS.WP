@@ -12,7 +12,8 @@
 		<sys:String x:Key="ApplicationTitle">小百合BBS</sys:String>
 		<local:Settings x:Key="Settings"/>
 		<local:NetworkErrorMessage x:Key="NetworkErrorMessage"/>
-		<local:IsLoadingConverter x:Key="IsLoadingConverter" />
+		<local:IsLoading2TextConverter x:Key="IsLoading2TextConverter"/>
+		<local:IsLoading2IsEnabledConverter x:Key="IsLoading2IsEnabledConverter"/>
 	</Application.Resources>
 
     <Application.ApplicationLifetimeObjects>

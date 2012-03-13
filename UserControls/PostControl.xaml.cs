@@ -4,6 +4,7 @@ using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Controls;
 using ImageTools;
+using ImageTools.Controls;
 using System.Net;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
@@ -99,17 +100,50 @@ namespace LilyBBS
 			return ret;
 		}
 
-		private static Image buildImage(string src)
-		{
-			Image img = new Image();
-			img.Source = new BitmapImage(new Uri(IMG_PREFIX+src));
-			return img;
-		}
-
 		private static void addTextBlock(StackPanel panel, TextBlock block)
 		{
 			if (block.Text.Length > 0)
 				panel.Children.Add(block);
+		}
+
+		private static UIElement buildImage(string src)
+		{
+			if (!src.ToLower().EndsWith(".gif"))
+			{
+				Image ret = new Image();
+				ret.HorizontalAlignment = HorizontalAlignment.Left;
+				ret.Margin = new Thickness(3, 3, 3, 3);
+				BitmapImage img = new BitmapImage(new Uri(IMG_PREFIX+src));
+				ret.Source = img;
+				ret.ImageOpened += (s, e) =>
+				{
+					/*
+					ret.Width = img.PixelWidth;
+					ret.Height = img.PixelHeight;
+					 */
+				};
+				ret.ImageFailed += (s, e) =>
+				{
+					// corp proxy returns 302
+				};
+				return ret;
+			}
+			ImageTools.IO.Decoders.AddDecoder <ImageTools.IO.Gif.GifDecoder>();
+			AnimatedImage gifRet = new AnimatedImage();
+			gifRet.HorizontalAlignment = HorizontalAlignment.Left;
+			gifRet.Margin = new Thickness(3, 3, 3, 3);
+			ExtendedImage gifImg = new ExtendedImage();
+			// fetch gif images directly
+			gifImg.UriSource = new Uri(src);
+			gifRet.Source = gifImg;
+			gifRet.LoadingCompleted += (s, e) =>
+			{
+				/*
+				gifRet.Width = gifImg.PixelWidth;
+				gifRet.Height = gifImg.PixelHeight;
+				 */
+			};
+			return gifRet;
 		}
 
 		static void OnBodyChanged(DependencyObject obj, DependencyPropertyChangedEventArgs args)
@@ -135,6 +169,13 @@ namespace LilyBBS
 				}
 				else if (isUrl(i))
 				{
+					HyperlinkButton link = new HyperlinkButton();
+					link.HorizontalAlignment = HorizontalAlignment.Left;
+					link.Margin = new Thickness(0, 3, 0, 3);
+					link.TargetName = "_blank";
+					link.Content = i;
+					link.NavigateUri = new Uri(i);
+					panel.Children.Add(link);
 				}
 				else
 				{
@@ -164,12 +205,12 @@ namespace LilyBBS
 		
 		private static bool isPicture(string s)
 		{
-			return IMG_RE.IsMatch(s);
+			return IMG_RE.IsMatch(s.ToLower());
 		}
 
 		private static bool isUrl(string s)
 		{
-			return URL_RE.IsMatch(s);
+			return URL_RE.IsMatch(s.ToLower());
 		}
 
 		public PostControl()

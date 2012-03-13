@@ -54,8 +54,12 @@
     <Reference Include="HtmlAgilityPack">
       <HintPath>..\packages\HtmlAgilityPack.1.4.3\lib\sl4-windowsphone71\HtmlAgilityPack.dll</HintPath>
     </Reference>
-    <Reference Include="ImageTools">
-      <HintPath>C:\Program Files (x86)\Microsoft SDKs\Windows Phone\v7.1\Libraries\ImageTools\ImageTools.dll</HintPath>
+    <Reference Include="ImageTools, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL" />
+    <Reference Include="ImageTools.Controls">
+      <HintPath>C:\Program Files (x86)\Microsoft SDKs\Windows Phone\v7.1\Libraries\ImageTools\bin\Phone\ImageTools.Controls.dll</HintPath>
+    </Reference>
+    <Reference Include="ImageTools.IO.Gif">
+      <HintPath>C:\Program Files (x86)\Microsoft SDKs\Windows Phone\v7.1\Libraries\ImageTools\bin\Phone\ImageTools.IO.Gif.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Phone" />
     <Reference Include="Microsoft.Phone.Controls, Version=7.0.0.0, Culture=neutral, PublicKeyToken=24eec0d8c86cda1e" />

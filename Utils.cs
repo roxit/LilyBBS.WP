@@ -190,13 +190,30 @@ namespace LilyBBS
 		}
 	}
 
-	public class IsLoadingConverter : IValueConverter
+	public class IsLoading2TextConverter : IValueConverter
 	{
 		public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
 		{
 			bool isLoading = (value as bool?).Value;
 			if (isLoading) return "载入中...";
 			else return "更多";
+		}
+
+		public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+		{
+			return null;
+		}
+	}
+
+	public class IsLoading2IsEnabledConverter : IValueConverter
+	{
+		public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+		{
+			return true;
+			// TODO
+			bool isLoading = (value as bool?).Value;
+			if (isLoading) return false;
+			else return true;
 		}
 
 		public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

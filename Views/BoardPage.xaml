@@ -92,7 +92,8 @@
 						<Button BorderThickness="0,1,0,0"
 								BorderBrush="{StaticResource PhoneAccentBrush}"
 								Opacity="0.6"
-								Content="{Binding ElementName=this,Path=IsLoading,Converter={StaticResource IsLoadingConverter}}"
+								Content="{Binding ElementName=this,Path=IsLoading,Converter={StaticResource IsLoading2TextConverter}}"
+								IsEnabled="{Binding ElementName=this,Path=IsLoading,Converter={StaticResource IsLoading2IsEnabledConverter}}"
 								Click="LoadMoreButton_Click" />
 					</DataTemplate>
 				</toolkit:LongListSelector.ListFooterTemplate>

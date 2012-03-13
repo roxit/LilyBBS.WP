@@ -9,12 +9,6 @@ using Microsoft.Phone.Shell;
 
 namespace LilyBBS
 {
-	/*
-	 * TODO
-	 * http://bbs.nju.edu.cn/bbstcon?board=D_Computer&file=M.1329204278.A
-	 * http://bbs.nju.edu.cn/bbstcon?board=WorldFootball&file=M.1329342210.A
-	 * 1st post partly shown, api data ok
-	 */
 	public partial class TopicPage : PhoneApplicationPage
 	{
 		App app;
