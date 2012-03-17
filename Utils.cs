@@ -40,6 +40,13 @@ namespace LilyBBS
 			Message = (app.Resources["NetworkErrorMessage"] as NetworkErrorMessage).Message;
 			Show();
 		}
+
+		public void ShowContentError()
+		{
+			var app = Application.Current as App;
+			Message = "无法正确显示内容";
+			Show();
+		}
 	}
 
 	public class NetworkErrorMessage

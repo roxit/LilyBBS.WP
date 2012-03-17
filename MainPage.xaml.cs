@@ -205,6 +205,12 @@ namespace LilyBBS
 
 		#region ApplicationBar
 
+		private void Pivot_Loaded(object sender, RoutedEventArgs e)
+		{
+			// TODO: ApplicationBar and TopTen/HotList overlay
+			//ApplicationBar.IsVisible = true;
+		}
+
 		private void InitializeApplicationBar()
 		{
 			RefreshButton = new ApplicationBarIconButton(new Uri("/Images/refresh.png", UriKind.Relative));
@@ -222,11 +228,13 @@ namespace LilyBBS
 					ApplicationBar.Mode = ApplicationBarMode.Default;
 					if (!ApplicationBar.Buttons.Contains(RefreshButton))
 						ApplicationBar.Buttons.Add(RefreshButton);
+					//HotList.UpdateLayout();
 					break;
 				case TopTenHeader:
 					ApplicationBar.Mode = ApplicationBarMode.Default;
 					if (!ApplicationBar.Buttons.Contains(RefreshButton))
 						ApplicationBar.Buttons.Add(RefreshButton);
+					//TopTenList.UpdateLayout();
 					break;
 				default:
 					ApplicationBar.Mode = ApplicationBarMode.Minimized;

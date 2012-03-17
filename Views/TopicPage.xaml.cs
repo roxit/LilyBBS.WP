@@ -83,10 +83,20 @@ namespace LilyBBS
 				toast.ShowNetworkError();
 				return;
 			}
-			Topic t = e.Result as Topic;
-			NextStart = t.nextStart;
-			foreach (var i in t.PostList)
-				items.Add(i);
+			/*
+			 * HTMLAgilityPack fails often!
+			 */
+			try
+			{
+				Topic t = e.Result as Topic;
+				NextStart = t.nextStart;
+				foreach (var i in t.PostList)
+					items.Add(i);
+			}
+			catch (Exception exc)
+			{
+				
+			}
 		}
 
 		private void PostList_Loaded(object sender, RoutedEventArgs e)

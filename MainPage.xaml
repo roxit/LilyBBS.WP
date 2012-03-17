@@ -19,7 +19,8 @@
 	</phone:PhoneApplicationPage.Resources>
 
 	<controls:Pivot Name="Pivot" Title="{StaticResource ApplicationTitle}" 
-					SelectionChanged="Pivot_SelectionChanged">
+					SelectionChanged="Pivot_SelectionChanged"
+					Loaded="Pivot_Loaded">
 		<!--
 		<controls:PivotItem Header="Hello">
 			<Grid>
