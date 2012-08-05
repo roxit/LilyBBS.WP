@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Text.RegularExpressions;
 
-namespace LilyBBS.API
+namespace LilyBBS.SDK
 {
 	public class Post
 	{

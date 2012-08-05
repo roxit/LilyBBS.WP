@@ -77,20 +77,20 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="API\BoardManager.cs" />
-    <Compile Include="API\HeaderGroup.cs" />
-    <Compile Include="API\FetchBoardListRequest.cs" />
-    <Compile Include="API\Requests\BaseRequest.cs" />
-    <Compile Include="API\Requests\FetchHotListRequest.cs" />
-    <Compile Include="API\Requests\ValidateLoginRequest.cs" />
-    <Compile Include="API\Requests\FetchPageRequest.cs" />
-    <Compile Include="API\Requests\FetchPostRequest.cs" />
-    <Compile Include="API\Requests\FetchTopicRequest.cs" />
-    <Compile Include="API\Requests\FetchTopTenListRequest.cs" />
-    <Compile Include="API\Requests\LoginRequest.cs" />
-    <Compile Include="API\Requests\SendPostRequest.cs" />
-    <Compile Include="API\Requests\FetchSectionRequest.cs" />
-    <Compile Include="API\Utils.cs" />
+    <Compile Include="SDK\BoardManager.cs" />
+    <Compile Include="SDK\HeaderGroup.cs" />
+    <Compile Include="SDK\FetchBoardListRequest.cs" />
+    <Compile Include="SDK\Requests\BaseRequest.cs" />
+    <Compile Include="SDK\Requests\FetchHotListRequest.cs" />
+    <Compile Include="SDK\Requests\ValidateLoginRequest.cs" />
+    <Compile Include="SDK\Requests\FetchPageRequest.cs" />
+    <Compile Include="SDK\Requests\FetchPostRequest.cs" />
+    <Compile Include="SDK\Requests\FetchTopicRequest.cs" />
+    <Compile Include="SDK\Requests\FetchTopTenListRequest.cs" />
+    <Compile Include="SDK\Requests\LoginRequest.cs" />
+    <Compile Include="SDK\Requests\SendPostRequest.cs" />
+    <Compile Include="SDK\Requests\FetchSectionRequest.cs" />
+    <Compile Include="SDK\Utils.cs" />
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
@@ -101,19 +101,19 @@
     <Compile Include="Views\BoardPage.xaml.cs">
       <DependentUpon>BoardPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="API\Board.cs" />
-    <Compile Include="API\Header.cs" />
-    <Compile Include="API\Connection.cs" />
+    <Compile Include="SDK\Board.cs" />
+    <Compile Include="SDK\Header.cs" />
+    <Compile Include="SDK\Connection.cs" />
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="API\Page.cs" />
-    <Compile Include="API\Post.cs" />
+    <Compile Include="SDK\Page.cs" />
+    <Compile Include="SDK\Post.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Views\SendPostPage.xaml.cs">
       <DependentUpon>SendPostPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="API\Topic.cs" />
+    <Compile Include="SDK\Topic.cs" />
     <Compile Include="Views\SettingsPage.xaml.cs">
       <DependentUpon>SettingsPage.xaml</DependentUpon>
     </Compile>

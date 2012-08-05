@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
-using LilyBBS.API;
+using LilyBBS.SDK;
 using Microsoft.Phone.Controls;
 using Microsoft.Phone.Shell;
 

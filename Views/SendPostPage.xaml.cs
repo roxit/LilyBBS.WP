@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Windows;
-using LilyBBS.API;
+using LilyBBS.SDK;
 using Microsoft.Phone.Controls;
 using Microsoft.Phone.Shell;
 

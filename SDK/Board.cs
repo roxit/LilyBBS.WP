@@ -2,7 +2,7 @@
 using System.Xml.Linq;
 using System;
 
-namespace LilyBBS.API
+namespace LilyBBS.SDK
 {
 	public class Board
 	{

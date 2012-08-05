@@ -2,7 +2,7 @@
 using System.Text;
 using System.Text.RegularExpressions;
 
-namespace LilyBBS.API
+namespace LilyBBS.SDK
 {
 	public class LoginRequest : BaseRequest
 	{

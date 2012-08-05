@@ -1,7 +1,7 @@
 ﻿using System.Text.RegularExpressions;
 using HtmlAgilityPack;
 
-namespace LilyBBS.API
+namespace LilyBBS.SDK
 {
 	public class FetchSectionRequest : BaseRequest
 	{

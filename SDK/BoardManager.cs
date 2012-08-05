@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Xml.Linq;
 
-namespace LilyBBS.API
+namespace LilyBBS.SDK
 {
 	public class BoardManager : List<Section>
 	{
