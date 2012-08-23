@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using System.Text.RegularExpressions;
+using GB2312;
 
 namespace LilyBBS.SDK
 {
@@ -28,7 +29,7 @@ namespace LilyBBS.SDK
 
 	public class Utils
 	{
-		public static readonly Encoding Enc = new GB2312.GB2312Encoding();
+		public static readonly Encoding Enc = new GB2312Encoding();
 		private static readonly Regex PID_RE = new Regex(@"M\.(\d+)\.A", RegexOptions.Compiled);
 		private static readonly Regex NUM_RE = new Regex(@"num=(\d+)", RegexOptions.Compiled);
 
