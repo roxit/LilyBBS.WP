@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows;
 using System.Windows.Navigation;
-using LilyBBS.SDK;
+using LilyBBS.DAL;
 using Microsoft.Phone.Controls;
 using Microsoft.Phone.Info;
 using Microsoft.Phone.Shell;

@@ -65,6 +65,8 @@
     <Reference Include="Microsoft.Phone.Controls, Version=7.0.0.0, Culture=neutral, PublicKeyToken=24eec0d8c86cda1e" />
     <Reference Include="Microsoft.Phone.Controls.Toolkit, Version=7.0.0.0, Culture=neutral, PublicKeyToken=b772ad94eb9ca604" />
     <Reference Include="Microsoft.Phone.Interop" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Servicemodel.Web" />
     <Reference Include="System.Windows" />
     <Reference Include="system" />
     <Reference Include="System.Core" />
@@ -77,43 +79,49 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="SDK\BoardManager.cs" />
-    <Compile Include="SDK\HeaderGroup.cs" />
-    <Compile Include="SDK\FetchBoardListRequest.cs" />
-    <Compile Include="SDK\Requests\BaseRequest.cs" />
-    <Compile Include="SDK\Requests\FetchHotListRequest.cs" />
-    <Compile Include="SDK\Requests\ValidateLoginRequest.cs" />
-    <Compile Include="SDK\Requests\FetchPageRequest.cs" />
-    <Compile Include="SDK\Requests\FetchPostRequest.cs" />
-    <Compile Include="SDK\Requests\FetchTopicRequest.cs" />
-    <Compile Include="SDK\Requests\FetchTopTenListRequest.cs" />
-    <Compile Include="SDK\Requests\LoginRequest.cs" />
-    <Compile Include="SDK\Requests\SendPostRequest.cs" />
-    <Compile Include="SDK\Requests\FetchSectionRequest.cs" />
-    <Compile Include="SDK\Utils.cs" />
+    <Compile Include="DAL\BoardManager.cs" />
+    <Compile Include="DAL\HeaderGroup.cs" />
+    <Compile Include="DAL\FetchBoardListRequest.cs" />
+    <Compile Include="DAL\Requests\BaseRequest.cs" />
+    <Compile Include="DAL\Requests\FetchHotListRequest.cs" />
+    <Compile Include="DAL\Requests\ValidateLoginRequest.cs" />
+    <Compile Include="DAL\Requests\FetchPageRequest.cs" />
+    <Compile Include="DAL\Requests\FetchPostRequest.cs" />
+    <Compile Include="DAL\Requests\FetchTopicRequest.cs" />
+    <Compile Include="DAL\Requests\FetchTopTenListRequest.cs" />
+    <Compile Include="DAL\Requests\LoginRequest.cs" />
+    <Compile Include="DAL\Requests\SendPostRequest.cs" />
+    <Compile Include="DAL\Requests\FetchSectionRequest.cs" />
+    <Compile Include="DAL\Utils.cs" />
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Models\Page.cs" />
+    <Compile Include="Models\Header.cs" />
+    <Compile Include="Models\Post.cs" />
+    <Compile Include="Models\Topic.cs" />
     <Compile Include="UserControls\PostControl.xaml.cs">
       <DependentUpon>PostControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Utils.cs" />
+    <Compile Include="ViewModels\PageViewModel.cs" />
+    <Compile Include="ViewModels\TopicViewModel.cs" />
     <Compile Include="Views\BoardPage.xaml.cs">
       <DependentUpon>BoardPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="SDK\Board.cs" />
-    <Compile Include="SDK\Header.cs" />
-    <Compile Include="SDK\Connection.cs" />
+    <Compile Include="DAL\Board.cs" />
+    <Compile Include="DAL\Header.cs" />
+    <Compile Include="DAL\Connection.cs" />
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="SDK\Page.cs" />
-    <Compile Include="SDK\Post.cs" />
+    <Compile Include="DAL\Page.cs" />
+    <Compile Include="DAL\Post.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Views\SendPostPage.xaml.cs">
       <DependentUpon>SendPostPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="SDK\Topic.cs" />
+    <Compile Include="DAL\Topic.cs" />
     <Compile Include="Views\SettingsPage.xaml.cs">
       <DependentUpon>SettingsPage.xaml</DependentUpon>
     </Compile>

@@ -3,7 +3,7 @@ using System.Collections.ObjectModel;
 using System.Globalization;
 using System.Windows;
 using System.Windows.Data;
-using LilyBBS.SDK;
+using LilyBBS.DAL;
 using Microsoft.Phone.Controls;
 using Microsoft.Phone.Shell;
 

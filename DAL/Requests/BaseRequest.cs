@@ -2,7 +2,7 @@
 using System.Net;
 using System.Text;
 
-namespace LilyBBS.SDK
+namespace LilyBBS.DAL
 {
 	public delegate void BaseHandler(object sender, BaseEventArgs e);
 

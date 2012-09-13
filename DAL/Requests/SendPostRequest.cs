@@ -1,5 +1,5 @@
 ﻿
-namespace LilyBBS.SDK
+namespace LilyBBS.DAL
 {
 	public class SendPostRequest : BaseRequest
 	{

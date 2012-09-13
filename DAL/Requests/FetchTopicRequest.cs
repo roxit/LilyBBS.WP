@@ -1,6 +1,6 @@
 ﻿using HtmlAgilityPack;
 
-namespace LilyBBS.SDK
+namespace LilyBBS.DAL
 {
 	public class FetchTopicRequest : BaseRequest
 	{

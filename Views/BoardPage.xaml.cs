@@ -2,7 +2,7 @@
 using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Controls;
-using LilyBBS.SDK;
+using LilyBBS.DAL;
 using Microsoft.Phone.Controls;
 using Microsoft.Phone.Shell;
 
@@ -63,7 +63,7 @@ namespace LilyBBS
 				toast.ShowNetworkError();
 				return;
 			}
-			LilyBBS.SDK.Page page = e.Result as LilyBBS.SDK.Page;
+			LilyBBS.DAL.Page page = e.Result as LilyBBS.DAL.Page;
 			prevStart = page.PrevStart;
 			foreach (var i in page.HeaderList)
 				itemsSource.Add(i);

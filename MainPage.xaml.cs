@@ -2,9 +2,11 @@
 using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
-using LilyBBS.SDK;
+using LilyBBS.DAL;
 using Microsoft.Phone.Controls;
 using Microsoft.Phone.Shell;
+using System.Net;
+using System.Runtime.Serialization.Json;
 
 namespace LilyBBS
 {
@@ -29,17 +31,19 @@ namespace LilyBBS
 			AllBoardListSelector.ItemsSource = BoardManager.Instance;
 			LoadFavoriteBoardList();
 		}
-/*
+
+		WebRequest req;
 		private void HelloButton_Click(object sender, RoutedEventArgs e)
 		{
-			
-//			(Application.Current as App).LilyApi.Login(LoginCompleted, "obash", "s3creed");
-//			NavigationService.Navigate(new Uri("/Views/SendPostPage.xaml", UriKind.Relative));
-			(Application.Current as App).LilyApi.FetchPost(HelloButtonCompleted, "Python", 1323076821, 1240);
-//			(Application.Current as App).LilyApi.FetchTopic(HelloButtonCompleted, "D_Computer", 1329204278, 60);
-//			(Application.Current as App).LilyApi.FetchPage(FetchPageCompleted, "NJUExpress");
-//			(Application.Current as App).LilyApi.FetchBoardList(FetchBoardListCompleted);
-//			(Application.Current as App).LilyApi.FetchHotList(HelloButtonCompleted);
+			req = HttpWebRequest.Create("http://3.lilysvc.sinaapp.com/api/post/YanCheng/1347361960/?num=7535");
+			req.BeginGetResponse(new AsyncCallback(GetResult), null);
+		}
+
+		private void GetResult(IAsyncResult result)
+		{
+			WebResponse resp = req.EndGetResponse(result);
+			DataContractJsonSerializer ser = new DataContractJsonSerializer(typeof(LilyBBS.Models.Post));
+			LilyBBS.Models.Post post = ser.ReadObject(resp.GetResponseStream()) as LilyBBS.Models.Post;
 		}
 
 		private void HelloButtonCompleted(object sender, BaseEventArgs e)
@@ -47,7 +51,7 @@ namespace LilyBBS
 			object ret = e.Result;
 			string s = ret.ToString();
 		}
-*/
+
 		#region Board
 
 		private void LoadFavoriteBoardList()

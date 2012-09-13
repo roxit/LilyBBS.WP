@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace LilyBBS.SDK
+namespace LilyBBS.DAL
 {
 	// a fake request
 	public class FetchBoardListRequest

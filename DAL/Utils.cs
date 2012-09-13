@@ -4,7 +4,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using GB2312;
 
-namespace LilyBBS.SDK
+namespace LilyBBS.DAL
 {
 	public class LilyError : Exception
 	{

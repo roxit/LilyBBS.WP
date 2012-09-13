@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Xml.Linq;
 
-namespace LilyBBS.SDK
+namespace LilyBBS.DAL
 {
 	public class HeaderGroup : List<Header>
 	{
