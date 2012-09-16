@@ -103,7 +103,7 @@ namespace LilyBBS.Views
 		{
 			PostList.SelectedItem = null;
 			if (items.Count != 0) return;
-			board = NavigationContext.QueryString["board"];
+			board = NavigationContext.QueryString["Board"];
 			pid = int.Parse(NavigationContext.QueryString["Pid"]);
 			title = NavigationContext.QueryString["Title"];
 			NavigationContext.QueryString.TryGetValue("Author", out author);

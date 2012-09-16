@@ -22,14 +22,6 @@
 					SelectionChanged="Pivot_SelectionChanged"
 					Loaded="Pivot_Loaded">
 
-		<controls:PivotItem Header="Hello">
-			<Grid>
-				<Button Name="HelloButton" Content="信春哥，无bug！"
-						VerticalAlignment="Top"
-						Height="88"
-						Click="HelloButton_Click"/>
-			</Grid>
-		</controls:PivotItem>
 		<controls:PivotItem>
 			<controls:PivotItem.Header>
 				<StackPanel Orientation="Horizontal">
@@ -162,11 +154,12 @@
 						   VerticalAlignment="Center"
 						   Style="{StaticResource PhoneTextTitle2Style}">
 				</TextBlock>
-				<toolkit:LongListSelector Name="HotList"
+				<toolkit:LongListSelector Name="HotHeaderList"
 										  DisplayAllGroups="False"
 										  toolkit:TiltEffect.IsTiltEnabled="True"
-										  Loaded="HotList_Loaded"
-										  SelectionChanged="HotList_SelectionChanged">
+										  ItemsSource="{Binding Items}"
+										  Loaded="HotHeaderList_Loaded"
+										  SelectionChanged="HeaderList_SelectionChanged">
 					<toolkit:LongListSelector.GroupItemTemplate>
 						<DataTemplate>
 							<Border Background="{StaticResource PhoneAccentBrush}"
@@ -233,11 +226,11 @@
 						   VerticalAlignment="Center"
 						   Style="{StaticResource PhoneTextTitle2Style}">
 				</TextBlock>
-				<toolkit:LongListSelector x:Name="TopTopicList"
+				<toolkit:LongListSelector x:Name="TopHeaderList"
 									  IsFlatList="True"
 									  ItemsSource="{Binding Items}"
-									  Loaded="TopTopicList_Loaded"
-									  SelectionChanged="TopTopicList_SelectionChanged">
+									  Loaded="TopHeaderList_Loaded"
+									  SelectionChanged="HeaderList_SelectionChanged">
 					<toolkit:LongListSelector.ItemTemplate>
 						<DataTemplate>
 							<Border BorderBrush="{StaticResource PhoneAccentBrush}"

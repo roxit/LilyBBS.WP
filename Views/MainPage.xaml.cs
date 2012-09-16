@@ -2,13 +2,14 @@
 using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
-using LilyBBS.DAL;
+using LilyBBS.Models;
 using LilyBBS.ViewModels;
 using Microsoft.Phone.Controls;
 using Microsoft.Phone.Shell;
 using System.Net;
 using System.Runtime.Serialization.Json;
 using System.Windows.Navigation;
+using LilyBBS.Misc;
 
 namespace LilyBBS.Views
 {
@@ -32,34 +33,15 @@ namespace LilyBBS.Views
 			SystemTray.SetProgressIndicator(this, app.Indicator);
 			AllBoardListSelector.ItemsSource = BoardManager.Instance;
 			LoadFavoriteBoardList();
-			TopTopicList.DataContext = App.TopTopicViewModel;
-			//TopTopicList.Loaded += new RoutedEventHandler(TopTopicList_Loaded);
+
+			TopHeaderList.DataContext = App.TopTopicViewModel;
+			HotHeaderList.DataContext = App.HotTopicViewModel;
 		}
 
 		protected override void OnNavigatedTo(NavigationEventArgs e)
 		{
 			base.OnNavigatedTo(e);
 
-		}
-
-		WebRequest req;
-		private void HelloButton_Click(object sender, RoutedEventArgs e)
-		{
-			req = HttpWebRequest.Create("http://3.lilysvc.sinaapp.com/api/post/YanCheng/1347361960/?num=7535");
-			req.BeginGetResponse(new AsyncCallback(GetResult), null);
-		}
-
-		private void GetResult(IAsyncResult result)
-		{
-			WebResponse resp = req.EndGetResponse(result);
-			DataContractJsonSerializer ser = new DataContractJsonSerializer(typeof(LilyBBS.Models.Post));
-			LilyBBS.Models.Post post = ser.ReadObject(resp.GetResponseStream()) as LilyBBS.Models.Post;
-		}
-
-		private void HelloButtonCompleted(object sender, BaseEventArgs e)
-		{
-			object ret = e.Result;
-			string s = ret.ToString();
 		}
 
 		#region Board
@@ -132,91 +114,6 @@ namespace LilyBBS.Views
 		}
 		#endregion
 
-		#region Hot
-
-		private void FetchHotList()
-		{
-			Utils.ShowIndicator("载入中");
-			app.LilyApi.FetchHotList(FetchHotListCompleted);
-		}
-
-		private void FetchHotListCompleted(object sender, BaseEventArgs e)
-		{
-			Utils.HideIndicator();
-			if (e.Error != null)
-			{
-				ShowError(HotList, HotErrorTextBox);
-				isHotListLoaded = false;
-				return;
-			}
-			HideError(HotList, HotErrorTextBox);
-			isHotListLoaded = true;
-			List<HeaderGroup> hotList = e.Result as List<HeaderGroup>;
-			HotList.ItemsSource = hotList;
-		}
-
-		private void HotList_Loaded(object sender, RoutedEventArgs e)
-		{
-			HotList.SelectedItem = null;
-			if (isHotListLoaded) return;
-			FetchHotList();
-		}
-
-		private void HotList_SelectionChanged(object sender, SelectionChangedEventArgs e)
-		{
-			Header hdr = (HotList.SelectedItem as Header);
-			if (hdr == null) return;
-			NavigationService.Navigate(new Uri(
-					string.Format("/Views/TopicPage.xaml?board={0}&Pid={1}&Title={2}",
-							hdr.Board, hdr.Pid, hdr.Title),
-					UriKind.Relative));
-		}
-
-		#endregion
-
-		#region TopTen
-
-		private void FetchTopTenList()
-		{
-			Utils.ShowIndicator("载入中");
-			app.LilyApi.FetchTopTenList(FetchTopTenListCompleted);
-		}
-
-		private void FetchTopTenListCompleted(object sender, BaseEventArgs e)
-		{
-			Utils.HideIndicator();
-			if (e.Error != null)
-			{
-				ShowError(TopTopicList, TopTenErrorTextBox);
-				isTopTenListLoaded = false;
-				return;
-			}
-			HideError(TopTopicList, TopTenErrorTextBox);
-			isTopTenListLoaded = true;
-			List<Header> topTenList = e.Result as List<Header>;
-			TopTopicList.ItemsSource = topTenList;
-		}
-
-		private void TopTenList_Loaded(object sender, RoutedEventArgs e)
-		{
-			TopTopicList.SelectedItem = null;
-			if (isTopTenListLoaded) return;
-			FetchTopTenList();
-		}
-
-		private void TopTenList_SelectionChanged(object sender, SelectionChangedEventArgs e)
-		{
-			Header hdr = (TopTopicList.SelectedItem as Header);
-			if (hdr == null) return;
-			NavigationService.Navigate(new Uri(
-					string.Format("/Views/TopicPage.xaml?board={0}&Pid={1}&Author={2}&Title={3}",
-							hdr.Board, hdr.Pid, hdr.Author, hdr.Title),
-					UriKind.Relative));
-			// TODO
-			//TopTenListBox.SelectedIndex = -1;
-		}
-		#endregion
-
 		#region ApplicationBar
 
 		private void Pivot_Loaded(object sender, RoutedEventArgs e)
@@ -266,10 +163,10 @@ namespace LilyBBS.Views
 			switch (pi)
 			{
 				case HotHeader:
-					FetchHotList();
+					//FetchHotList();
 					break;
 				case TopTenHeader:
-					FetchTopTenList();
+					//FetchTopTenList();
 					break;
 				default:
 					break;
@@ -317,16 +214,43 @@ namespace LilyBBS.Views
 		}
 		#endregion
 
-		private void TopTopicList_Loaded(object sender, RoutedEventArgs e)
+		#region Hot&Top
+		/*
+		private void FetchHotList()
 		{
-			var vm = TopTopicList.DataContext as TopTopicViewModel;
+			Utils.ShowIndicator("载入中");
+			app.LilyApi.FetchHotList(FetchHotListCompleted);
+		}
+
+		private void FetchHotListCompleted(object sender, BaseEventArgs e)
+		{
+			Utils.HideIndicator();
+		}
+
+		*/
+
+		private void TopHeaderList_Loaded(object sender, RoutedEventArgs e)
+		{
+			var vm = (sender as LongListSelector).DataContext as TopTopicViewModel;
 			vm.LoadData();
 		}
 
-		private void TopTopicList_SelectionChanged(object sender, SelectionChangedEventArgs e)
+		private void HotHeaderList_Loaded(object sender, RoutedEventArgs e)
 		{
-
+			var vm = (sender as LongListSelector).DataContext as HotTopicViewModel;
+			vm.LoadData();
 		}
 
+		private void HeaderList_SelectionChanged(object sender, SelectionChangedEventArgs e)
+		{
+			if (e.AddedItems.Count == 1)
+			{
+				var obj = sender as LongListSelector;
+				Header hdr = obj.SelectedItem as Header;
+				NavigationService.Navigate(Constants.MakeTopicViewUri(hdr.Board, hdr.Pid, hdr.Title));
+				obj.SelectedItem = null;
+			}
+		}
+		#endregion Hot&Top
 	}
 }

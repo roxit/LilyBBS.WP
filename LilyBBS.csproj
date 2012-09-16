@@ -97,6 +97,9 @@
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
     <Compile Include="Misc\Constants.cs" />
+    <Compile Include="Models\Board.cs" />
+    <Compile Include="Models\BoardManager.cs" />
+    <Compile Include="Models\HeaderGroup.cs" />
     <Compile Include="Models\ModelBase.cs" />
     <Compile Include="Models\Page.cs" />
     <Compile Include="Models\Header.cs" />
@@ -186,7 +189,7 @@
     </Content>
     <Content Include="Images\refresh.png" />
     <Content Include="Images\settings.png" />
-    <Content Include="Resources\BoardManager.xml" />
+    <Content Include="Assets\BoardManager.xml" />
     <Content Include="SplashScreenImage.jpg" />
   </ItemGroup>
   <ItemGroup>

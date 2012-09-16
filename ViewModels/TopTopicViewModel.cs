@@ -1,24 +1,15 @@
 ﻿using System;
-using System.Net;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Documents;
-using System.Windows.Ink;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Animation;
-using System.Windows.Shapes;
-using System.ComponentModel;
 using System.Collections.ObjectModel;
-using LilyBBS.Models;
+using System.Net;
 using System.Runtime.Serialization.Json;
+using LilyBBS.Models;
 
 namespace LilyBBS.ViewModels
 {
 	public class TopTopicViewModel : ViewModelBase
 	{
 
-		private ObservableCollection<Header> items;
+		private ObservableCollection<Header> items = new ObservableCollection<Header>();
 		public ObservableCollection<Header> Items
 		{
 			get

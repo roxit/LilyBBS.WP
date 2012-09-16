@@ -2,11 +2,10 @@
 using System.Collections.Generic;
 using System.Xml.Linq;
 
-namespace LilyBBS.DAL
+namespace LilyBBS.Models
 {
 	public class BoardManager : List<Section>
 	{
-		private static BoardManager instance;
 		private Dictionary<string, Board> boards;
 
 		private BoardManager()
@@ -20,6 +19,7 @@ namespace LilyBBS.DAL
 				string text = s.Attribute("text").Value;
 				Section sec = new Section(sid, text);
 				this.Add(sec);
+
 				foreach (var b in s.Elements("Board"))
 				{
 					Board brd = new Board(b.Attribute("name").Value, b.Attribute("text").Value);
@@ -29,6 +29,7 @@ namespace LilyBBS.DAL
 			}
 		}
 
+		private static BoardManager instance;
 		public static BoardManager Instance
 		{
 			get
@@ -48,7 +49,6 @@ namespace LilyBBS.DAL
 
 		public static string GetSectionName(int idx)
 		{
-			// TODO make sure idx == Instance[idx].Sid
 			return Instance[idx].Name;
 		}
 	}

@@ -34,6 +34,17 @@ namespace LilyBBS
 			}
 		}
 
+		private static HotTopicViewModel hotTopicViewModel;
+		public static HotTopicViewModel HotTopicViewModel
+		{
+			get
+			{
+				if (hotTopicViewModel == null)
+					hotTopicViewModel = new HotTopicViewModel();
+				return hotTopicViewModel;
+			}
+		}
+
 		private static TopTopicViewModel topTopicViewModel;
 		public static TopTopicViewModel TopTopicViewModel
 		{
