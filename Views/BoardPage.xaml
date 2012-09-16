@@ -11,12 +11,12 @@
     FontSize="{StaticResource PhoneFontSizeNormal}"
     Foreground="{StaticResource PhoneForegroundBrush}"
     SupportedOrientations="PortraitOrLandscape" Orientation="Portrait"
-    mc:Ignorable="d" d:DesignHeight="696" d:DesignWidth="480"
-    shell:SystemTray.IsVisible="True"
+    mc:Ignorable="d" d:DesignHeight="728" d:DesignWidth="480"
+    shell:SystemTray.IsVisible="False"
 	toolkit:TiltEffect.IsTiltEnabled="True"
 	Name="this">
 
-    <Grid x:Name="LayoutRoot" Background="Transparent">
+    <Grid x:Name="LayoutRoot" Background="Transparent" d:DataContext="{Binding Source={StaticResource SamplePage}}">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
@@ -51,14 +51,18 @@
 										   Margin="0,0,3,0"/>
 								<Grid Grid.Row="1">
 									<Grid.ColumnDefinitions>
-										<ColumnDefinition Width="*"/>
 										<ColumnDefinition Width="Auto"/>
+										<ColumnDefinition Width="Auto"/>
+										<ColumnDefinition/>
 									</Grid.ColumnDefinitions>
 									<TextBlock Text="{Binding Author}"
 											   Style="{StaticResource PhoneTextSmallStyle}"
 											   Foreground="{StaticResource PhoneAccentBrush}"
 											   Margin="0"/>
 									<TextBlock Grid.Column="1"
+											   Text="{Binding Date}"
+											   Margin="24,0" />
+									<TextBlock Grid.Column="2"
 											   Text="{Binding CountText}"
 											   Style="{StaticResource PhoneTextSmallStyle}"
 											   HorizontalAlignment="Right"/>

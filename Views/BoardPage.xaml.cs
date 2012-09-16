@@ -1,12 +1,11 @@
 ﻿using System;
-using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Controls;
-using LilyBBS.DAL;
+using LilyBBS.Misc;
+using LilyBBS.Models;
+using LilyBBS.ViewModels;
 using Microsoft.Phone.Controls;
 using Microsoft.Phone.Shell;
-using LilyBBS.ViewModels;
-using LilyBBS.Misc;
 
 namespace LilyBBS.Views
 {
