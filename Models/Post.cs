@@ -5,8 +5,9 @@ using System.Runtime.Serialization;
 namespace LilyBBS.Models
 {
 	[DataContract()]
-	public class Post : INotifyPropertyChanged
+	public class Post : ModelBase
 	{
+
 		private string author;
 		[DataMember(Name = "author")]
 		public string Author
@@ -105,11 +106,5 @@ namespace LilyBBS.Models
 			}
 		}
 
-		public event PropertyChangedEventHandler PropertyChanged;
-		private void NotifyPropertyChanged(String propertyName)
-		{
-			if (PropertyChanged != null)
-				PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-		}
 	}
 }

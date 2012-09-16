@@ -12,13 +12,17 @@ using System.ComponentModel;
 
 namespace LilyBBS.ViewModels
 {
-	public class PageViewModel : ViewModelBase
+	public abstract class ViewModelBase : INotifyPropertyChanged
 	{
 
-		private void GetData()
+		public event PropertyChangedEventHandler PropertyChanged;
+		protected void NotifyPropertyChanged(String propertyName)
 		{
-
+			Deployment.Current.Dispatcher.BeginInvoke(() =>
+				{
+					if (PropertyChanged != null)
+						PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+				});
 		}
-
 	}
 }

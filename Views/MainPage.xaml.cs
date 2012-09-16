@@ -3,12 +3,14 @@ using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
 using LilyBBS.DAL;
+using LilyBBS.ViewModels;
 using Microsoft.Phone.Controls;
 using Microsoft.Phone.Shell;
 using System.Net;
 using System.Runtime.Serialization.Json;
+using System.Windows.Navigation;
 
-namespace LilyBBS
+namespace LilyBBS.Views
 {
 	public partial class MainPage : PhoneApplicationPage
 	{
@@ -30,6 +32,14 @@ namespace LilyBBS
 			SystemTray.SetProgressIndicator(this, app.Indicator);
 			AllBoardListSelector.ItemsSource = BoardManager.Instance;
 			LoadFavoriteBoardList();
+			TopTopicList.DataContext = App.TopTopicViewModel;
+			//TopTopicList.Loaded += new RoutedEventHandler(TopTopicList_Loaded);
+		}
+
+		protected override void OnNavigatedTo(NavigationEventArgs e)
+		{
+			base.OnNavigatedTo(e);
+
 		}
 
 		WebRequest req;
@@ -177,26 +187,26 @@ namespace LilyBBS
 			Utils.HideIndicator();
 			if (e.Error != null)
 			{
-				ShowError(TopTenList, TopTenErrorTextBox);
+				ShowError(TopTopicList, TopTenErrorTextBox);
 				isTopTenListLoaded = false;
 				return;
 			}
-			HideError(TopTenList, TopTenErrorTextBox);
+			HideError(TopTopicList, TopTenErrorTextBox);
 			isTopTenListLoaded = true;
 			List<Header> topTenList = e.Result as List<Header>;
-			TopTenList.ItemsSource = topTenList;
+			TopTopicList.ItemsSource = topTenList;
 		}
 
 		private void TopTenList_Loaded(object sender, RoutedEventArgs e)
 		{
-			TopTenList.SelectedItem = null;
+			TopTopicList.SelectedItem = null;
 			if (isTopTenListLoaded) return;
 			FetchTopTenList();
 		}
 
 		private void TopTenList_SelectionChanged(object sender, SelectionChangedEventArgs e)
 		{
-			Header hdr = (TopTenList.SelectedItem as Header);
+			Header hdr = (TopTopicList.SelectedItem as Header);
 			if (hdr == null) return;
 			NavigationService.Navigate(new Uri(
 					string.Format("/Views/TopicPage.xaml?board={0}&Pid={1}&Author={2}&Title={3}",
@@ -306,6 +316,17 @@ namespace LilyBBS
 			gotoBoard(h.Board);
 		}
 		#endregion
+
+		private void TopTopicList_Loaded(object sender, RoutedEventArgs e)
+		{
+			var vm = TopTopicList.DataContext as TopTopicViewModel;
+			vm.LoadData();
+		}
+
+		private void TopTopicList_SelectionChanged(object sender, SelectionChangedEventArgs e)
+		{
+
+		}
 
 	}
 }

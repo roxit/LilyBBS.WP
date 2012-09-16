@@ -6,8 +6,9 @@ using System.Collections.ObjectModel;
 namespace LilyBBS.Models
 {
 	[DataContract()]
-	public class Page : INotifyPropertyChanged
+	public class Page : ModelBase
 	{
+
 		private string board;
 		[DataMember(Name = "board")]
 		public string Board
@@ -50,11 +51,5 @@ namespace LilyBBS.Models
 			}
 		}
 
-		public event PropertyChangedEventHandler PropertyChanged;
-		private void NotifyPropertyChanged(String propertyName)
-		{
-			if (PropertyChanged != null)
-				PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-		}
 	}
 }

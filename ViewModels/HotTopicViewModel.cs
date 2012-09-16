@@ -12,8 +12,13 @@ using System.ComponentModel;
 
 namespace LilyBBS.ViewModels
 {
-	public class TopicViewModel : ViewModelBase
+	public class HotTopicViewModel : ViewModelBase
 	{
+
+		public void LoadData()
+		{
+
+		}
 
 	}
 }

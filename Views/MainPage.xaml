@@ -1,5 +1,5 @@
 ﻿<phone:PhoneApplicationPage 
-    x:Class="LilyBBS.MainPage"
+    x:Class="LilyBBS.Views.MainPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:phone="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone"
@@ -233,11 +233,11 @@
 						   VerticalAlignment="Center"
 						   Style="{StaticResource PhoneTextTitle2Style}">
 				</TextBlock>
-				<toolkit:LongListSelector x:Name="TopTenList"
+				<toolkit:LongListSelector x:Name="TopTopicList"
 									  IsFlatList="True"
-									  toolkit:TiltEffect.IsTiltEnabled="True"
-									  Loaded="TopTenList_Loaded"
-									  SelectionChanged="TopTenList_SelectionChanged">
+									  ItemsSource="{Binding Items}"
+									  Loaded="TopTopicList_Loaded"
+									  SelectionChanged="TopTopicList_SelectionChanged">
 					<toolkit:LongListSelector.ItemTemplate>
 						<DataTemplate>
 							<Border BorderBrush="{StaticResource PhoneAccentBrush}"

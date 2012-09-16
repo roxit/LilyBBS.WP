@@ -6,7 +6,7 @@ using System.Windows.Media.Imaging;
 using ImageTools;
 using ImageTools.Controls;
 
-namespace LilyBBS
+namespace LilyBBS.Views
 {
 	public partial class PostControl : UserControl
 	{

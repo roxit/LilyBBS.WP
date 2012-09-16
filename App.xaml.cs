@@ -6,6 +6,7 @@ using Microsoft.Phone.Controls;
 using Microsoft.Phone.Info;
 using Microsoft.Phone.Shell;
 //using System.Diagnostics;
+using LilyBBS.ViewModels;
 
 namespace LilyBBS
 {
@@ -13,7 +14,36 @@ namespace LilyBBS
 	{
 		public Connection LilyApi;
 		public ProgressIndicator Indicator;
+		
+		public static string BaseUrl
+		{
+			get
+			{
+				return "http://3.lilysvc.sinaapp.com/api";
+			}
+		}
 
+		private static MainViewModel mainViewModel;
+		public static MainViewModel MainViewModel
+		{
+			get
+			{
+				if (mainViewModel == null)
+					mainViewModel = new MainViewModel();
+				return mainViewModel;
+			}
+		}
+
+		private static TopTopicViewModel topTopicViewModel;
+		public static TopTopicViewModel TopTopicViewModel
+		{
+			get
+			{
+				if (topTopicViewModel == null)
+					topTopicViewModel = new TopTopicViewModel();
+				return topTopicViewModel;
+			}
+		}
 		/// <summary>
 		/// Provides easy access to the root frame of the Phone Application.
 		/// </summary>

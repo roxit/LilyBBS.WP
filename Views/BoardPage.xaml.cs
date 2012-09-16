@@ -6,7 +6,7 @@ using LilyBBS.DAL;
 using Microsoft.Phone.Controls;
 using Microsoft.Phone.Shell;
 
-namespace LilyBBS
+namespace LilyBBS.Views
 {
 	public partial class BoardPage : PhoneApplicationPage
 	{

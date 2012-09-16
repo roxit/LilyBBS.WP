@@ -1,6 +1,6 @@
 ﻿using Microsoft.Phone.Controls;
 
-namespace LilyBBS
+namespace LilyBBS.Views
 {
 	public partial class SettingsPage : PhoneApplicationPage
 	{
