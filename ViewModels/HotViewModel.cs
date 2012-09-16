@@ -1,21 +1,12 @@
 ﻿using System;
-using System.Net;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Documents;
-using System.Windows.Ink;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Animation;
-using System.Windows.Shapes;
-using System.ComponentModel;
 using System.Collections.ObjectModel;
-using LilyBBS.Models;
+using System.Net;
 using System.Runtime.Serialization.Json;
+using LilyBBS.Models;
 
 namespace LilyBBS.ViewModels
 {
-	public class HotTopicViewModel : ViewModelBase
+	public class HotViewModel : ViewModelBase
 	{
 		private ObservableCollection<HeaderGroup> items = new ObservableCollection<HeaderGroup>();
 		public ObservableCollection<HeaderGroup> Items
@@ -34,7 +25,7 @@ namespace LilyBBS.ViewModels
 		private WebRequest req;
 		public void LoadData()
 		{
-			req = HttpWebRequest.Create(App.BaseUrl + "/hot/");
+			req = HttpWebRequest.Create(string.Format("{0}/{1}/", App.BaseUrl, "hot"));
 			req.BeginGetResponse(new AsyncCallback(Callback), null);
 		}
 
@@ -42,10 +33,14 @@ namespace LilyBBS.ViewModels
 		{
 			var resp = req.EndGetResponse(result);
 			var ser = new DataContractJsonSerializer(typeof(ObservableCollection<ObservableCollection<Header>>));
-			var data = ser.ReadObject(resp.GetResponseStream()) as ObservableCollection<ObservableCollection<Header>>;
+			// TODO
+			var stream = resp.GetResponseStream();
+			var data = ser.ReadObject(stream) as ObservableCollection<ObservableCollection<Header>>;
 
 			var tmp = new ObservableCollection<HeaderGroup>();
 			int sid = 0;
+			// TODO
+			//Items.Clear();
 			foreach (var i in data)
 			{
 				HeaderGroup hg = new HeaderGroup(sid);

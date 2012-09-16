@@ -44,7 +44,9 @@ namespace LilyBBS.Models
 
 		public static string GetBoardText(string name)
 		{
-			return Instance.boards[name].Text;
+			if (Instance.boards.ContainsKey(name))
+				return Instance.boards[name].Text;
+			return "";
 		}
 
 		public static string GetSectionName(int idx)

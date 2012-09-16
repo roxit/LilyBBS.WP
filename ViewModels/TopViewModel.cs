@@ -6,7 +6,7 @@ using LilyBBS.Models;
 
 namespace LilyBBS.ViewModels
 {
-	public class TopTopicViewModel : ViewModelBase
+	public class TopViewModel : ViewModelBase
 	{
 
 		private ObservableCollection<Header> items = new ObservableCollection<Header>();
@@ -26,7 +26,7 @@ namespace LilyBBS.ViewModels
 		private WebRequest req;
 		public void LoadData()
 		{
-			req = HttpWebRequest.Create(App.BaseUrl + "/top/");
+			req = HttpWebRequest.Create(string.Format("{0}/{1}/", App.BaseUrl, "top"));
 			req.BeginGetResponse(new AsyncCallback(Callback), null);
 		}
 

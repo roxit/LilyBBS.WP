@@ -34,25 +34,36 @@ namespace LilyBBS
 			}
 		}
 
-		private static HotTopicViewModel hotTopicViewModel;
-		public static HotTopicViewModel HotTopicViewModel
+		private static HotViewModel hotViewModel;
+		public static HotViewModel HotViewModel
 		{
 			get
 			{
-				if (hotTopicViewModel == null)
-					hotTopicViewModel = new HotTopicViewModel();
-				return hotTopicViewModel;
+				if (hotViewModel == null)
+					hotViewModel = new HotViewModel();
+				return hotViewModel;
 			}
 		}
 
-		private static TopTopicViewModel topTopicViewModel;
-		public static TopTopicViewModel TopTopicViewModel
+		private static TopViewModel topViewModel;
+		public static TopViewModel TopViewModel
 		{
 			get
 			{
-				if (topTopicViewModel == null)
-					topTopicViewModel = new TopTopicViewModel();
-				return topTopicViewModel;
+				if (topViewModel == null)
+					topViewModel = new TopViewModel();
+				return topViewModel;
+			}
+		}
+
+		private static PageViewModel pageViewModel;
+		public static PageViewModel PageViewModel
+		{
+			get
+			{
+				if (pageViewModel == null)
+					pageViewModel = new PageViewModel();
+				return pageViewModel;
 			}
 		}
 		/// <summary>

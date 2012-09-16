@@ -109,9 +109,9 @@
       <DependentUpon>PostControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Utils.cs" />
-    <Compile Include="ViewModels\HotTopicViewModel.cs" />
+    <Compile Include="ViewModels\HotViewModel.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
-    <Compile Include="ViewModels\TopTopicViewModel.cs" />
+    <Compile Include="ViewModels\TopViewModel.cs" />
     <Compile Include="ViewModels\ViewModelBase.cs" />
     <Compile Include="ViewModels\PageViewModel.cs" />
     <Compile Include="ViewModels\TopicViewModel.cs" />

@@ -34,8 +34,8 @@ namespace LilyBBS.Views
 			AllBoardListSelector.ItemsSource = BoardManager.Instance;
 			LoadFavoriteBoardList();
 
-			TopHeaderList.DataContext = App.TopTopicViewModel;
-			HotHeaderList.DataContext = App.HotTopicViewModel;
+			TopHeaderList.DataContext = App.TopViewModel;
+			HotHeaderList.DataContext = App.HotViewModel;
 		}
 
 		protected override void OnNavigatedTo(NavigationEventArgs e)
@@ -183,9 +183,9 @@ namespace LilyBBS.Views
 
 		#region Misc
 		
-		private void gotoBoard(string brd)
+		private void gotoBoard(string board)
 		{
-			NavigationService.Navigate(new Uri("/Views/BoardPage.xaml?board=" + brd, UriKind.Relative));
+			NavigationService.Navigate(Constants.MakeBoardViewUri(board));
 		}
 
 		private void ShowError(LongListSelector content, TextBlock error)
@@ -231,13 +231,13 @@ namespace LilyBBS.Views
 
 		private void TopHeaderList_Loaded(object sender, RoutedEventArgs e)
 		{
-			var vm = (sender as LongListSelector).DataContext as TopTopicViewModel;
+			var vm = (sender as LongListSelector).DataContext as TopViewModel;
 			vm.LoadData();
 		}
 
 		private void HotHeaderList_Loaded(object sender, RoutedEventArgs e)
 		{
-			var vm = (sender as LongListSelector).DataContext as HotTopicViewModel;
+			var vm = (sender as LongListSelector).DataContext as HotViewModel;
 			vm.LoadData();
 		}
 
