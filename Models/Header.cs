@@ -18,7 +18,8 @@ namespace LilyBBS.Models
 			}
 			set
 			{
-				author = value; NotifyPropertyChanged("Author");
+				author = value;
+				NotifyPropertyChanged("Author");
 			}
 		}
 
@@ -32,7 +33,8 @@ namespace LilyBBS.Models
 			}
 			set
 			{
-				board = value; NotifyPropertyChanged("Board");
+				board = value;
+				NotifyPropertyChanged("Board");
 			}
 		}
 
@@ -46,7 +48,8 @@ namespace LilyBBS.Models
 			}
 			set
 			{
-				date = value; NotifyPropertyChanged("Date");
+				date = value;
+				NotifyPropertyChanged("Date");
 			}
 		}
 
@@ -60,7 +63,8 @@ namespace LilyBBS.Models
 			}
 			set
 			{
-				num = value; NotifyPropertyChanged("Num");
+				num = value;
+				NotifyPropertyChanged("Num");
 			}
 		}
 
@@ -74,7 +78,8 @@ namespace LilyBBS.Models
 			}
 			set
 			{
-				pid = value; NotifyPropertyChanged("Pid");
+				pid = value;
+				NotifyPropertyChanged("Pid");
 			}
 		}
 
@@ -88,7 +93,8 @@ namespace LilyBBS.Models
 			}
 			set
 			{
-				replyCount = value; NotifyPropertyChanged("ReplyCount");
+				replyCount = value;
+				NotifyPropertyChanged("ReplyCount");
 			}
 		}
 
@@ -102,7 +108,8 @@ namespace LilyBBS.Models
 			}
 			set
 			{
-				title = value; NotifyPropertyChanged("Title");
+				title = Uri.UnescapeDataString(value);
+				NotifyPropertyChanged("Title");
 			}
 		}
 
@@ -116,7 +123,8 @@ namespace LilyBBS.Models
 			}
 			set
 			{
-				viewCount = value; NotifyPropertyChanged("ViewCount");
+				viewCount = value;
+				NotifyPropertyChanged("ViewCount");
 			}
 		}
 

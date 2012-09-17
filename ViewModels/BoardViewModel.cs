@@ -7,7 +7,7 @@ using LilyBBS.Models;
 
 namespace LilyBBS.ViewModels
 {
-	public class PageViewModel : ViewModelBase
+	public class BoardViewModel : ViewModelBase
 	{
 		private ObservableCollection<Header> items = new ObservableCollection<Header>();
 		public ObservableCollection<Header> Items
@@ -55,6 +55,7 @@ namespace LilyBBS.ViewModels
 			string url = string.Format("{0}/board/{1}/", App.BaseUrl, Board);
 			req = HttpWebRequest.Create(url);
 			req.BeginGetResponse(new AsyncCallback(Callback), null);
+			Items.Clear();
 		}
 
 		public void LoadMore()

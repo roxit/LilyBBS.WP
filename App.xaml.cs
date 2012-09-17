@@ -56,16 +56,28 @@ namespace LilyBBS
 			}
 		}
 
-		private static PageViewModel pageViewModel;
-		public static PageViewModel PageViewModel
+		private static BoardViewModel boardViewModel;
+		public static BoardViewModel BoardViewModel
 		{
 			get
 			{
-				if (pageViewModel == null)
-					pageViewModel = new PageViewModel();
-				return pageViewModel;
+				if (boardViewModel == null)
+					boardViewModel = new BoardViewModel();
+				return boardViewModel;
 			}
 		}
+
+		private static TopicViewModel topicViewModel;
+		public static TopicViewModel TopicViewModel
+		{
+			get
+			{
+				if (topicViewModel == null)
+					topicViewModel = new TopicViewModel();
+				return topicViewModel;
+			}
+		}
+
 		/// <summary>
 		/// Provides easy access to the root frame of the Phone Application.
 		/// </summary>

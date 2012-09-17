@@ -12,7 +12,7 @@
     FontSize="{StaticResource PhoneFontSizeNormal}"
     Foreground="{StaticResource PhoneForegroundBrush}"
     SupportedOrientations="PortraitOrLandscape" Orientation="Portrait"
-    mc:Ignorable="d" d:DesignHeight="696" d:DesignWidth="480"
+    mc:Ignorable="d" d:DesignHeight="728" d:DesignWidth="480"
     shell:SystemTray.IsVisible="False"
 	toolkit:TiltEffect.IsTiltEnabled="False"
 	Name="this">
@@ -35,7 +35,7 @@
 						   Margin="9,6"
 						   Style="{StaticResource PhoneTextAccentStyle}"/>
 				<TextBlock x:Name="TitleTextBlock" Margin="9,0,9,0"
-						   Text="Place Holder"
+						   Text="Title"
 						   TextWrapping="Wrap"
 						   Style="{StaticResource PhoneTextTitle2Style}"/>
 			</StackPanel>
@@ -44,23 +44,18 @@
         <Grid x:Name="ContentPanel" Grid.Row="1" Margin="12,0,12,0">
 			<toolkit:LongListSelector x:Name="PostList"
 									  IsFlatList="True"
+									  ItemsSource="{Binding Items}"
 									  Loaded="PostList_Loaded"
-									  ShowListFooter="{Binding ElementName=this,Path=NextStart,Converter={StaticResource HasMoreConverter}}">
+									  ShowListFooter="{Binding HasNext}">
 				<toolkit:LongListSelector.ItemTemplate>
 					<DataTemplate>
 						<local:PostControl Author="{Binding Author}"
 										   Body="{Binding Body}"
-										   Floor="{Binding Floor}"/>
+										   Idx="{Binding Idx}"/>
 					</DataTemplate>
 				</toolkit:LongListSelector.ItemTemplate>
 				<toolkit:LongListSelector.ListFooterTemplate>
 					<DataTemplate>
-						<Button BorderThickness="0,1,0,0"
-								BorderBrush="{StaticResource PhoneAccentBrush}"
-								Opacity="0.6"
-								Content="{Binding ElementName=this,Path=IsLoading,Converter={StaticResource IsLoading2TextConverter}}"
-								IsEnabled="{Binding ElementName=this,Path=IsLoading,Converter={StaticResource IsLoading2IsEnabledConverter}}"
-								Click="LoadMoreButton_Click" />
 					</DataTemplate>
 				</toolkit:LongListSelector.ListFooterTemplate>
 			</toolkit:LongListSelector>

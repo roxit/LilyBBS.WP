@@ -34,22 +34,22 @@ namespace LilyBBS.Views
 		}
 		#endregion
 
-		#region Floor
-		public static readonly DependencyProperty FloorProperty = DependencyProperty.Register("Floor",
+		#region Idx
+		public static readonly DependencyProperty IdxProperty = DependencyProperty.Register("Idx",
 				typeof(int?),
 				typeof(PostControl),
-				new PropertyMetadata(OnFloorChanged));
+				new PropertyMetadata(OnIdxChanged));
 
-		public int? Floor
+		public int? Idx
 		{
 			get
 			{
-				return GetValue(FloorProperty) as int?;
+				return GetValue(IdxProperty) as int?;
 			}
-			set { SetValue(FloorProperty, value); }
+			set { SetValue(IdxProperty, value); }
 		}
 
-		static void OnFloorChanged(DependencyObject obj, DependencyPropertyChangedEventArgs args)
+		static void OnIdxChanged(DependencyObject obj, DependencyPropertyChangedEventArgs args)
 		{
 			TextBlock textBlock = (obj as PostControl).FloorTextBlock;
 			if (args.NewValue == null)

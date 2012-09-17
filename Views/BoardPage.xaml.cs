@@ -42,13 +42,13 @@ namespace LilyBBS.Views
 			InitializeComponent();
 			app = (Application.Current as App);
 			SystemTray.SetProgressIndicator(this, app.Indicator);
-			DataContext = App.PageViewModel;
+			DataContext = App.BoardViewModel;
 		}
 
 		private void HeaderList_Loaded(object sender, RoutedEventArgs e)
 		{
 			string board = NavigationContext.QueryString["Board"];
-			var vm = DataContext as PageViewModel;
+			var vm = DataContext as BoardViewModel;
 			vm.LoadData(board);
 		}
 
@@ -65,13 +65,13 @@ namespace LilyBBS.Views
 
 		private void LoadMoreButton_Click(object sender, RoutedEventArgs e)
 		{
-			var vm = DataContext as PageViewModel;
+			var vm = DataContext as BoardViewModel;
 			vm.LoadMore();
 		}
 
 		private void ComposeButton_Click(object sender, EventArgs e)
 		{
-			var vm = DataContext as PageViewModel;
+			var vm = DataContext as BoardViewModel;
 			NavigationService.Navigate(new Uri(
 					string.Format("/Views/SendPostPage.xaml?Board={0}", vm.Board),
 					UriKind.Relative));
@@ -80,7 +80,7 @@ namespace LilyBBS.Views
 
 		private void RefreshButton_Click(object sender, EventArgs e)
 		{
-			var vm = DataContext as PageViewModel;
+			var vm = DataContext as BoardViewModel;
 			vm.Refresh();
 		}
 	}
