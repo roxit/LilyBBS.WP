@@ -66,7 +66,7 @@ namespace LilyBBS.Views
 		{
 			string board = NavigationContext.QueryString["Board"];
 			int pid = int.Parse(NavigationContext.QueryString["Pid"]);
-			string title = Uri.UnescapeDataString(NavigationContext.QueryString["Title"]);
+			string title = NavigationContext.QueryString["Title"];
 
 			var vm = DataContext as TopicViewModel;
 			vm.LoadData(board, pid);

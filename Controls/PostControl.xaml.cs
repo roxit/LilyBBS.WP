@@ -5,22 +5,43 @@ using System.Windows.Controls;
 using System.Windows.Media.Imaging;
 using ImageTools;
 using ImageTools.Controls;
+using System.IO;
+using System.Windows.Documents;
+using System.Collections.Generic;
+using System.Windows.Resources;
+using Newtonsoft.Json;
+using System.Windows.Media;
 
 namespace LilyBBS.Views
 {
 	public partial class PostControl : UserControl
 	{
+
 		private static readonly int MAX_LINE_CHARS = 37;
 		private static readonly double MAX_HEIGHT = 800;
 		private static readonly string IMG_PREFIX = "http://lilysvc.sinaapp.com/fetch?url=";
 		private static readonly Regex IMG_RE = new Regex(@"^http://(www\.)?[\w./-]+?\.(jpe?g|gif|png)$", RegexOptions.Compiled);
 		private static readonly Regex URL_RE = new Regex(@"^http://(www\.)?[\w./-]+?$", RegexOptions.Compiled);
+		private static readonly Regex ICON_RE = new Regex(@"\[[:;].{1,4}\]", RegexOptions.Compiled);
+		private static Dictionary<string, string> Icons;
+
+		public PostControl()
+		{
+			InitializeComponent();
+
+			StreamResourceInfo sri = Application.GetResourceStream(new Uri("Assets/Emoticons.json", UriKind.Relative));
+			StreamReader reader = new StreamReader(sri.Stream);
+			Icons = JsonConvert.DeserializeObject<Dictionary<string, string>>(reader.ReadToEnd());
+	
+			ImageTools.IO.Decoders.AddDecoder<ImageTools.IO.Gif.GifDecoder>();
+		}
 
 		#region Author
-		public static readonly DependencyProperty AuthorProperty = DependencyProperty.Register("Author", 
+		public static readonly DependencyProperty AuthorProperty = DependencyProperty.Register(
+				"Author", 
 				typeof(string),
 				typeof(PostControl),
-				new PropertyMetadata(OnAuthorChanged));
+				new PropertyMetadata("Author", OnAuthorPropertyChanged));
 
 		public string Author
 		{
@@ -28,17 +49,18 @@ namespace LilyBBS.Views
 			set { SetValue(AuthorProperty, value); }
 		}
 
-		static void OnAuthorChanged(DependencyObject obj, DependencyPropertyChangedEventArgs args)
+		static void OnAuthorPropertyChanged(DependencyObject obj, DependencyPropertyChangedEventArgs args)
 		{
 			(obj as PostControl).AuthorTextBlock.Text = args.NewValue as string;
 		}
 		#endregion
 
 		#region Idx
-		public static readonly DependencyProperty IdxProperty = DependencyProperty.Register("Idx",
+		public static readonly DependencyProperty IdxProperty = DependencyProperty.Register(
+				"Idx",
 				typeof(int?),
 				typeof(PostControl),
-				new PropertyMetadata(OnIdxChanged));
+				new PropertyMetadata(0, OnIdxPropertyChanged));
 
 		public int? Idx
 		{
@@ -49,7 +71,7 @@ namespace LilyBBS.Views
 			set { SetValue(IdxProperty, value); }
 		}
 
-		static void OnIdxChanged(DependencyObject obj, DependencyPropertyChangedEventArgs args)
+		static void OnIdxPropertyChanged(DependencyObject obj, DependencyPropertyChangedEventArgs args)
 		{
 			TextBlock textBlock = (obj as PostControl).FloorTextBlock;
 			if (args.NewValue == null)
@@ -75,10 +97,11 @@ namespace LilyBBS.Views
 		#endregion
 
 		#region Body
-		public static readonly DependencyProperty BodyProperty = DependencyProperty.Register("Body",
+		public static readonly DependencyProperty BodyProperty = DependencyProperty.Register(
+				"Body",
 				typeof(string),
 				typeof(PostControl),
-				new PropertyMetadata(OnBodyChanged));
+				new PropertyMetadata("Body", OnBodyPropertyChanged));
 
 		public string Body
 		{
@@ -143,72 +166,88 @@ namespace LilyBBS.Views
 			return gifRet;
 		}
 
-		static void OnBodyChanged(DependencyObject obj, DependencyPropertyChangedEventArgs args)
+		static void OnBodyPropertyChanged(DependencyObject obj, DependencyPropertyChangedEventArgs args)
 		{
-			StackPanel panel = (obj as PostControl).BodyPanel;
-			panel.Children.Clear();
-			string text = args.NewValue as string;
-			try
-			{
+			PostControl s = obj as PostControl;
+			s.ParseBody(args.NewValue as string);
+		}
 
-				var lines = text.Split(new char[] { '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries);
-				string i;
-				int prevLen = MAX_LINE_CHARS + 1;
-				TextBlock block = buildTextBlock();
-				foreach (var line in lines)
-				{
-					i = line.Trim();
-					if (i.Length == 0) continue;
-					if (isPicture(i))
-					{
-						addTextBlock(panel, block);
-						block = buildTextBlock();
-						prevLen = 0;
-						var img = buildImage(i);
-						panel.Children.Add(img);
-					}
-					else if (isUrl(i))
-					{
-						HyperlinkButton link = new HyperlinkButton();
-						link.HorizontalAlignment = HorizontalAlignment.Left;
-						link.Margin = new Thickness(0, 3, 0, 3);
-						link.TargetName = "_blank";
-						link.Content = i;
-						link.NavigateUri = new Uri(i);
-						panel.Children.Add(link);
-					}
-					else
-					{
-						/*
-						if (prevLen > MAX_LINE_CHARS)
-							block.Text = block.Text + i;
-						else
-							block.Text = block.Text + "\n" + i;
-						 */
-						if (block.Text.Length > 0)
-							block.Text = block.Text + "\n" + i;
-						else
-							block.Text = block.Text + i;
-						prevLen = i.Length;
-						// Defect: next line might be appended to previous block
-						if (block.ActualHeight > MAX_HEIGHT) //|| block.ActualWidth > MAX_HEIGHT*8)
-						{
-							addTextBlock(panel, block);
-							block = buildTextBlock();
-							prevLen = 0;
-						}
-					}
-				}
-				addTextBlock(panel, block);
-			}
-			catch (Exception exc)
+		private void ParseBody(string value)
+		{
+			this.BodyPanel.Children.Clear();
+			StringReader reader = new StringReader(value);
+			while (reader.Peek() > 0)
 			{
-				LilyToast toast = new LilyToast();
-				toast.ShowContentError();
+				string line = reader.ReadLine();
+				AddBlock(line);
 			}
 		}
-		#endregion
-		
+
+		private void AddBlock(string line)
+		{
+			RichTextBox rtb = CreateRichTextBox();
+			List<Inline> inlines = CreateInlines(line);
+			Paragraph para = new Paragraph();
+			foreach (var i in inlines)
+				para.Inlines.Add(i);
+			rtb.Blocks.Add(para);
+			BodyPanel.Children.Add(rtb);
+		}
+
+		private List<Inline> CreateInlines(string line)
+		{
+			List<Inline> ret = new List<Inline>();
+			MatchCollection matches = ICON_RE.Matches(line);
+			int index = 0;
+			foreach (Match m in matches)
+			{
+				if (!Icons.ContainsKey(m.Value))
+					continue;
+				if (index < m.Index)
+					ret.Add(CreateRun(line.Substring(index, m.Index)));
+				ret.Add(CreateEmoticon(Icons[m.Value]));
+				index = m.Index + m.Length;
+			}
+			if (index != line.Length)
+				ret.Add(CreateRun(line.Substring(index)));
+			return ret;
+		}
+
+		private static RichTextBox CreateRichTextBox()
+		{
+			var app = Application.Current as App;
+			RichTextBox ret = new RichTextBox();
+			ret.TextWrapping = TextWrapping.Wrap;
+			//ret.Style = app.Resources["PhoneTextNormalStyle"] as Style;
+			ret.FontSize = (app.Resources["PhoneFontSizeMedium"] as double?).Value;
+			ret.Margin = new Thickness();
+			return ret;
+		}
+
+		private Run CreateRun(string text)
+		{
+			Run ret = new Run();
+			ret.Text = text;
+			return ret;
+		}
+
+		private InlineUIContainer CreateEmoticon(string fname)
+		{
+			ExtendedImage img = new ExtendedImage();
+			Uri uri = new Uri(string.Format("Assets/Emoticons/{0}", fname), UriKind.Relative);
+			StreamResourceInfo sri = Application.GetResourceStream(uri);
+			img.SetSource(sri.Stream);
+
+			AnimatedImage icon = new AnimatedImage();
+			icon.Source = img;
+			icon.Height = icon.Width = 20;
+			icon.Stretch = Stretch.Uniform;
+
+			InlineUIContainer ret = new InlineUIContainer();
+			ret.Child = icon;
+			return ret;
+		}
+
 		private static bool isPicture(string s)
 		{
 			return IMG_RE.IsMatch(s.ToLower());
@@ -219,10 +258,7 @@ namespace LilyBBS.Views
 			return URL_RE.IsMatch(s.ToLower());
 		}
 
-		public PostControl()
-		{
-			InitializeComponent();
-		}
+		#endregion
 
 	}
 }
